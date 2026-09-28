@@ -1,20 +1,11 @@
 
 🚀 ====== Order Alert ======
-✨  Symbol     : SOL_USDT
-💰  Price      : 127.50 USDT
-📉  Side       : Open Short
-📦  Size       : -1 Contracts
-📦  Value      : -152.8 U
-   ======================
-
-
-🚀 ====== Order Alert ======
 ✨  Symbol     : SUI_USDT
-💰  Price      : 1.3339 USDT
+💰  Price      : 1.3324 USDT
 📉  Side       : Open Short
-📦  Size       : -61 Contracts
-📦  Value      : -81.81 U
+📦  Size       : -64 Contracts
+📦  Value      : -86.02 U
    ======================
 
 
-Orders Times: 1790612920135 
+Orders Times: 1790623780078 
