@@ -1,5 +1,7 @@
 # E5 持续研究数据采集调度
 
+2026-10-01 后续 E7 已在当前 Windows 主机启用每日系统任务；安装、停用及登录要求见 [每日任务说明](DAILY_COLLECTION_TASK.md)。下文“不自动安装”和归档验收边界描述 E5 采集器本身。
+
 `collection_scheduler.py` 定时获取 Gate USDT 永续已收盘 UTC 日线，依次复用 E1～E4 保存历史、指标、结构及七条既有研究规则的离线候选决策。使用独立根目录，不修改原入口。
 
 ```powershell
