@@ -132,6 +132,8 @@ def periods_for(root, names, base, start, end):
 
 
 def run(root, protocol, output):
+    if protocol.get("version") != "m6-preregistered-20261001":
+        raise ValueError("Unsupported M6 protocol; prospective registrations require a separate runner")
     root=Path(root)
     names=protocol["assets"]
     rows,structures,indicators,quality={},{},{},{}

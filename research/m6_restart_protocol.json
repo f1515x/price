@@ -1,0 +1,64 @@
+{
+  "version": "m6-prospective-registration-v1",
+  "assets": [
+    "BTC",
+    "ETH"
+  ],
+  "groups": {
+    "BTC": "crypto_major",
+    "ETH": "crypto_major"
+  },
+  "test_days": 365,
+  "embargo_days": 44,
+  "max_total_risk": 0.01,
+  "max_same_direction": 1,
+  "execution": {
+    "initial_equity": 10000,
+    "risk_fraction": 0.005,
+    "max_exposure": 1,
+    "max_drawdown": 0.15,
+    "entry_atr": 0.5,
+    "stop_atr": 1.5,
+    "target_r": 2,
+    "expiry_days": 7,
+    "holding_days": 30,
+    "fee_rate": 0.00075,
+    "slippage": 0.0005,
+    "funding_daily": 0.0003,
+    "multiplier": 1,
+    "quantity_step": 1e-06,
+    "min_quantity": 1e-06,
+    "min_events": 30
+  },
+  "acceptance": {
+    "min_trades": 30,
+    "min_independent_blocks": 30,
+    "min_mean_net_r": 0,
+    "max_drawdown": 0.15,
+    "min_positive_fold_fraction": 0.5,
+    "min_trades_per_asset": 10,
+    "min_positive_neighbor_fraction": 0.5
+  },
+  "hypothesis_id": "m6-move-filter-prospective-20261001-v1",
+  "mechanism": "At the same asset-specific return tail, require a signed move of at least two historical median absolute 30-day returns. This tests whether small typical moves at an extreme rank dilute reversal information. No profitability claim; earlier event studies are development evidence only.",
+  "primary_rule": "percentile_move",
+  "baseline_rule": "legacy_proxy",
+  "test_start": "2026-11-15",
+  "test_folds": 5,
+  "indicators": {
+    "window": 365,
+    "ema_period": 50,
+    "atr_period": 14
+  },
+  "structures": {
+    "swing_length": 50
+  },
+  "events": {
+    "tail": 10,
+    "move": 2,
+    "stretch": 2,
+    "train_fraction": 0.7,
+    "seed": 20260930,
+    "min_events": 30
+  }
+}

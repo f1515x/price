@@ -50,4 +50,6 @@ ETH 通过 `X-Gate-Size-Decimal: 1` 读取真实小数最小张数。精度实�
 python research_decision.py ..\1\data\M6-full-final.json research\m6_protocol.json --expected-report-sha256 6588932510f7084849dd4d3056cdde5e93261338064d55b47803503a4a2fbaa0 --decision-date 2026-10-01 --output ..\1\data\M6-hypothesis-closure-copy.json
 ```
 
-后续若另立假设，须说明机制与新版本，在查看独立新测试结果前预登记，不降低验收门槛。已检查的历史只能作为开发数据，不能再次冒充新样本外证据；历史规格/精确成本证据仍须补齐。当前没有登记或运行新假设，M6 整体验收仍未通过。
+后续若另立假设，须说明机制与新版本，在查看独立新测试结果前预登记，不降低验收门槛。已检查的历史只能作为开发数据，不能再次冒充新样本外证据；历史规格/精确成本证据仍须补齐。
+
+2026-10-01 已登记增加 Move ≥ 2 的新假设，见 [预登记说明](RESEARCH_REGISTRATION.md) 和 `research/m6_restart_protocol.json`。状态为 `REGISTERED_AWAITING_FUTURE_DATA`，仅登记完成；新执行器和未来结果尚未交付，M6 整体验收仍未通过。此旧运行器拒绝新协议，避免忽略新规则后重跑已看过的数据。
