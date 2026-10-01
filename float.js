@@ -17,7 +17,7 @@
   },
   {
     "contract": "XRP_USDT",
-    "step": "0.0001"
+    "step": "0.01"
   },
   {
     "contract": "DOGE_USDT",
@@ -45,6 +45,6 @@
   },
   {
     "contract": "SPX500_USDT",
-    "step": "0.01"
+    "step": "1"
   }
 ]
