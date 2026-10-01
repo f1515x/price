@@ -1,4 +1,6 @@
 import argparse
+import json
+import os
 
 import requests
 
@@ -18,19 +20,22 @@ headers = {
     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36"
 }
 
-cookies = {
-    "cookiePrivacyPreferenceBannerProduction": "notApplicable",
-    "cookiesSettings": "{\"analytics\":true,\"advertising\":true}",
-    "device_t": "Y2E1X0NBOjA.XjSKYSMkuiZeYUFrvwTRmC4fgiwPyxIlFzOSwQRaeAc",
-    "sessionid": "djy6ac5o5ge4nw9d71m15nf13k7rimtb",
-    "sessionid_sign": "v3:EFfA8U/F1gyxQHJUEGji8xc74S/f7lSeQ9MZwape/UQ=",
-    "tv_ecuid": "af541b6f-9e2d-46a1-a66f-e434a41f59f7",
-    "etg": "af541b6f-9e2d-46a1-a66f-e434a41f59f7",
-    "cachec": "af541b6f-9e2d-46a1-a66f-e434a41f59f7",
-    "theme": "dark",
-    "_sp_ses.cf1a": "*",
-    "_sp_id.cf1a": "26756720-bb0e-402b-a7bb-a3bcc3c8dca4.1783390496.40.1787737524.1787731314.470a4cf6-5945-485d-ba4d-d11fd9e4097f.91d15eb8-9783-4e3c-bda9-428767c2b4e3.e49dceae-7fff-480b-bc07-bf537c8b1a56.1787737444506.19"
-}
+def load_cookies():
+    """Read optional runtime cookies; never include their values in errors."""
+    raw = os.environ.get("TRADINGVIEW_COOKIES_JSON", "").strip()
+    if not raw:
+        return {}
+    try:
+        values = json.loads(raw)
+    except (ValueError, RecursionError):
+        raise ValueError("TRADINGVIEW_COOKIES_JSON must be a JSON object of cookie strings") from None
+    if not isinstance(values, dict) or any(
+        not isinstance(k, str) or not k or any(c in k for c in "=;, \t\r\n")
+        or not isinstance(v, str) or not v or any(ord(c) < 32 or ord(c) == 127 for c in k + v)
+        for k, v in values.items()
+    ):
+        raise ValueError("TRADINGVIEW_COOKIES_JSON must contain valid cookie names and nonempty string values")
+    return values
 
 url = "https://scanner.tradingview.com/symbol"
 
@@ -68,10 +73,12 @@ def get_month_performance(base_asset):
     base_asset = parse_base_asset(base_asset)
     request_params = params.copy()
     request_params["symbol"] = f"GATE:{base_asset}USDT.P"
+    cookies = load_cookies()
 
     with requests.Session() as session:
         session.headers.update(headers)
-        session.cookies.update(cookies)
+        for name, value in cookies.items():
+            session.cookies.set(name, value, domain="scanner.tradingview.com", path="/", secure=True)
 
         response = session.get(url, params=request_params, timeout=15)
         response.raise_for_status()
