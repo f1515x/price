@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 
 from candidate_store import list_runs, query_candidates
+from candidate_quality import quality_report
 from event_study import RULES
 from history import date_timestamp
 from kline import normalize_symbol
@@ -91,6 +92,8 @@ def render(metadata, rows, rule, format="table"):
              " | ".join(k.ljust(w) for k, w in zip(TABLE_COLUMNS, widths)),
              "-+-".join("-" * w for w in widths)]
     lines.extend(" | ".join(v.ljust(w) for v, w in zip(row, widths)) for row in values)
+    if "sample_quality" in metadata:
+        lines.insert(3, "sample_quality=" + _json(metadata["sample_quality"]))
     if not rows:
         lines.append("No rows in requested UTC bar range.")
     return "\n".join(lines) + "\n"
@@ -108,11 +111,16 @@ def main(argv=None):
     parser.add_argument("--rule", choices=RULES, default="percentile_structure")
     parser.add_argument("--start", type=date_timestamp, help="Inclusive UTC bar date")
     parser.add_argument("--end", type=date_timestamp, help="Exclusive UTC bar date")
-    parser.add_argument("--format", choices=("table", "csv"), default="table")
+    parser.add_argument("--format", choices=("table", "csv", "quality-json"), default="table")
     parser.add_argument("--output", help="New UTF-8 file; existing files are never overwritten")
     args = parser.parse_args(argv)
     metadata, rows = report(args.database, args.run_id, args.symbol, args.rule, args.start, args.end)
-    content = render(metadata, rows, args.rule, args.format)
+    if args.format in ("table", "quality-json"):
+        quality = quality_report(args.database, args.run_id, args.symbol, args.rule, args.start, args.end)
+        metadata["sample_quality"] = {k: quality[k] for k in ("coverage", "availability", "quality")}
+        metadata["sample_quality"]["events"] = {k: v for k, v in quality["events"].items() if k != "retained"}
+    content = (json.dumps(quality, ensure_ascii=False, indent=2, allow_nan=False) + "\n"
+               if args.format == "quality-json" else render(metadata, rows, args.rule, args.format))
     if args.output:
         with Path(args.output).open("x", encoding="utf-8", newline="") as target:
             target.write(content)
