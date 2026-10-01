@@ -29,7 +29,7 @@
   },
   {
     "contract": "SPCX_USDT",
-    "step": "1"
+    "step": "0.01"
   },
   {
     "contract": "SNDK_USDT",
@@ -41,7 +41,7 @@
   },
   {
     "contract": "XAU_USDT",
-    "step": "0.01"
+    "step": "0.1"
   },
   {
     "contract": "SPX500_USDT",
