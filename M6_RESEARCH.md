@@ -37,3 +37,17 @@ ETH 通过 `X-Gate-Size-Decimal: 1` 读取真实小数最小张数。精度实�
 旧规则为本地 30 日收益代理、原 ratio 与结构规则，双方采用同样挂单模型以比较信号；不等同 TradingView `Perf.1M` 或原入口的 `1.01/0.99` 挂单价。选定 BTC/ETH 存在幸存者偏差，未覆盖历史币池及下架资产。
 
 完整历史费率、历史规格证据、成交和独立时间簇数量、净期望、回撤、资产覆盖、盈利测试区间和参数邻域都必须满足门槛。缺任一项，报告为 `NOT_VALIDATED`，保持旧交易入口。
+
+## 当前假设已终止（2026-10-01）
+
+`m6-preregistered-20261001:percentile_structure:base` 已按负净期望和失败验收正式终止。决策为结果公布后的回顾性结案，不是新的预登记。报告及机器可读记录保存于 `../1/M6-hypothesis-closure-audit.md` 和 `../1/data/M6-hypothesis-closure.json`。
+
+`research_decision.py` 核对指定原报告 SHA-256 和原协议字节哈希，从组合逐次测试结果重算全部汇总与验收，拒绝缺失/重复分区、汇总不一致或验收不一致。决策保留原门槛、证据缺口和已暴露历史终点；不会选择盈利邻域、代理成本或单资产诊断替代基础结果。它是离线审计工具，后续尚未实现的 M7/M8 仍须遵守计划中的依赖。
+
+生成新位置的结案副本（已存在的输出文件禁止覆盖）：
+
+```powershell
+python research_decision.py ..\1\data\M6-full-final.json research\m6_protocol.json --expected-report-sha256 6588932510f7084849dd4d3056cdde5e93261338064d55b47803503a4a2fbaa0 --decision-date 2026-10-01 --output ..\1\data\M6-hypothesis-closure-copy.json
+```
+
+后续若另立假设，须说明机制与新版本，在查看独立新测试结果前预登记，不降低验收门槛。已检查的历史只能作为开发数据，不能再次冒充新样本外证据；历史规格/精确成本证据仍须补齐。当前没有登记或运行新假设，M6 整体验收仍未通过。
