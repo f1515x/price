@@ -1,5 +1,7 @@
 # SQLite 离线研究候选日志
 
+可读表格和 CSV 导出见 [E6 输出说明](CANDIDATE_REPORT.md)，既有 JSON 查询继续保留。
+
 `candidate_store.py` 完成计划 4.2 的候选日志持久化子项（E4），在 E1/E2/E3 兼容库中增加 `candidate_runs` 和 `candidate_rows`。复用 M4 的七条规则和共同可用样本口径，不修改原入口或策略。
 
 ```powershell
