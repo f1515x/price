@@ -31,4 +31,4 @@ python candidate_store.py --database ..\1\data\E4-candidates.sqlite query BTC --
 python audit_candidate_store.py --baseline ..\1\data\E3-structures.sqlite --database ..\1\data\E4-recheck.sqlite --output ..\1\data\E4-recheck.json
 ```
 
-交付数据库为 `../1/data/E4-candidates.sqlite`，机器记录为 `../1/data/E4-candidate-store.json`。持续采集调度仍待实施。
+交付数据库为 `../1/data/E4-candidates.sqlite`，机器记录为 `../1/data/E4-candidate-store.json`。E5 已另行交付 [持续研究采集调度](COLLECTION_SCHEDULER.md)，原入口影子运行仍受 M6 依赖约束。
