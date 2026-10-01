@@ -129,7 +129,7 @@ def build(snapshot_paths, destination, symbols, start, end):
     return manifest
 
 
-def verify(destination, expected_sha256):
+def verify(destination, expected_sha256, *, include_snapshots=False):
     """Pin the reviewed ledger and recompute every snapshot and gap finding."""
     destination = Path(destination)
     body = (destination / "ledger.json").read_bytes()
@@ -156,7 +156,7 @@ def verify(destination, expected_sha256):
     computed = summarize(snapshots, [r["symbol"] for r in ledger["assets"]], window["start"], window["end"])
     if any(ledger.get(k) != value for k, value in computed.items()):
         raise ValueError("Evidence findings differ from recomputation")
-    return ledger
+    return (ledger, snapshots) if include_snapshots else ledger
 
 
 def main():

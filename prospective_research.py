@@ -11,11 +11,12 @@ from history import DAY, load_snapshot
 from indicators import Config as IndicatorConfig, calculate
 from m6_research import aggregate, acceptance, periods_for, restrict, sha, variants
 from portfolio_simulation import PortfolioConfig, simulate
+from prospective_evidence import assess as assess_evidence
 from research_registration import VERSION as REGISTRATION_VERSION, read_json, validate
 from structure_history import Config as StructureConfig, replay
 from trade_simulation import Config, proposals
 
-VERSION = "m6-prospective-runner-v1"
+VERSION = "m6-prospective-runner-v2"
 SOURCE = Path(__file__).resolve().parent
 
 
@@ -188,7 +189,8 @@ def evaluate(root, record, now):
                                  if p.is_file() and p.suffix in (".json", ".csv")})
 
 
-def run(root, registration_path, candidate_path, previous_path, expected_sha256, output, *, now=None):
+def run(root, registration_path, candidate_path, previous_path, expected_sha256, output, *, now=None,
+        evidence_ledger=None, expected_evidence_sha256=None):
     if Path(output).exists():
         raise FileExistsError(output)
     now = datetime.now(timezone.utc) if now is None else now
@@ -198,11 +200,13 @@ def run(root, registration_path, candidate_path, previous_path, expected_sha256,
     record = load_registration(registration_path, candidate_path, previous_path, expected_sha256)
     if now < datetime.fromisoformat(record["registered_at"]):
         raise ValueError("Execution cannot predate registration")
+    evidence = assess_evidence(record, evidence_ledger, expected_evidence_sha256, now=now)
     report = dict(version=VERSION, hypothesis_id=record["protocol"]["hypothesis_id"],
                   evaluated_at=now.isoformat(), registration_sha256=expected_sha256,
                   candidate_sha256=record["candidate_sha256"], protocol=record["protocol"], folds=record["folds"],
                   registered_source_sha256=record["source_sha256"],
                   code_sha256={p.name: sha(p) for p in sorted(SOURCE.glob("*.py"))},
+                  specification_evidence=evidence,
                   no_orders=True,
                   limitations=["Local clock and hashes are not an external trusted timestamp.",
                                "No interim evaluation or promotion before all five registered folds close.",
@@ -220,6 +224,13 @@ def run(root, registration_path, candidate_path, previous_path, expected_sha256,
                                       failed=["complete_future_folds", "verified_historical_specs", "exact_cost_evidence"]))
     else:
         report.update(evaluate(root, record, now))
+    # Observation ledgers cannot certify historical validity or realized costs.
+    # Keep explicit failures in both waiting and completed research reports.
+    for check in ("verified_historical_specs", "exact_cost_evidence"):
+        report["acceptance"]["checks"][check] = False
+        if check not in report["acceptance"]["failed"]:
+            report["acceptance"]["failed"].append(check)
+    report["acceptance"]["status"] = "NOT_VALIDATED"
     with Path(output).open("x", encoding="utf-8") as target:
         target.write(json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + "\n")
     return report
@@ -233,9 +244,12 @@ def main():
     parser.add_argument("--previous-protocol", default=str(SOURCE / "research/m6_protocol.json"))
     parser.add_argument("--expected-registration-sha256", required=True)
     parser.add_argument("--output", required=True)
+    parser.add_argument("--evidence-ledger", help="Optional immutable specification observation ledger")
+    parser.add_argument("--expected-evidence-sha256", help="Reviewed ledger.json SHA-256; required with ledger")
     args = parser.parse_args()
     result = run(args.snapshot, args.registration, args.candidate, args.previous_protocol,
-                 args.expected_registration_sha256, args.output)
+                 args.expected_registration_sha256, args.output,
+                 evidence_ledger=args.evidence_ledger, expected_evidence_sha256=args.expected_evidence_sha256)
     print(json.dumps(dict(status=result["status"], acceptance=result["acceptance"])))
 
 
