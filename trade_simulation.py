@@ -7,11 +7,13 @@ import json
 import math
 from pathlib import Path
 from statistics import mean
+from decimal import Decimal, ROUND_FLOOR, ROUND_CEILING
 
 from event_study import Config as EventConfig, signals, study
 from history import DAY, load_snapshot
 from indicators import Config as IndicatorConfig, calculate
 from structure_history import Config as StructureConfig, replay
+from funding_history import validate_execution_funding, funding_charge
 
 VERSION = "daily-limit-simulation-v1"
 
@@ -34,28 +36,54 @@ class Config:
     quantity_step: float = 0.000001
     min_quantity: float = 0.000001
     min_events: int = 30
+    price_tick: float = 0
+    max_quantity: float = 1e30
 
     def __post_init__(self):
         values = asdict(self)
         if any(type(v) not in (int, float) or not math.isfinite(v) for v in values.values()):
             raise ValueError("All simulation parameters must be finite numbers")
         for key in ("initial_equity", "risk_fraction", "max_exposure", "max_drawdown",
-                    "stop_atr", "target_r", "multiplier", "quantity_step", "min_quantity"):
+                    "stop_atr", "target_r", "multiplier", "quantity_step", "min_quantity", "max_quantity"):
             if values[key] <= 0:
                 raise ValueError("Positive parameter required: " + key)
         if self.risk_fraction > 1 or self.max_drawdown >= 1 or self.slippage >= 1:
             raise ValueError("Invalid risk/drawdown/slippage fraction")
-        if any(values[k] < 0 for k in ("entry_atr", "fee_rate", "slippage")):
+        if self.max_quantity < self.min_quantity:
+            raise ValueError("Maximum quantity is below minimum")
+        if any(values[k] < 0 for k in ("entry_atr", "fee_rate", "slippage", "price_tick")):
             raise ValueError("Negative entry offset or transaction cost")
         for key in ("expiry_days", "holding_days", "min_events"):
             if type(values[key]) is not int or values[key] < 1:
                 raise ValueError("Positive integer required: " + key)
 
 
-def proposals(rows, rule, indicator_config=IndicatorConfig(), structure_config=StructureConfig()):
+def round_step(value, step, up=False):
+    if not step:
+        return value
+    a, b = Decimal(str(value)), Decimal(str(step))
+    return float((a / b).to_integral_value(rounding=ROUND_CEILING if up else ROUND_FLOOR) * b)
+
+
+def order_prices(candidate, config):
+    d, atr = candidate["direction"], Decimal(str(candidate["atr"]))
+    entry = Decimal(str(candidate["raw_weak_price"])) - d * Decimal(str(config.entry_atr)) * atr
+    stop = entry - d * Decimal(str(config.stop_atr)) * atr
+    target = entry + d * Decimal(str(config.target_r)) * Decimal(str(config.stop_atr)) * atr
+    # Buy limits round down, sell limits up. Stops move away from entry;
+    # targets round towards entry. Reject any collapsed stop/target later.
+    return (float(round_step(entry, config.price_tick, d == -1)),
+            float(round_step(stop, config.price_tick, d == -1)),
+            float(round_step(target, config.price_tick, d == -1)))
+
+
+def proposals(rows, rule, indicator_config=IndicatorConfig(), structure_config=StructureConfig(),
+              *, indicators=None, structures=None):
     """Only confirmed, direction-aligned structures; no forward-price inputs."""
     output = []
-    for i, (a, b) in enumerate(zip(calculate(rows, indicator_config), replay(rows, structure_config))):
+    indicators = calculate(rows, indicator_config) if indicators is None else indicators
+    structures = replay(rows, structure_config) if structures is None else structures
+    for i, (a, b) in enumerate(zip(indicators, structures)):
         d = signals(a, b, EventConfig())[rule]
         if (d and b["status"] == "OK" and b["weak_type"] == ("low" if d == 1 else "high")
                 and a["atr"] is not None and a["atr"] > 0):
@@ -65,18 +93,22 @@ def proposals(rows, rule, indicator_config=IndicatorConfig(), structure_config=S
     return output
 
 
-def simulate(rows, candidates, config, structures=None):
+def simulate(rows, candidates, config, structures=None, *, funding=None):
     """Single-asset isolated capital. At most one pending order or position.
 
     All assets in this run share one correlation bucket (one asset only).
     Entry-bar targets are deferred: OHLC cannot prove target happened after fill.
     Entry-bar stops are always applied. Subsequent simultaneous hits use stop first.
-    Funding is a constant daily signed proxy on entry notional, not actual funding.
+    Funding defaults to a constant signed daily proxy. Explicit historical
+    events use mark prices/bounds and debit-only ambiguous ownership days.
     """
     rows = list(rows)
     calculate(rows)  # reject invalid identity, timestamps and OHLCV
     if not rows:
         raise ValueError("Empty simulation")
+    symbol = rows[0]["symbol"]
+    if funding is not None:
+        validate_execution_funding({symbol: rows}, {symbol: funding})
     by_time = {}
     for c in candidates:
         if (c["direction"] not in (1, -1) or c["signal_time"] % DAY
@@ -128,13 +160,11 @@ def simulate(rows, candidates, config, structures=None):
             pending = None
         for candidate in by_time.get(stamp, []):
             d = candidate["direction"]
-            entry = candidate["raw_weak_price"] - d * config.entry_atr * candidate["atr"]
-            stop = entry - d * config.stop_atr * candidate["atr"]
-            target = entry + d * config.target_r * config.stop_atr * candidate["atr"]
+            entry, stop, target = order_prices(candidate, config)
             order = dict(candidate, entry=entry, stop=stop, target=target,
                          expires_at=stamp+config.expiry_days*DAY, status="PENDING", admitted=False)
             orders.append(order)
-            if min(entry, stop, target) <= 0:
+            if min(entry, stop, target) <= 0 or d*(entry-stop) <= 0 or d*(target-entry) <= 0:
                 order.update(status="INVALID_PRICE", end_time=stamp)
             elif halted or cash <= 0:
                 order.update(status="RISK_HALTED", end_time=stamp)
@@ -159,8 +189,8 @@ def simulate(rows, candidates, config, structures=None):
                 stop_fill = pending["stop"] * (1-d*config.slippage)
                 risk_per_unit = (abs(fill-stop_fill) + config.fee_rate*(fill+stop_fill)) * config.multiplier
                 budget = cash * config.risk_fraction
-                qty = min(budget/risk_per_unit, cash*config.max_exposure/(fill*config.multiplier))
-                qty = math.floor(qty/config.quantity_step)*config.quantity_step
+                qty = min(budget/risk_per_unit, cash*config.max_exposure/(fill*config.multiplier), config.max_quantity)
+                qty = round_step(qty, config.quantity_step)
                 if qty < config.min_quantity:
                     pending.update(status="QUANTITY_BLOCKED", end_time=stamp)
                 else:
@@ -178,9 +208,12 @@ def simulate(rows, candidates, config, structures=None):
             stopped = row["low"] <= p["stop"] if d == 1 else row["high"] >= p["stop"]
             targeted = row["high"] >= p["target"] if d == 1 else row["low"] <= p["target"]
             # Charge one whole daily proxy period, including any partial day.
-            funding = d * p["quantity"] * config.multiplier * p["entry_price"] * config.funding_daily
-            cash -= funding
-            p["funding"] += funding
+            amount = (funding_charge(funding[stamp], d, p["quantity"]*config.multiplier,
+                                    ambiguous=filled_today or stopped or (targeted and not filled_today),
+                                    new_position=filled_today, stamp=stamp) if funding is not None else
+                      d * p["quantity"] * config.multiplier * p["entry_price"] * config.funding_daily)
+            cash -= amount
+            p["funding"] += amount
             if stopped:
                 price = min(row["open"], p["stop"]) if d == 1 else max(row["open"], p["stop"])
                 finish(price, stamp+DAY, "STOP")
@@ -207,6 +240,8 @@ def simulate(rows, candidates, config, structures=None):
     counts = dict(Counter(o["status"] for o in orders))
     admitted = sum(o["admitted"] for o in orders)
     return dict(parameters=asdict(config), bars=len(rows), orders=orders, trades=trades, equity_curve=curve,
+                funding_model=("historical_rates_conservative_daily_mark_bounds" if any("mark_high" in e for events in funding.values() for e in events)
+                               else "historical_rates_mark_open_conservative_ambiguous_days") if funding is not None else "signed_daily_proxy",
                 status="DESCRIPTIVE_ONLY" if len(trades) >= config.min_events else "INSUFFICIENT_TRADES",
                 summary=dict(candidates=len(orders), admitted=admitted, outcomes=counts, trades=len(trades),
                              fill_rate=counts.get("FILLED", 0)/admitted if admitted else None,

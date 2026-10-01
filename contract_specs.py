@@ -70,7 +70,7 @@ def normalize(raw, symbol):
 
 def request_contract(symbol):
     request = Request(ENDPOINT + normalize_symbol(symbol) + "_USDT",
-                      headers={"Accept": "application/json"})
+                      headers={"Accept": "application/json", "X-Gate-Size-Decimal": "1"})
     with urlopen(request, timeout=30) as response:
         return response.read()
 
@@ -110,8 +110,7 @@ def collect(symbols, destination, fetch=request_contract, clock=time.time):
                   limitations=["No historical specification validity is established.",
                                "Published fees are not account-specific realized fees.",
                                "Funding interval is not a historical funding-rate series.",
-                               "Simulation mapping only covers multiplier, min quantity and quantity step.",
-                               "Price ticks and maximum order sizes require separate execution support."])
+                               "Decimal quantity step requires explicit independent precision evidence."])
     destination.mkdir(parents=True, exist_ok=False)
     for name, body in blobs.items():
         (destination / name).write_bytes(body)
@@ -147,20 +146,31 @@ def load_snapshot(destination):
     return report
 
 
-def scenario_config(snapshot, symbol, base, *, assume_current_specs=False):
+def scenario_config(snapshot, symbol, base, *, assume_current_specs=False,
+                    decimal_step=None, precision_source=None):
     """Explicit current-spec scenario only; preserves risk, fees and funding assumptions.
 
-    The returned config uses contract counts, not base-asset units. This mapping
-    does not add exchange tick/max-size enforcement to the daily simulator.
+    The returned config uses contract counts, not base-asset units. It includes
+    tick/max-size constraints; decimal steps require explicit precision evidence.
     """
     if assume_current_specs is not True:
         raise ValueError("Explicit assume_current_specs=True required; no historical validity")
     symbol = normalize_symbol(symbol)
     report = load_snapshot(snapshot)
     record = next((r for r in report["contracts"] if r["symbol"] == symbol), None)
-    if record is None or record["status"] != "MAPPABLE_CURRENT_ASSUMPTION":
+    if record is None or record["status"] not in ("MAPPABLE_CURRENT_ASSUMPTION", "UNSUPPORTED_DECIMAL_STEP"):
         raise ValueError("Contract is unavailable or unsupported")
-    values = {k: float(record[k]) for k in ("multiplier", "quantity_step", "min_quantity")}
+    if record["quantity_step"] is None:
+        if not isinstance(precision_source, str) or not precision_source.strip() or decimal_step is None:
+            raise ValueError("Decimal step requires explicit precision evidence")
+        step = decimal_field({"step": decimal_step}, "step")
+        minimum = Decimal(record["min_quantity"])
+        if minimum <= 0 or minimum % step:
+            raise ValueError("Invalid decimal minimum/step")
+    else:
+        step = Decimal(record["quantity_step"])
+    values = {k: float(record[k]) for k in ("multiplier", "min_quantity", "max_quantity", "price_tick")}
+    values["quantity_step"] = float(step)
     if any(not math.isfinite(v) or v <= 0 for v in values.values()):
         raise ValueError("Contract values exceed simulation numeric range")
     return replace(base, **values)
