@@ -78,13 +78,13 @@ def order_prices(candidate, config):
 
 
 def proposals(rows, rule, indicator_config=IndicatorConfig(), structure_config=StructureConfig(),
-              *, indicators=None, structures=None):
+              *, indicators=None, structures=None, event_config=EventConfig()):
     """Only confirmed, direction-aligned structures; no forward-price inputs."""
     output = []
     indicators = calculate(rows, indicator_config) if indicators is None else indicators
     structures = replay(rows, structure_config) if structures is None else structures
     for i, (a, b) in enumerate(zip(indicators, structures)):
-        d = signals(a, b, EventConfig())[rule]
+        d = signals(a, b, event_config)[rule]
         if (d and b["status"] == "OK" and b["weak_type"] == ("low" if d == 1 else "high")
                 and a["atr"] is not None and a["atr"] > 0):
             output.append(dict(index=i, signal_time=a["signal_time"], direction=d,
@@ -254,9 +254,10 @@ def simulate(rows, candidates, config, structures=None, *, funding=None):
                              max_drawdown=max(p["drawdown"] for p in curve)))
 
 
-def research(rows, config, indicator_config=IndicatorConfig(), structure_config=StructureConfig()):
+def research(rows, config, indicator_config=IndicatorConfig(), structure_config=StructureConfig(),
+             event_config=EventConfig()):
     rows = list(rows)
-    events = study(rows, indicator_config=indicator_config, structure_config=structure_config)
+    events = study(rows, config=event_config, indicator_config=indicator_config, structure_config=structure_config)
     split = events["split_time"]
     eligible = {c["index"] for c in events["candidates"]}
     structures = replay(rows, structure_config)
@@ -267,7 +268,8 @@ def research(rows, config, indicator_config=IndicatorConfig(), structure_config=
                         ("slippage", (config.slippage*2,)), ("funding_daily", (config.funding_daily*2,))):
         variants.extend((key+"="+str(v), replace(config, **{key: v})) for v in values)
     for rule in ("legacy_proxy", "percentile_structure"):
-        candidates = [c for c in proposals(rows, rule, indicator_config, structure_config) if c["index"] in eligible]
+        candidates = [c for c in proposals(rows, rule, indicator_config, structure_config,
+                                         event_config=event_config) if c["index"] in eligible]
         for partition in ("train", "test"):
             indices = [i for i, r in enumerate(rows) if split is not None and
                        (r["timestamp"] < split if partition == "train" else r["timestamp"] >= split)]
@@ -282,7 +284,8 @@ def research(rows, config, indicator_config=IndicatorConfig(), structure_config=
                 result = simulate(rows[left:right], selected, cfg, structures[left:right])
                 experiments.append(dict(rule=rule, partition=partition, variant=name, **result))
     return dict(version=VERSION, parameters=asdict(config), indicator_parameters=asdict(indicator_config),
-                structure_parameters=asdict(structure_config), split_time=split, eligible=len(eligible), experiments=experiments,
+                structure_parameters=asdict(structure_config), event_parameters=asdict(event_config),
+                split_time=split, eligible=len(eligible), experiments=experiments,
                 conclusion="DESCRIPTIVE_ONLY_NOT_VALIDATED", protocol=dict(
                     entry="limit_from_next_day_no_limit_violation", same_bar="stop_first_entry_bar_target_deferred",
                     stop_gap="open_if_worse_plus_adverse_slippage", funding="constant_signed_daily_entry_notional_proxy",
@@ -293,19 +296,31 @@ def research(rows, config, indicator_config=IndicatorConfig(), structure_config=
                     gaps="last_observed_close_forced_exit_unknown_interval_not_modeled"))
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("snapshot")
-    parser.add_argument("--config", required=True, help="Explicit research execution/risk JSON")
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--config", help="Explicit research execution/risk JSON")
+    group.add_argument("--research-config", help="Shared research parameter JSON")
     parser.add_argument("--output", required=True)
-    args = parser.parse_args()
-    config = Config(**json.loads(Path(args.config).read_text(encoding="utf-8")))
+    args = parser.parse_args(argv)
+    profile = None
+    if args.research_config:
+        from research_config import load_profile
+        profile = load_profile(args.research_config)
+        config = profile.execution
+    else:
+        config = Config(**json.loads(Path(args.config).read_text(encoding="utf-8")))
     rows, quality = load_snapshot(args.snapshot)
-    result = research(rows, config)
+    result = (research(rows, config, profile.indicators, profile.structures, profile.events)
+              if profile else research(rows, config))
+    if profile:
+        result["parameter_profile"] = profile.evidence
     result.update(input_sha256=quality["sha256"], input_quality=quality,
-                  config_sha256=hashlib.sha256(Path(args.config).read_bytes()).hexdigest())
+                  config_sha256=(profile.evidence["file_sha256"] if profile else
+                                 hashlib.sha256(Path(args.config).read_bytes()).hexdigest()))
     result["code_sha256"] = {n: hashlib.sha256(Path(__file__).with_name(n).read_bytes()).hexdigest()
-                             for n in ("trade_simulation.py", "event_study.py", "history.py", "indicators.py", "structure_history.py", "smc.py")}
+                             for n in ("trade_simulation.py", "event_study.py", "history.py", "indicators.py", "structure_history.py", "smc.py", "research_config.py")}
     with Path(args.output).open("x", encoding="utf-8") as target:
         target.write(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False)+"\n")
     print(json.dumps(dict(experiments=len(result["experiments"]), conclusion=result["conclusion"])))

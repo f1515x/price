@@ -26,6 +26,7 @@ class Config:
     indicators: IndicatorConfig = field(default_factory=IndicatorConfig)
     structures: StructureConfig = field(default_factory=StructureConfig)
     candidates: CandidateConfig = field(default_factory=CandidateConfig)
+    parameter_profile: dict = None
 
     def __post_init__(self):
         normalized = tuple(normalize_symbol(s) for s in self.symbols)
@@ -45,7 +46,8 @@ def _json(value):
 def _identity(config):
     names = ("collection_scheduler.py", "history.py", "history_store.py", "kline.py",
              "indicators.py", "indicator_store.py", "structure_history.py",
-             "structure_store.py", "candidate_store.py", "event_study.py", "smc.py")
+             "structure_store.py", "candidate_store.py", "event_study.py", "smc.py", "research_config.py",
+             "trade_simulation.py")
     evidence = dict(parameters=asdict(config), implementation_sha256={
         name: hashlib.sha256(Path(__file__).with_name(name).read_bytes()).hexdigest()
         for name in names})
@@ -164,20 +166,34 @@ def watch(root, config, poll_seconds=60, clock=time.time, sleep=time.sleep, run=
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", required=True, help="Dedicated persistent collection directory")
-    parser.add_argument("--symbols", nargs="+", default=["BTC", "ETH"])
-    parser.add_argument("--start", type=date_timestamp, default=date_timestamp("2024-01-01"))
-    parser.add_argument("--close-delay", type=int, default=300)
-    parser.add_argument("--window", type=int, default=365)
-    parser.add_argument("--swing-length", type=int, default=50)
-    parser.add_argument("--tail", type=float, default=10)
-    parser.add_argument("--move", type=float, default=2)
-    parser.add_argument("--stretch", type=float, default=2)
+    parser.add_argument("--research-config", help="Shared research parameter JSON")
+    parser.add_argument("--symbols", nargs="+")
+    parser.add_argument("--start", type=date_timestamp)
+    parser.add_argument("--close-delay", type=int)
+    parser.add_argument("--window", type=int)
+    parser.add_argument("--swing-length", type=int)
+    parser.add_argument("--tail", type=float)
+    parser.add_argument("--move", type=float)
+    parser.add_argument("--stretch", type=float)
     parser.add_argument("--watch", action="store_true")
     parser.add_argument("--poll-seconds", type=int, default=60)
     args = parser.parse_args(argv)
-    config = Config(tuple(args.symbols), args.start, args.close_delay,
-                    IndicatorConfig(window=args.window), StructureConfig(args.swing_length),
-                    CandidateConfig(args.tail, args.move, args.stretch))
+    overrides = (args.symbols, args.start, args.close_delay, args.window, args.swing_length,
+                 args.tail, args.move, args.stretch)
+    if args.research_config:
+        if any(v is not None for v in overrides):
+            parser.error("--research-config cannot be combined with parameter overrides")
+        from research_config import load_profile
+        config = load_profile(args.research_config).collector()
+    else:
+        config = Config(tuple(args.symbols) if args.symbols is not None else ("BTC", "ETH"),
+                        args.start if args.start is not None else date_timestamp("2024-01-01"),
+                        args.close_delay if args.close_delay is not None else 300,
+                        IndicatorConfig(window=args.window if args.window is not None else 365),
+                        StructureConfig(args.swing_length if args.swing_length is not None else 50),
+                        CandidateConfig(args.tail if args.tail is not None else 10,
+                                        args.move if args.move is not None else 2,
+                                        args.stretch if args.stretch is not None else 2))
     if args.watch:
         try:
             watch(args.root, config, args.poll_seconds)

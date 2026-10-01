@@ -16,7 +16,7 @@ from structure_history import replay
 from structure_store import query_structures
 
 
-def audit(root, inputs):
+def audit(root, inputs, research_config=None):
     root = Path(root).resolve()
     if root.exists():
         raise ValueError("Acceptance root must be new")
@@ -26,7 +26,13 @@ def audit(root, inputs):
         raise ValueError("Expected matching acquisition ranges")
     raw = {r['symbol']: json.loads((Path(p) / 'raw.json').read_text(encoding='utf-8'))
            for p, r in zip(inputs, reports)}
-    config = Config(tuple(r['symbol'] for r in reports), reports[0]['start'])
+    if research_config:
+        from research_config import load_profile
+        config = load_profile(research_config).collector()
+        if config.symbols != tuple(r['symbol'] for r in reports) or config.start != reports[0]['start']:
+            raise ValueError("Shared configuration differs from archive assets/range")
+    else:
+        config = Config(tuple(r['symbol'] for r in reports), reports[0]['start'])
     hashes = {str(Path(p).resolve() / name): hashlib.sha256((Path(p) / name).read_bytes()).hexdigest()
               for p in inputs for name in ('raw.json', 'daily.csv', 'quality.json')}
     calls = []
@@ -46,10 +52,10 @@ def audit(root, inputs):
         ir = first['stages']['indicators'][index]['run_id']
         sr = first['stages']['structures'][index]['run_id']
         cr = first['stages']['candidates'][index]['run_id']
-        assert query_indicators(database, ir, symbol) == calculate(rows)
-        assert query_structures(database, sr, symbol) == replay(rows)
+        assert query_indicators(database, ir, symbol) == calculate(rows, config.indicators)
+        assert query_structures(database, sr, symbol) == replay(rows, config.structures)
         stored = query_candidates(database, cr, symbol)
-        assert stored == decisions(rows)
+        assert stored == decisions(rows, config.candidates, config.indicators, config.structures)
         assert all(not r['execution_authorized'] and r['validation'] == 'NOT_VALIDATED' for r in stored)
         counts[symbol] = dict(rows=len(rows), eligible=sum(r['eligible'] for r in stored))
     assert len(calls) == len(inputs)
@@ -65,6 +71,7 @@ def audit(root, inputs):
                   integrity_check=integrity, foreign_key_errors=foreign,
                   all_four_layers_match_recomputation=True,
                   original_evidence_unchanged=True,
+                  parameter_profile=config.parameter_profile,
                   validation='NOT_VALIDATED', execution_authorized=False)
     (root / 'acceptance.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
     return result
@@ -73,9 +80,10 @@ def audit(root, inputs):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', required=True)
+    parser.add_argument('--research-config')
     parser.add_argument('snapshots', nargs='+')
     args = parser.parse_args()
-    print(json.dumps(audit(args.root, args.snapshots), indent=2))
+    print(json.dumps(audit(args.root, args.snapshots, args.research_config), indent=2))
 
 
 if __name__ == '__main__':

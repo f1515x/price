@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "collection": {"symbols": ["BTC", "ETH"], "start": "2024-01-01", "close_delay": 300},
+  "indicators": {"window": 365, "ema_period": 50, "atr_period": 14},
+  "structures": {"swing_length": 50},
+  "events": {"tail": 10, "move": 2, "stretch": 2, "train_fraction": 0.7, "seed": 20260930, "min_events": 30},
+  "execution": {
+    "initial_equity": 10000, "risk_fraction": 0.005, "max_exposure": 1, "max_drawdown": 0.15,
+    "entry_atr": 0.5, "stop_atr": 1.5, "target_r": 2, "expiry_days": 7, "holding_days": 30,
+    "fee_rate": 0.0005, "slippage": 0.0005, "funding_daily": 0.0003,
+    "multiplier": 1, "quantity_step": 0.000001, "min_quantity": 0.000001,
+    "min_events": 30, "price_tick": 0, "max_quantity": 1e30
+  }
+}
