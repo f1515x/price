@@ -19,4 +19,4 @@ E2 实际验收在 E1 库的独立副本 `../1/data/E2-indicators.sqlite` 上运
 
 测试：`python -m unittest discover -s tests`，128 项通过，其中新增 7 项覆盖多标的往返、缺口/预热、查询边界、幂等、参数隔离、原文件/数据库篡改拒绝、批量 SQL 回滚及 CLI。
 
-SMC 结构、候选日志和持续采集调度仍待实施。未接入交易入口；M6 `NOT_VALIDATED`、基础假设 `TERMINATED` 及 M7/M8/M9 依赖保持不变。
+SMC 结构存储已由 E3 [结构存储](STRUCTURE_STORE.md) 扩展；候选日志和持续采集调度仍待实施。未接入交易入口；M6 `NOT_VALIDATED`、基础假设 `TERMINATED` 及 M7/M8/M9 依赖保持不变。

@@ -12,4 +12,4 @@ python history_store.py --database ..\1\data\history.sqlite query BTC --snapshot
 
 多快照导入在校验全部输入后执行单个事务，任何 SQL 写入失败回滚整个批次。主键 `(snapshot_id,timestamp)` 支持按版本查询时间段。只读操作不创建数据库，未知或其他应用数据库结构拒绝使用。数据库是可重建的本地索引；原始快照继续保留作为证据。数据库本身没有防篡改签名，不能替代原始证据校验。
 
-本模块范围为历史 OHLCV/30 日收益存储；指标持久化由 E2 [indicator_store.py](INDICATOR_STORE.md) 扩展。SMC、候选日志及持续采集调度仍待实施。未接入交易入口，未启动 M7/M8/M9，也不改变策略验收结论。
+本模块范围为历史 OHLCV/30 日收益存储；指标持久化由 E2 [指标存储](INDICATOR_STORE.md) 扩展，SMC 持久化由 E3 [结构存储](STRUCTURE_STORE.md) 扩展。候选日志及持续采集调度仍待实施。未接入交易入口，未启动 M7/M8/M9，也不改变策略验收结论。
