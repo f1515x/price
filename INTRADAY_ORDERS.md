@@ -1,6 +1,7 @@
 # 日内公告与订单政策声明回放
 
 M6-R13 提供 `intraday_orders.replay`；M6-R14（v2）增加部分成交与剩余数量跟踪。
+M6-R15（v3）增加显式持仓乘数换算与逐笔基础资产敞口。
 只回放明确声明的 UTC 秒级订单和成交。
 调用必须传入公告清单哈希、独立固定的情景哈希及 `allow_scenario=True`。
 情景哈希计算为 `digest(encoded(scenario))`；报告中的情景可据此独立复现。
@@ -12,7 +13,15 @@ M6-R13 提供 `intraday_orders.replay`；M6-R14（v2）增加部分成交与剩�
 
 每次规格变更撤销全部挂单的剩余数量；已经成交的持仓保留。
 日志记录撤销 ID 与剩余数量。需用全新 ID 明确重新提交。不会自动改价或改数量。
-已持仓遇到 multiplier 变化拒绝回放，必须另行定义持仓换算政策。
+默认已持仓遇到 multiplier 变化拒绝回放。情景可显式添加
+`multiplier_conversion_policy: "PRESERVE_BASE_EXPOSURE_EXACT"`，此字段也受情景哈希固定。
+该声明政策精确计算 `新张数 = 旧张数 × 旧乘数 / 新乘数`，保留多空基础资产敞口。
+换算结果必须符合同秒全部变更完成后的数量步长，否则拒绝，不取整或生成隐式成交。
+订单最小/最大张数不限制已持仓换算，也不自动强平或核算风险。
+可显式选择 `REJECT_HELD_POSITION`；其他政策值拒绝。
+变更日志中的 `multiplier_conversion` 保存前后张数、乘数、政策及守恒敞口。
+成交的 `signed_base_exposure` 和最终 `net_base_exposure` 均以 numerator/denominator 精确返回；
+有乘数变更时按基础资产敞口对账，不能直接把不同规格时期的成交张数相加。
 其余规格变化保留既有持仓数量，新提交订单按新规格检查。净持仓采用精确有理数记录。
 
 动作格式：
@@ -52,3 +61,10 @@ python audit_partial_orders.py --previous ..\1\data\M6-notice-execution-acceptan
 
 真实公告验收只使用公告的生效秒及变更值。初始规格、订单和成交均是合成声明，
 不证明历史完整有效期或真实成交。
+
+乘数政策验收使用单独保存的合成乘数事件，同时复核既有真实公告回放；
+不宣称真实乘数公告、交易所实际换算规则或盈亏守恒。输出目录及文件必须不存在：
+
+```powershell
+python audit_multiplier_conversion.py --destination new-multiplier-fixtures --previous ..\1\data\M6-notice-execution-acceptance.json --expected-prior-sha256 <独立固定的R12验收哈希> --registration ..\1\data\M6-restart-registration.json --archive ..\1\data\M6-historical-notices --output new-multiplier-acceptance.json
+```

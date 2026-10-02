@@ -9,7 +9,13 @@ from historical_notices import verify
 from kline import normalize_symbol
 from spec_evidence import _json
 
-VERSION = "intraday-order-scenario-v2"
+VERSION = "intraday-order-scenario-v3"
+CONVERSION_POLICY = "PRESERVE_BASE_EXPOSURE_EXACT"
+
+
+def ratio(value):
+    """JSON-safe exact signed quantity, including non-terminating decimals."""
+    return dict(numerator=value.numerator, denominator=value.denominator)
 
 
 def decimal_string(value):
@@ -64,7 +70,12 @@ def replay(archive, notice_sha256, scenario, scenario_sha256, *, allow_scenario=
     if digest(body) != scenario_sha256:
         raise ValueError("Scenario differs from pinned SHA-256")
     scenario = _json(body)
-    _keys(scenario, ("symbol", "start", "end", "initial_specification", "actions"))
+    required = ("symbol", "start", "end", "initial_specification", "actions")
+    _keys(scenario, required + (("multiplier_conversion_policy",)
+                               if "multiplier_conversion_policy" in scenario else ()))
+    conversion_policy = scenario.get("multiplier_conversion_policy", "REJECT_HELD_POSITION")
+    if conversion_policy not in ("REJECT_HELD_POSITION", CONVERSION_POLICY):
+        raise ValueError("Unsupported multiplier conversion policy")
     symbol, start, end = (scenario[k] for k in ("symbol", "start", "end"))
     if not isinstance(symbol, str) or normalize_symbol(symbol) != symbol:
         raise ValueError("Canonical symbol required")
@@ -96,7 +107,7 @@ def replay(archive, notice_sha256, scenario, scenario_sha256, *, allow_scenario=
     cursor = 0
 
     def advance(stamp):
-        nonlocal cursor, spec
+        nonlocal cursor, spec, position
         while cursor < len(transitions) and transitions[cursor][0]["effective_timestamp"] <= stamp:
             group = transitions[cursor]
             event = group[0]
@@ -105,11 +116,26 @@ def replay(archive, notice_sha256, scenario, scenario_sha256, *, allow_scenario=
                 field = change["field"]
                 if spec[field] != number(change["before"]):
                     raise ValueError("Notice before value conflicts with active declaration")
-                if field == "multiplier" and position:
-                    raise ValueError("Held position requires unsupported multiplier conversion")
                 updated[field] = number(change["after"])
             specification({k: str(v) for k, v in updated.items()})
+            conversion = {}
+            if updated["multiplier"] != spec["multiplier"]:
+                if position and conversion_policy != CONVERSION_POLICY:
+                    raise ValueError("Held position requires explicit multiplier conversion policy")
+                exposure = position * Fraction(spec["multiplier"])
+                converted = exposure / Fraction(updated["multiplier"])
+                # Validate against the complete same-second specification. Position
+                # size bounds apply to orders only; never round held exposure.
+                if (converted / Fraction(updated["quantity_step"])).denominator != 1:
+                    raise ValueError("Multiplier conversion violates new quantity step")
+                conversion = dict(multiplier_conversion=dict(
+                    policy=conversion_policy, before_contracts=ratio(position),
+                    after_contracts=ratio(converted), base_exposure=ratio(exposure),
+                    before_multiplier=str(spec["multiplier"]),
+                    after_multiplier=str(updated["multiplier"])))
+                position = converted
             log.append(dict(kind="notice", timestamp=event["effective_timestamp"],
+                            **conversion,
                             event_ids=[e["id"] for e in group], cancelled_order_ids=sorted(pending),
                             cancelled_quantities={oid: order["remaining_quantity"]
                                                   for oid, order in sorted(pending.items())}))
@@ -153,6 +179,8 @@ def replay(archive, notice_sha256, scenario, scenario_sha256, *, allow_scenario=
                 remaining -= Fraction(q)
                 order["remaining_quantity"] = decimal_string(remaining)
                 fills.append(dict(action, quantity=str(q), direction=order["direction"],
+                                  signed_base_exposure=ratio(
+                                      order["direction"] * Fraction(q) * Fraction(spec["multiplier"])),
                                   original_quantity=order["quantity"],
                                   remaining_quantity=order["remaining_quantity"],
                                   specification={k: str(v) for k, v in spec.items()},
@@ -176,6 +204,7 @@ def replay(archive, notice_sha256, scenario, scenario_sha256, *, allow_scenario=
                 pending_order_ids=sorted(pending),
                 pending_quantities={oid: order["remaining_quantity"]
                                     for oid, order in sorted(pending.items())},
-                net_position_contracts=dict(
-                    numerator=position.numerator, denominator=position.denominator),
+                multiplier_conversion_policy=conversion_policy,
+                net_position_contracts=ratio(position),
+                net_base_exposure=ratio(position * Fraction(spec["multiplier"])),
                 source_sha256=digest(Path(__file__).read_bytes()))
