@@ -1,11 +1,11 @@
 
 🚀 ====== Order Alert ======
-✨  Symbol     : SUI_USDT
-💰  Price      : 1.3279 USDT
-📉  Side       : Open Short
-📦  Size       : -59 Contracts
-📦  Value      : -79.34 U
+✨  Symbol     : XAU_USDT
+💰  Price      : 4067.12 USDT
+📈  Side       : Open Long
+📦  Size       : 360 Contracts
+📦  Value      : 146.76 U
    ======================
 
 
-Orders Times: 1790911070626 
+Orders Times: 1790941121857 
