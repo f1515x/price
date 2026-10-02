@@ -1,11 +1,11 @@
 
 🚀 ====== Order Alert ======
 ✨  Symbol     : XAU_USDT
-💰  Price      : 4067.9 USDT
+💰  Price      : 4067.50 USDT
 📈  Side       : Open Long
-📦  Size       : 363 Contracts
-📦  Value      : 147.77 U
+📦  Size       : 362 Contracts
+📦  Value      : 147.46 U
    ======================
 
 
-Orders Times: 1790942419861 
+Orders Times: 1790943348949 
