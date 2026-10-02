@@ -1,0 +1,7324 @@
+{
+  "version": "daily-events-v1",
+  "parameters": {
+    "tail": 10,
+    "move": 2,
+    "stretch": 2,
+    "train_fraction": 0.7,
+    "seed": 20260930,
+    "min_events": 30
+  },
+  "indicator_parameters": {
+    "window": 365,
+    "ema_period": 50,
+    "atr_period": 14
+  },
+  "structure_parameters": {
+    "swing_length": 50
+  },
+  "horizons": [
+    1,
+    3,
+    7,
+    14,
+    30
+  ],
+  "split_time": 1740096000,
+  "bars": 425,
+  "eligible": 30,
+  "excluded": 395,
+  "conclusion": "DESCRIPTIVE_ONLY_NOT_VALIDATED",
+  "candidates": [
+    {
+      "index": 395,
+      "timestamp": 1738195200,
+      "signal_time": 1738281600,
+      "ret_30d": 0.11903687867450552,
+      "percentile": 69.86301369863014,
+      "move": 1.3626499943679757,
+      "stretch": 1.466886024023257,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 396,
+      "timestamp": 1738281600,
+      "signal_time": 1738368000,
+      "ret_30d": 0.08298919302490604,
+      "percentile": 59.726027397260275,
+      "move": 0.9401402671823061,
+      "stretch": 0.8754833252294947,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 397,
+      "timestamp": 1738368000,
+      "signal_time": 1738454400,
+      "ret_30d": 0.03793715617292426,
+      "percentile": 45.47945205479452,
+      "move": 0.4297697909876774,
+      "stretch": 0.4437830713910242,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 398,
+      "timestamp": 1738454400,
+      "signal_time": 1738540800,
+      "ret_30d": -0.004968771940908612,
+      "percentile": 33.6986301369863,
+      "move": -0.056288564930277646,
+      "stretch": -0.2698037957064761,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 399,
+      "timestamp": 1738540800,
+      "signal_time": 1738627200,
+      "ret_30d": 0.031785725199392934,
+      "percentile": 43.013698630136986,
+      "move": 0.3600835131939695,
+      "stretch": 0.5181866930251562,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 400,
+      "timestamp": 1738627200,
+      "signal_time": 1738713600,
+      "ret_30d": -0.006121234621898397,
+      "percentile": 33.15068493150685,
+      "move": -0.06934419944522237,
+      "stretch": -0.2343710570324331,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 401,
+      "timestamp": 1738713600,
+      "signal_time": 1738800000,
+      "ret_30d": -0.054723923497898896,
+      "percentile": 21.095890410958905,
+      "move": -0.6199381170405952,
+      "stretch": -0.46793338109686383,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 402,
+      "timestamp": 1738800000,
+      "signal_time": 1738886400,
+      "ret_30d": -0.004147536755223058,
+      "percentile": 34.24657534246575,
+      "move": -0.04698522989654357,
+      "stretch": -0.4679702900348273,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 403,
+      "timestamp": 1738886400,
+      "signal_time": 1738972800,
+      "ret_30d": 0.015143526192543444,
+      "percentile": 38.35616438356164,
+      "move": 0.17155292444484116,
+      "stretch": -0.46423207024543733,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 404,
+      "timestamp": 1738972800,
+      "signal_time": 1739059200,
+      "ret_30d": 0.041937677213062186,
+      "percentile": 46.84931506849315,
+      "move": 0.4750895583267209,
+      "stretch": -0.48585445526414667,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 405,
+      "timestamp": 1739059200,
+      "signal_time": 1739145600,
+      "ret_30d": 0.01830365111840382,
+      "percentile": 38.63013698630137,
+      "move": 0.2073522928184584,
+      "stretch": -0.4756535273208667,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 406,
+      "timestamp": 1739145600,
+      "signal_time": 1739232000,
+      "ret_30d": 0.02997190761667423,
+      "percentile": 41.917808219178085,
+      "move": 0.33953574203627956,
+      "stretch": -0.23810475901962982,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 407,
+      "timestamp": 1739232000,
+      "signal_time": 1739318400,
+      "ret_30d": 0.012949418022111026,
+      "percentile": 37.26027397260274,
+      "move": 0.14823577862074225,
+      "stretch": -0.6176534182378037,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 408,
+      "timestamp": 1739318400,
+      "signal_time": 1739404800,
+      "ret_30d": 0.03535140787529567,
+      "percentile": 44.38356164383562,
+      "move": 0.40966020266730524,
+      "stretch": -0.10159242671674855,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 409,
+      "timestamp": 1739404800,
+      "signal_time": 1739491200,
+      "ret_30d": 0.0006031550605953839,
+      "percentile": 34.52054794520548,
+      "move": 0.007060032808449567,
+      "stretch": -0.40596107148507155,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 410,
+      "timestamp": 1739491200,
+      "signal_time": 1739577600,
+      "ret_30d": -0.02990196615258711,
+      "percentile": 25.205479452054796,
+      "move": -0.35225676615310436,
+      "stretch": -0.1803914757717306,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 411,
+      "timestamp": 1739577600,
+      "signal_time": 1739664000,
+      "ret_30d": -0.0239902249815368,
+      "percentile": 26.84931506849315,
+      "move": -0.28340789763554225,
+      "stretch": -0.1604139142591591,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 412,
+      "timestamp": 1739664000,
+      "signal_time": 1739750400,
+      "ret_30d": -0.07649346792493084,
+      "percentile": 15.068493150684931,
+      "move": -0.9047687679106718,
+      "stretch": -0.5544673751599803,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 413,
+      "timestamp": 1739750400,
+      "signal_time": 1739836800,
+      "ret_30d": -0.08389121098684049,
+      "percentile": 12.32876712328767,
+      "move": -0.9937246441860355,
+      "stretch": -0.6512239626822569,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 414,
+      "timestamp": 1739836800,
+      "signal_time": 1739923200,
+      "ret_30d": -0.056591111847974496,
+      "percentile": 20.54794520547945,
+      "move": -0.6712637564066851,
+      "stretch": -0.6659314096152151,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 415,
+      "timestamp": 1739923200,
+      "signal_time": 1740009600,
+      "ret_30d": -0.055601348160359554,
+      "percentile": 21.36986301369863,
+      "move": -0.6610468654084245,
+      "stretch": -0.3708501283117587,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 416,
+      "timestamp": 1740009600,
+      "signal_time": 1740096000,
+      "ret_30d": -0.07394068495539352,
+      "percentile": 16.438356164383563,
+      "move": -0.8813877411662605,
+      "stretch": 0.1324280630288933,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 417,
+      "timestamp": 1740096000,
+      "signal_time": 1740182400,
+      "ret_30d": -0.07217458584003178,
+      "percentile": 17.26027397260274,
+      "move": -0.8622399415674155,
+      "stretch": -0.4783415654385621,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 418,
+      "timestamp": 1740182400,
+      "signal_time": 1740268800,
+      "ret_30d": -0.0710034504802175,
+      "percentile": 18.08219178082192,
+      "move": -0.8507731121084973,
+      "stretch": -0.3845174594878305,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 419,
+      "timestamp": 1740268800,
+      "signal_time": 1740355200,
+      "ret_30d": -0.08207407492205954,
+      "percentile": 13.698630136986301,
+      "move": -0.98572385821854,
+      "stretch": -0.47187759882470715,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 0,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 420,
+      "timestamp": 1740355200,
+      "signal_time": 1740441600,
+      "ret_30d": -0.12577882363727344,
+      "percentile": 4.657534246575342,
+      "move": -1.5156048523031875,
+      "stretch": -1.8453573241913976,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 1,
+        "move": 0,
+        "stretch": 0,
+        "percentile_move": 0,
+        "percentile_stretch": 0,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 421,
+      "timestamp": 1740441600,
+      "signal_time": 1740528000,
+      "ret_30d": -0.13599463476640172,
+      "percentile": 3.5616438356164384,
+      "move": -1.6387029420275014,
+      "stretch": -2.465221172030874,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 1,
+        "move": 0,
+        "stretch": 1,
+        "percentile_move": 0,
+        "percentile_stretch": 1,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 422,
+      "timestamp": 1740528000,
+      "signal_time": 1740614400,
+      "ret_30d": -0.17464256695100577,
+      "percentile": 1.36986301369863,
+      "move": -2.104401315224182,
+      "stretch": -3.3504692549278614,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 1,
+        "move": 1,
+        "stretch": 1,
+        "percentile_move": 1,
+        "percentile_stretch": 1,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 423,
+      "timestamp": 1740614400,
+      "signal_time": 1740700800,
+      "ret_30d": -0.16396364020507925,
+      "percentile": 2.191780821917808,
+      "move": -1.9757227926758105,
+      "stretch": -3.057227575877021,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 1,
+        "move": 0,
+        "stretch": 1,
+        "percentile_move": 0,
+        "percentile_stretch": 1,
+        "percentile_structure": 0
+      }
+    },
+    {
+      "index": 424,
+      "timestamp": 1740700800,
+      "signal_time": 1740787200,
+      "ret_30d": -0.18705897669574278,
+      "percentile": 0.821917808219178,
+      "move": -2.2540160938738634,
+      "stretch": -2.86385463993869,
+      "trend": "BULLISH",
+      "signals": {
+        "legacy_proxy": 0,
+        "percentile": 1,
+        "move": 1,
+        "stretch": 1,
+        "percentile_move": 1,
+        "percentile_stretch": 1,
+        "percentile_structure": 0
+      }
+    }
+  ],
+  "summaries": [
+    {
+      "rule": "legacy_proxy",
+      "partition": "train",
+      "horizon": 1,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 21,
+          "mean": -0.00288005178194121,
+          "median": -0.0007049824635612101,
+          "p10": -0.02177179543758989,
+          "p90": 0.01722399266147767,
+          "positive_rate": 0.38095238095238093,
+          "mean_mae": -0.02036085050396632,
+          "mean_mfe": 0.014819572010675217
+        },
+        "short": {
+          "n": 21,
+          "mean": 0.00288005178194121,
+          "median": 0.0007049824635612101,
+          "p10": -0.01722399266147767,
+          "p90": 0.02177179543758989,
+          "positive_rate": 0.6190476190476191,
+          "mean_mae": -0.014819572010675217,
+          "mean_mfe": 0.02036085050396632
+        }
+      }
+    },
+    {
+      "rule": "legacy_proxy",
+      "partition": "train",
+      "horizon": 3,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 19,
+          "mean": -0.008843551769076119,
+          "median": -0.006749774869175051,
+          "p10": -0.03255010926481041,
+          "p90": 0.015294293236916931,
+          "positive_rate": 0.2631578947368421,
+          "mean_mae": -0.03833874450635686,
+          "mean_mfe": 0.019381279141869934
+        },
+        "short": {
+          "n": 19,
+          "mean": 0.008843551769076119,
+          "median": 0.006749774869175051,
+          "p10": -0.015294293236916934,
+          "p90": 0.032550109264810397,
+          "positive_rate": 0.7368421052631579,
+          "mean_mae": -0.019381279141869934,
+          "mean_mfe": 0.03833874450635686
+        }
+      }
+    },
+    {
+      "rule": "legacy_proxy",
+      "partition": "train",
+      "horizon": 7,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 15,
+          "mean": -0.015410073496337178,
+          "median": -0.012578642070977808,
+          "p10": -0.05168906662658685,
+          "p90": 0.01253508024168828,
+          "positive_rate": 0.3333333333333333,
+          "mean_mae": -0.05087865364120614,
+          "mean_mfe": 0.022278625720663407
+        },
+        "short": {
+          "n": 15,
+          "mean": 0.015410073496337178,
+          "median": 0.012578642070977808,
+          "p10": -0.01253508024168828,
+          "p90": 0.05168906662658685,
+          "positive_rate": 0.6666666666666666,
+          "mean_mae": -0.022278625720663407,
+          "mean_mfe": 0.05087865364120614
+        }
+      }
+    },
+    {
+      "rule": "legacy_proxy",
+      "partition": "train",
+      "horizon": 14,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 8,
+          "mean": -0.028931120913349984,
+          "median": -0.02618188195763832,
+          "p10": -0.061717183627450295,
+          "p90": 0.005494997312115687,
+          "positive_rate": 0.25,
+          "mean_mae": -0.07300941851895437,
+          "mean_mfe": 0.023061907997047548
+        },
+        "short": {
+          "n": 8,
+          "mean": 0.028931120913349984,
+          "median": 0.02618188195763832,
+          "p10": -0.005494997312115689,
+          "p90": 0.061717183627450295,
+          "positive_rate": 0.75,
+          "mean_mae": -0.023061907997047548,
+          "mean_mfe": 0.07300941851895437
+        }
+      }
+    },
+    {
+      "rule": "legacy_proxy",
+      "partition": "train",
+      "horizon": 30,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      }
+    },
+    {
+      "rule": "legacy_proxy",
+      "partition": "test",
+      "horizon": 1,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 8,
+          "mean": -0.01873525353622016,
+          "median": -0.012827441705568876,
+          "p10": -0.049040892942514604,
+          "p90": 0.004012823211114135,
+          "positive_rate": 0.25,
+          "mean_mae": -0.04123442231832805,
+          "mean_mfe": 0.01007839129917576
+        },
+        "short": {
+          "n": 8,
+          "mean": 0.01873525353622016,
+          "median": 0.012827441705568876,
+          "p10": -0.004012823211114136,
+          "p90": 0.049040892942514604,
+          "positive_rate": 0.75,
+          "mean_mae": -0.01007839129917576,
+          "mean_mfe": 0.04123442231832805
+        }
+      }
+    },
+    {
+      "rule": "legacy_proxy",
+      "partition": "test",
+      "horizon": 3,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 6,
+          "mean": -0.06650294246943005,
+          "median": -0.06193772428018762,
+          "p10": -0.10314490244281355,
+          "p90": -0.034426200685288955,
+          "positive_rate": 0,
+          "mean_mae": -0.09313056628662651,
+          "mean_mfe": 0.00702092114021291
+        },
+        "short": {
+          "n": 6,
+          "mean": 0.06650294246943005,
+          "median": 0.06193772428018762,
+          "p10": 0.034426200685288955,
+          "p90": 0.10314490244281355,
+          "positive_rate": 1,
+          "mean_mae": -0.00702092114021291,
+          "mean_mfe": 0.09313056628662651
+        }
+      }
+    },
+    {
+      "rule": "legacy_proxy",
+      "partition": "test",
+      "horizon": 7,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 2,
+          "mean": -0.1308065749605809,
+          "median": -0.1308065749605809,
+          "p10": -0.13665121979589673,
+          "p90": -0.12496193012526509,
+          "positive_rate": 0,
+          "mean_mae": -0.17505049170095782,
+          "mean_mfe": 0.009938989527716324
+        },
+        "short": {
+          "n": 2,
+          "mean": 0.1308065749605809,
+          "median": 0.1308065749605809,
+          "p10": 0.12496193012526509,
+          "p90": 0.13665121979589673,
+          "positive_rate": 1,
+          "mean_mae": -0.009938989527716324,
+          "mean_mfe": 0.17505049170095782
+        }
+      }
+    },
+    {
+      "rule": "legacy_proxy",
+      "partition": "test",
+      "horizon": 14,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      }
+    },
+    {
+      "rule": "legacy_proxy",
+      "partition": "test",
+      "horizon": 30,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      }
+    },
+    {
+      "rule": "percentile",
+      "partition": "train",
+      "horizon": 1,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 21,
+          "mean": -0.00288005178194121,
+          "median": -0.0007049824635612101,
+          "p10": -0.02177179543758989,
+          "p90": 0.01722399266147767,
+          "positive_rate": 0.38095238095238093,
+          "mean_mae": -0.02036085050396632,
+          "mean_mfe": 0.014819572010675217
+        },
+        "short": {
+          "n": 21,
+          "mean": 0.00288005178194121,
+          "median": 0.0007049824635612101,
+          "p10": -0.01722399266147767,
+          "p90": 0.02177179543758989,
+          "positive_rate": 0.6190476190476191,
+          "mean_mae": -0.014819572010675217,
+          "mean_mfe": 0.02036085050396632
+        }
+      }
+    },
+    {
+      "rule": "percentile",
+      "partition": "train",
+      "horizon": 3,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 19,
+          "mean": -0.008843551769076119,
+          "median": -0.006749774869175051,
+          "p10": -0.03255010926481041,
+          "p90": 0.015294293236916931,
+          "positive_rate": 0.2631578947368421,
+          "mean_mae": -0.03833874450635686,
+          "mean_mfe": 0.019381279141869934
+        },
+        "short": {
+          "n": 19,
+          "mean": 0.008843551769076119,
+          "median": 0.006749774869175051,
+          "p10": -0.015294293236916934,
+          "p90": 0.032550109264810397,
+          "positive_rate": 0.7368421052631579,
+          "mean_mae": -0.019381279141869934,
+          "mean_mfe": 0.03833874450635686
+        }
+      }
+    },
+    {
+      "rule": "percentile",
+      "partition": "train",
+      "horizon": 7,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 15,
+          "mean": -0.015410073496337178,
+          "median": -0.012578642070977808,
+          "p10": -0.05168906662658685,
+          "p90": 0.01253508024168828,
+          "positive_rate": 0.3333333333333333,
+          "mean_mae": -0.05087865364120614,
+          "mean_mfe": 0.022278625720663407
+        },
+        "short": {
+          "n": 15,
+          "mean": 0.015410073496337178,
+          "median": 0.012578642070977808,
+          "p10": -0.01253508024168828,
+          "p90": 0.05168906662658685,
+          "positive_rate": 0.6666666666666666,
+          "mean_mae": -0.022278625720663407,
+          "mean_mfe": 0.05087865364120614
+        }
+      }
+    },
+    {
+      "rule": "percentile",
+      "partition": "train",
+      "horizon": 14,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 8,
+          "mean": -0.028931120913349984,
+          "median": -0.02618188195763832,
+          "p10": -0.061717183627450295,
+          "p90": 0.005494997312115687,
+          "positive_rate": 0.25,
+          "mean_mae": -0.07300941851895437,
+          "mean_mfe": 0.023061907997047548
+        },
+        "short": {
+          "n": 8,
+          "mean": 0.028931120913349984,
+          "median": 0.02618188195763832,
+          "p10": -0.005494997312115689,
+          "p90": 0.061717183627450295,
+          "positive_rate": 0.75,
+          "mean_mae": -0.023061907997047548,
+          "mean_mfe": 0.07300941851895437
+        }
+      }
+    },
+    {
+      "rule": "percentile",
+      "partition": "train",
+      "horizon": 30,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      }
+    },
+    {
+      "rule": "percentile",
+      "partition": "test",
+      "horizon": 1,
+      "selected": 1,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 1,
+        "mean": -0.03172199827395972,
+        "median": -0.03172199827395972,
+        "p10": -0.03172199827395972,
+        "p90": -0.03172199827395972,
+        "positive_rate": 0,
+        "mean_mae": -0.06050863566348763,
+        "mean_mfe": 0.010681785905461094
+      },
+      "groups": {
+        "long": {
+          "n": 1,
+          "mean": -0.03172199827395972,
+          "median": -0.03172199827395972,
+          "p10": -0.03172199827395972,
+          "p90": -0.03172199827395972,
+          "positive_rate": 0,
+          "mean_mae": -0.06050863566348763,
+          "mean_mfe": 0.010681785905461094
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 1,
+          "mean": -0.03172199827395972,
+          "median": -0.03172199827395972,
+          "p10": -0.03172199827395972,
+          "p90": -0.03172199827395972,
+          "positive_rate": 0,
+          "mean_mae": -0.06050863566348763,
+          "mean_mfe": 0.010681785905461094
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 1,
+        "mean": -0.004531154789065628,
+        "median": -0.004531154789065628,
+        "p10": -0.004531154789065628,
+        "p90": -0.004531154789065628,
+        "positive_rate": 0,
+        "mean_mae": -0.07622070750728616,
+        "mean_mfe": 0.004989348184467612
+      },
+      "unconditional": {
+        "long": {
+          "n": 8,
+          "mean": -0.01873525353622016,
+          "median": -0.012827441705568876,
+          "p10": -0.049040892942514604,
+          "p90": 0.004012823211114135,
+          "positive_rate": 0.25,
+          "mean_mae": -0.04123442231832805,
+          "mean_mfe": 0.01007839129917576
+        },
+        "short": {
+          "n": 8,
+          "mean": 0.01873525353622016,
+          "median": 0.012827441705568876,
+          "p10": -0.004012823211114136,
+          "p90": 0.049040892942514604,
+          "positive_rate": 0.75,
+          "mean_mae": -0.01007839129917576,
+          "mean_mfe": 0.04123442231832805
+        }
+      }
+    },
+    {
+      "rule": "percentile",
+      "partition": "test",
+      "horizon": 3,
+      "selected": 1,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 1,
+        "mean": -0.07492762647614681,
+        "median": -0.07492762647614681,
+        "p10": -0.07492762647614681,
+        "p90": -0.07492762647614681,
+        "positive_rate": 0,
+        "mean_mae": -0.10215318061154266,
+        "mean_mfe": 0.010681785905461094
+      },
+      "groups": {
+        "long": {
+          "n": 1,
+          "mean": -0.07492762647614681,
+          "median": -0.07492762647614681,
+          "p10": -0.07492762647614681,
+          "p90": -0.07492762647614681,
+          "positive_rate": 0,
+          "mean_mae": -0.10215318061154266,
+          "mean_mfe": 0.010681785905461094
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 1,
+          "mean": -0.07492762647614681,
+          "median": -0.07492762647614681,
+          "p10": -0.07492762647614681,
+          "p90": -0.07492762647614681,
+          "positive_rate": 0,
+          "mean_mae": -0.10215318061154266,
+          "mean_mfe": 0.010681785905461094
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 1,
+        "mean": -0.12484163944614601,
+        "median": -0.12484163944614601,
+        "p10": -0.12484163944614601,
+        "p90": -0.12484163944614601,
+        "positive_rate": 0,
+        "mean_mae": -0.1458351304246609,
+        "mean_mfe": 0.0024620584221832775
+      },
+      "unconditional": {
+        "long": {
+          "n": 6,
+          "mean": -0.06650294246943005,
+          "median": -0.06193772428018762,
+          "p10": -0.10314490244281355,
+          "p90": -0.034426200685288955,
+          "positive_rate": 0,
+          "mean_mae": -0.09313056628662651,
+          "mean_mfe": 0.00702092114021291
+        },
+        "short": {
+          "n": 6,
+          "mean": 0.06650294246943005,
+          "median": 0.06193772428018762,
+          "p10": 0.034426200685288955,
+          "p90": 0.10314490244281355,
+          "positive_rate": 1,
+          "mean_mae": -0.00702092114021291,
+          "mean_mfe": 0.09313056628662651
+        }
+      }
+    },
+    {
+      "rule": "percentile",
+      "partition": "test",
+      "horizon": 7,
+      "selected": 1,
+      "censored": 1,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 2,
+          "mean": -0.1308065749605809,
+          "median": -0.1308065749605809,
+          "p10": -0.13665121979589673,
+          "p90": -0.12496193012526509,
+          "positive_rate": 0,
+          "mean_mae": -0.17505049170095782,
+          "mean_mfe": 0.009938989527716324
+        },
+        "short": {
+          "n": 2,
+          "mean": 0.1308065749605809,
+          "median": 0.1308065749605809,
+          "p10": 0.12496193012526509,
+          "p90": 0.13665121979589673,
+          "positive_rate": 1,
+          "mean_mae": -0.009938989527716324,
+          "mean_mfe": 0.17505049170095782
+        }
+      }
+    },
+    {
+      "rule": "percentile",
+      "partition": "test",
+      "horizon": 14,
+      "selected": 1,
+      "censored": 1,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      }
+    },
+    {
+      "rule": "percentile",
+      "partition": "test",
+      "horizon": 30,
+      "selected": 1,
+      "censored": 1,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      }
+    },
+    {
+      "rule": "move",
+      "partition": "train",
+      "horizon": 1,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 21,
+          "mean": -0.00288005178194121,
+          "median": -0.0007049824635612101,
+          "p10": -0.02177179543758989,
+          "p90": 0.01722399266147767,
+          "positive_rate": 0.38095238095238093,
+          "mean_mae": -0.02036085050396632,
+          "mean_mfe": 0.014819572010675217
+        },
+        "short": {
+          "n": 21,
+          "mean": 0.00288005178194121,
+          "median": 0.0007049824635612101,
+          "p10": -0.01722399266147767,
+          "p90": 0.02177179543758989,
+          "positive_rate": 0.6190476190476191,
+          "mean_mae": -0.014819572010675217,
+          "mean_mfe": 0.02036085050396632
+        }
+      }
+    },
+    {
+      "rule": "move",
+      "partition": "train",
+      "horizon": 3,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 19,
+          "mean": -0.008843551769076119,
+          "median": -0.006749774869175051,
+          "p10": -0.03255010926481041,
+          "p90": 0.015294293236916931,
+          "positive_rate": 0.2631578947368421,
+          "mean_mae": -0.03833874450635686,
+          "mean_mfe": 0.019381279141869934
+        },
+        "short": {
+          "n": 19,
+          "mean": 0.008843551769076119,
+          "median": 0.006749774869175051,
+          "p10": -0.015294293236916934,
+          "p90": 0.032550109264810397,
+          "positive_rate": 0.7368421052631579,
+          "mean_mae": -0.019381279141869934,
+          "mean_mfe": 0.03833874450635686
+        }
+      }
+    },
+    {
+      "rule": "move",
+      "partition": "train",
+      "horizon": 7,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 15,
+          "mean": -0.015410073496337178,
+          "median": -0.012578642070977808,
+          "p10": -0.05168906662658685,
+          "p90": 0.01253508024168828,
+          "positive_rate": 0.3333333333333333,
+          "mean_mae": -0.05087865364120614,
+          "mean_mfe": 0.022278625720663407
+        },
+        "short": {
+          "n": 15,
+          "mean": 0.015410073496337178,
+          "median": 0.012578642070977808,
+          "p10": -0.01253508024168828,
+          "p90": 0.05168906662658685,
+          "positive_rate": 0.6666666666666666,
+          "mean_mae": -0.022278625720663407,
+          "mean_mfe": 0.05087865364120614
+        }
+      }
+    },
+    {
+      "rule": "move",
+      "partition": "train",
+      "horizon": 14,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 8,
+          "mean": -0.028931120913349984,
+          "median": -0.02618188195763832,
+          "p10": -0.061717183627450295,
+          "p90": 0.005494997312115687,
+          "positive_rate": 0.25,
+          "mean_mae": -0.07300941851895437,
+          "mean_mfe": 0.023061907997047548
+        },
+        "short": {
+          "n": 8,
+          "mean": 0.028931120913349984,
+          "median": 0.02618188195763832,
+          "p10": -0.005494997312115689,
+          "p90": 0.061717183627450295,
+          "positive_rate": 0.75,
+          "mean_mae": -0.023061907997047548,
+          "mean_mfe": 0.07300941851895437
+        }
+      }
+    },
+    {
+      "rule": "move",
+      "partition": "train",
+      "horizon": 30,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      }
+    },
+    {
+      "rule": "move",
+      "partition": "test",
+      "horizon": 1,
+      "selected": 1,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 1,
+        "mean": 0.005607543226296752,
+        "median": 0.005607543226296752,
+        "p10": 0.005607543226296752,
+        "p90": 0.005607543226296752,
+        "positive_rate": 1,
+        "mean_mae": -0.018061229336880036,
+        "mean_mfe": 0.033512255367661004
+      },
+      "groups": {
+        "long": {
+          "n": 1,
+          "mean": 0.005607543226296752,
+          "median": 0.005607543226296752,
+          "p10": 0.005607543226296752,
+          "p90": 0.005607543226296752,
+          "positive_rate": 1,
+          "mean_mae": -0.018061229336880036,
+          "mean_mfe": 0.033512255367661004
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 1,
+          "mean": 0.005607543226296752,
+          "median": 0.005607543226296752,
+          "p10": 0.005607543226296752,
+          "p90": 0.005607543226296752,
+          "positive_rate": 1,
+          "mean_mae": -0.018061229336880036,
+          "mean_mfe": 0.033512255367661004
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 1,
+        "mean": -0.004531154789065628,
+        "median": -0.004531154789065628,
+        "p10": -0.004531154789065628,
+        "p90": -0.004531154789065628,
+        "positive_rate": 0,
+        "mean_mae": -0.07622070750728616,
+        "mean_mfe": 0.004989348184467612
+      },
+      "unconditional": {
+        "long": {
+          "n": 8,
+          "mean": -0.01873525353622016,
+          "median": -0.012827441705568876,
+          "p10": -0.049040892942514604,
+          "p90": 0.004012823211114135,
+          "positive_rate": 0.25,
+          "mean_mae": -0.04123442231832805,
+          "mean_mfe": 0.01007839129917576
+        },
+        "short": {
+          "n": 8,
+          "mean": 0.01873525353622016,
+          "median": 0.012827441705568876,
+          "p10": -0.004012823211114136,
+          "p90": 0.049040892942514604,
+          "positive_rate": 0.75,
+          "mean_mae": -0.01007839129917576,
+          "mean_mfe": 0.04123442231832805
+        }
+      }
+    },
+    {
+      "rule": "move",
+      "partition": "test",
+      "horizon": 3,
+      "selected": 1,
+      "censored": 1,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 6,
+          "mean": -0.06650294246943005,
+          "median": -0.06193772428018762,
+          "p10": -0.10314490244281355,
+          "p90": -0.034426200685288955,
+          "positive_rate": 0,
+          "mean_mae": -0.09313056628662651,
+          "mean_mfe": 0.00702092114021291
+        },
+        "short": {
+          "n": 6,
+          "mean": 0.06650294246943005,
+          "median": 0.06193772428018762,
+          "p10": 0.034426200685288955,
+          "p90": 0.10314490244281355,
+          "positive_rate": 1,
+          "mean_mae": -0.00702092114021291,
+          "mean_mfe": 0.09313056628662651
+        }
+      }
+    },
+    {
+      "rule": "move",
+      "partition": "test",
+      "horizon": 7,
+      "selected": 1,
+      "censored": 1,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 2,
+          "mean": -0.1308065749605809,
+          "median": -0.1308065749605809,
+          "p10": -0.13665121979589673,
+          "p90": -0.12496193012526509,
+          "positive_rate": 0,
+          "mean_mae": -0.17505049170095782,
+          "mean_mfe": 0.009938989527716324
+        },
+        "short": {
+          "n": 2,
+          "mean": 0.1308065749605809,
+          "median": 0.1308065749605809,
+          "p10": 0.12496193012526509,
+          "p90": 0.13665121979589673,
+          "positive_rate": 1,
+          "mean_mae": -0.009938989527716324,
+          "mean_mfe": 0.17505049170095782
+        }
+      }
+    },
+    {
+      "rule": "move",
+      "partition": "test",
+      "horizon": 14,
+      "selected": 1,
+      "censored": 1,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      }
+    },
+    {
+      "rule": "move",
+      "partition": "test",
+      "horizon": 30,
+      "selected": 1,
+      "censored": 1,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      }
+    },
+    {
+      "rule": "stretch",
+      "partition": "train",
+      "horizon": 1,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 21,
+          "mean": -0.00288005178194121,
+          "median": -0.0007049824635612101,
+          "p10": -0.02177179543758989,
+          "p90": 0.01722399266147767,
+          "positive_rate": 0.38095238095238093,
+          "mean_mae": -0.02036085050396632,
+          "mean_mfe": 0.014819572010675217
+        },
+        "short": {
+          "n": 21,
+          "mean": 0.00288005178194121,
+          "median": 0.0007049824635612101,
+          "p10": -0.01722399266147767,
+          "p90": 0.02177179543758989,
+          "positive_rate": 0.6190476190476191,
+          "mean_mae": -0.014819572010675217,
+          "mean_mfe": 0.02036085050396632
+        }
+      }
+    },
+    {
+      "rule": "stretch",
+      "partition": "train",
+      "horizon": 3,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 19,
+          "mean": -0.008843551769076119,
+          "median": -0.006749774869175051,
+          "p10": -0.03255010926481041,
+          "p90": 0.015294293236916931,
+          "positive_rate": 0.2631578947368421,
+          "mean_mae": -0.03833874450635686,
+          "mean_mfe": 0.019381279141869934
+        },
+        "short": {
+          "n": 19,
+          "mean": 0.008843551769076119,
+          "median": 0.006749774869175051,
+          "p10": -0.015294293236916934,
+          "p90": 0.032550109264810397,
+          "positive_rate": 0.7368421052631579,
+          "mean_mae": -0.019381279141869934,
+          "mean_mfe": 0.03833874450635686
+        }
+      }
+    },
+    {
+      "rule": "stretch",
+      "partition": "train",
+      "horizon": 7,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 15,
+          "mean": -0.015410073496337178,
+          "median": -0.012578642070977808,
+          "p10": -0.05168906662658685,
+          "p90": 0.01253508024168828,
+          "positive_rate": 0.3333333333333333,
+          "mean_mae": -0.05087865364120614,
+          "mean_mfe": 0.022278625720663407
+        },
+        "short": {
+          "n": 15,
+          "mean": 0.015410073496337178,
+          "median": 0.012578642070977808,
+          "p10": -0.01253508024168828,
+          "p90": 0.05168906662658685,
+          "positive_rate": 0.6666666666666666,
+          "mean_mae": -0.022278625720663407,
+          "mean_mfe": 0.05087865364120614
+        }
+      }
+    },
+    {
+      "rule": "stretch",
+      "partition": "train",
+      "horizon": 14,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 8,
+          "mean": -0.028931120913349984,
+          "median": -0.02618188195763832,
+          "p10": -0.061717183627450295,
+          "p90": 0.005494997312115687,
+          "positive_rate": 0.25,
+          "mean_mae": -0.07300941851895437,
+          "mean_mfe": 0.023061907997047548
+        },
+        "short": {
+          "n": 8,
+          "mean": 0.028931120913349984,
+          "median": 0.02618188195763832,
+          "p10": -0.005494997312115689,
+          "p90": 0.061717183627450295,
+          "positive_rate": 0.75,
+          "mean_mae": -0.023061907997047548,
+          "mean_mfe": 0.07300941851895437
+        }
+      }
+    },
+    {
+      "rule": "stretch",
+      "partition": "train",
+      "horizon": 30,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      }
+    },
+    {
+      "rule": "stretch",
+      "partition": "test",
+      "horizon": 1,
+      "selected": 1,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 1,
+        "mean": -0.04994855317074931,
+        "median": -0.04994855317074931,
+        "p10": -0.04994855317074931,
+        "p90": -0.04994855317074931,
+        "positive_rate": 0,
+        "mean_mae": -0.07273859595284937,
+        "mean_mfe": 0.008048721049876528
+      },
+      "groups": {
+        "long": {
+          "n": 1,
+          "mean": -0.04994855317074931,
+          "median": -0.04994855317074931,
+          "p10": -0.04994855317074931,
+          "p90": -0.04994855317074931,
+          "positive_rate": 0,
+          "mean_mae": -0.07273859595284937,
+          "mean_mfe": 0.008048721049876528
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 1,
+          "mean": -0.04994855317074931,
+          "median": -0.04994855317074931,
+          "p10": -0.04994855317074931,
+          "p90": -0.04994855317074931,
+          "positive_rate": 0,
+          "mean_mae": -0.07273859595284937,
+          "mean_mfe": 0.008048721049876528
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 1,
+        "mean": -0.004531154789065628,
+        "median": -0.004531154789065628,
+        "p10": -0.004531154789065628,
+        "p90": -0.004531154789065628,
+        "positive_rate": 0,
+        "mean_mae": -0.07622070750728616,
+        "mean_mfe": 0.004989348184467612
+      },
+      "unconditional": {
+        "long": {
+          "n": 8,
+          "mean": -0.01873525353622016,
+          "median": -0.012827441705568876,
+          "p10": -0.049040892942514604,
+          "p90": 0.004012823211114135,
+          "positive_rate": 0.25,
+          "mean_mae": -0.04123442231832805,
+          "mean_mfe": 0.01007839129917576
+        },
+        "short": {
+          "n": 8,
+          "mean": 0.01873525353622016,
+          "median": 0.012827441705568876,
+          "p10": -0.004012823211114136,
+          "p90": 0.049040892942514604,
+          "positive_rate": 0.75,
+          "mean_mae": -0.01007839129917576,
+          "mean_mfe": 0.04123442231832805
+        }
+      }
+    },
+    {
+      "rule": "stretch",
+      "partition": "test",
+      "horizon": 3,
+      "selected": 1,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 1,
+        "mean": -0.04894782208422843,
+        "median": -0.04894782208422843,
+        "p10": -0.04894782208422843,
+        "p90": -0.04894782208422843,
+        "positive_rate": 0,
+        "mean_mae": -0.11743866996407748,
+        "mean_mfe": 0.008048721049876528
+      },
+      "groups": {
+        "long": {
+          "n": 1,
+          "mean": -0.04894782208422843,
+          "median": -0.04894782208422843,
+          "p10": -0.04894782208422843,
+          "p90": -0.04894782208422843,
+          "positive_rate": 0,
+          "mean_mae": -0.11743866996407748,
+          "mean_mfe": 0.008048721049876528
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 1,
+          "mean": -0.04894782208422843,
+          "median": -0.04894782208422843,
+          "p10": -0.04894782208422843,
+          "p90": -0.04894782208422843,
+          "positive_rate": 0,
+          "mean_mae": -0.11743866996407748,
+          "mean_mfe": 0.008048721049876528
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 1,
+        "mean": -0.12484163944614601,
+        "median": -0.12484163944614601,
+        "p10": -0.12484163944614601,
+        "p90": -0.12484163944614601,
+        "positive_rate": 0,
+        "mean_mae": -0.1458351304246609,
+        "mean_mfe": 0.0024620584221832775
+      },
+      "unconditional": {
+        "long": {
+          "n": 6,
+          "mean": -0.06650294246943005,
+          "median": -0.06193772428018762,
+          "p10": -0.10314490244281355,
+          "p90": -0.034426200685288955,
+          "positive_rate": 0,
+          "mean_mae": -0.09313056628662651,
+          "mean_mfe": 0.00702092114021291
+        },
+        "short": {
+          "n": 6,
+          "mean": 0.06650294246943005,
+          "median": 0.06193772428018762,
+          "p10": 0.034426200685288955,
+          "p90": 0.10314490244281355,
+          "positive_rate": 1,
+          "mean_mae": -0.00702092114021291,
+          "mean_mfe": 0.09313056628662651
+        }
+      }
+    },
+    {
+      "rule": "stretch",
+      "partition": "test",
+      "horizon": 7,
+      "selected": 1,
+      "censored": 1,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 2,
+          "mean": -0.1308065749605809,
+          "median": -0.1308065749605809,
+          "p10": -0.13665121979589673,
+          "p90": -0.12496193012526509,
+          "positive_rate": 0,
+          "mean_mae": -0.17505049170095782,
+          "mean_mfe": 0.009938989527716324
+        },
+        "short": {
+          "n": 2,
+          "mean": 0.1308065749605809,
+          "median": 0.1308065749605809,
+          "p10": 0.12496193012526509,
+          "p90": 0.13665121979589673,
+          "positive_rate": 1,
+          "mean_mae": -0.009938989527716324,
+          "mean_mfe": 0.17505049170095782
+        }
+      }
+    },
+    {
+      "rule": "stretch",
+      "partition": "test",
+      "horizon": 14,
+      "selected": 1,
+      "censored": 1,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      }
+    },
+    {
+      "rule": "stretch",
+      "partition": "test",
+      "horizon": 30,
+      "selected": 1,
+      "censored": 1,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      }
+    },
+    {
+      "rule": "percentile_move",
+      "partition": "train",
+      "horizon": 1,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 21,
+          "mean": -0.00288005178194121,
+          "median": -0.0007049824635612101,
+          "p10": -0.02177179543758989,
+          "p90": 0.01722399266147767,
+          "positive_rate": 0.38095238095238093,
+          "mean_mae": -0.02036085050396632,
+          "mean_mfe": 0.014819572010675217
+        },
+        "short": {
+          "n": 21,
+          "mean": 0.00288005178194121,
+          "median": 0.0007049824635612101,
+          "p10": -0.01722399266147767,
+          "p90": 0.02177179543758989,
+          "positive_rate": 0.6190476190476191,
+          "mean_mae": -0.014819572010675217,
+          "mean_mfe": 0.02036085050396632
+        }
+      }
+    },
+    {
+      "rule": "percentile_move",
+      "partition": "train",
+      "horizon": 3,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 19,
+          "mean": -0.008843551769076119,
+          "median": -0.006749774869175051,
+          "p10": -0.03255010926481041,
+          "p90": 0.015294293236916931,
+          "positive_rate": 0.2631578947368421,
+          "mean_mae": -0.03833874450635686,
+          "mean_mfe": 0.019381279141869934
+        },
+        "short": {
+          "n": 19,
+          "mean": 0.008843551769076119,
+          "median": 0.006749774869175051,
+          "p10": -0.015294293236916934,
+          "p90": 0.032550109264810397,
+          "positive_rate": 0.7368421052631579,
+          "mean_mae": -0.019381279141869934,
+          "mean_mfe": 0.03833874450635686
+        }
+      }
+    },
+    {
+      "rule": "percentile_move",
+      "partition": "train",
+      "horizon": 7,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 15,
+          "mean": -0.015410073496337178,
+          "median": -0.012578642070977808,
+          "p10": -0.05168906662658685,
+          "p90": 0.01253508024168828,
+          "positive_rate": 0.3333333333333333,
+          "mean_mae": -0.05087865364120614,
+          "mean_mfe": 0.022278625720663407
+        },
+        "short": {
+          "n": 15,
+          "mean": 0.015410073496337178,
+          "median": 0.012578642070977808,
+          "p10": -0.01253508024168828,
+          "p90": 0.05168906662658685,
+          "positive_rate": 0.6666666666666666,
+          "mean_mae": -0.022278625720663407,
+          "mean_mfe": 0.05087865364120614
+        }
+      }
+    },
+    {
+      "rule": "percentile_move",
+      "partition": "train",
+      "horizon": 14,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 8,
+          "mean": -0.028931120913349984,
+          "median": -0.02618188195763832,
+          "p10": -0.061717183627450295,
+          "p90": 0.005494997312115687,
+          "positive_rate": 0.25,
+          "mean_mae": -0.07300941851895437,
+          "mean_mfe": 0.023061907997047548
+        },
+        "short": {
+          "n": 8,
+          "mean": 0.028931120913349984,
+          "median": 0.02618188195763832,
+          "p10": -0.005494997312115689,
+          "p90": 0.061717183627450295,
+          "positive_rate": 0.75,
+          "mean_mae": -0.023061907997047548,
+          "mean_mfe": 0.07300941851895437
+        }
+      }
+    },
+    {
+      "rule": "percentile_move",
+      "partition": "train",
+      "horizon": 30,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      }
+    },
+    {
+      "rule": "percentile_move",
+      "partition": "test",
+      "horizon": 1,
+      "selected": 1,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 1,
+        "mean": 0.005607543226296752,
+        "median": 0.005607543226296752,
+        "p10": 0.005607543226296752,
+        "p90": 0.005607543226296752,
+        "positive_rate": 1,
+        "mean_mae": -0.018061229336880036,
+        "mean_mfe": 0.033512255367661004
+      },
+      "groups": {
+        "long": {
+          "n": 1,
+          "mean": 0.005607543226296752,
+          "median": 0.005607543226296752,
+          "p10": 0.005607543226296752,
+          "p90": 0.005607543226296752,
+          "positive_rate": 1,
+          "mean_mae": -0.018061229336880036,
+          "mean_mfe": 0.033512255367661004
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 1,
+          "mean": 0.005607543226296752,
+          "median": 0.005607543226296752,
+          "p10": 0.005607543226296752,
+          "p90": 0.005607543226296752,
+          "positive_rate": 1,
+          "mean_mae": -0.018061229336880036,
+          "mean_mfe": 0.033512255367661004
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 1,
+        "mean": -0.004531154789065628,
+        "median": -0.004531154789065628,
+        "p10": -0.004531154789065628,
+        "p90": -0.004531154789065628,
+        "positive_rate": 0,
+        "mean_mae": -0.07622070750728616,
+        "mean_mfe": 0.004989348184467612
+      },
+      "unconditional": {
+        "long": {
+          "n": 8,
+          "mean": -0.01873525353622016,
+          "median": -0.012827441705568876,
+          "p10": -0.049040892942514604,
+          "p90": 0.004012823211114135,
+          "positive_rate": 0.25,
+          "mean_mae": -0.04123442231832805,
+          "mean_mfe": 0.01007839129917576
+        },
+        "short": {
+          "n": 8,
+          "mean": 0.01873525353622016,
+          "median": 0.012827441705568876,
+          "p10": -0.004012823211114136,
+          "p90": 0.049040892942514604,
+          "positive_rate": 0.75,
+          "mean_mae": -0.01007839129917576,
+          "mean_mfe": 0.04123442231832805
+        }
+      }
+    },
+    {
+      "rule": "percentile_move",
+      "partition": "test",
+      "horizon": 3,
+      "selected": 1,
+      "censored": 1,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 6,
+          "mean": -0.06650294246943005,
+          "median": -0.06193772428018762,
+          "p10": -0.10314490244281355,
+          "p90": -0.034426200685288955,
+          "positive_rate": 0,
+          "mean_mae": -0.09313056628662651,
+          "mean_mfe": 0.00702092114021291
+        },
+        "short": {
+          "n": 6,
+          "mean": 0.06650294246943005,
+          "median": 0.06193772428018762,
+          "p10": 0.034426200685288955,
+          "p90": 0.10314490244281355,
+          "positive_rate": 1,
+          "mean_mae": -0.00702092114021291,
+          "mean_mfe": 0.09313056628662651
+        }
+      }
+    },
+    {
+      "rule": "percentile_move",
+      "partition": "test",
+      "horizon": 7,
+      "selected": 1,
+      "censored": 1,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 2,
+          "mean": -0.1308065749605809,
+          "median": -0.1308065749605809,
+          "p10": -0.13665121979589673,
+          "p90": -0.12496193012526509,
+          "positive_rate": 0,
+          "mean_mae": -0.17505049170095782,
+          "mean_mfe": 0.009938989527716324
+        },
+        "short": {
+          "n": 2,
+          "mean": 0.1308065749605809,
+          "median": 0.1308065749605809,
+          "p10": 0.12496193012526509,
+          "p90": 0.13665121979589673,
+          "positive_rate": 1,
+          "mean_mae": -0.009938989527716324,
+          "mean_mfe": 0.17505049170095782
+        }
+      }
+    },
+    {
+      "rule": "percentile_move",
+      "partition": "test",
+      "horizon": 14,
+      "selected": 1,
+      "censored": 1,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      }
+    },
+    {
+      "rule": "percentile_move",
+      "partition": "test",
+      "horizon": 30,
+      "selected": 1,
+      "censored": 1,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      }
+    },
+    {
+      "rule": "percentile_stretch",
+      "partition": "train",
+      "horizon": 1,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 21,
+          "mean": -0.00288005178194121,
+          "median": -0.0007049824635612101,
+          "p10": -0.02177179543758989,
+          "p90": 0.01722399266147767,
+          "positive_rate": 0.38095238095238093,
+          "mean_mae": -0.02036085050396632,
+          "mean_mfe": 0.014819572010675217
+        },
+        "short": {
+          "n": 21,
+          "mean": 0.00288005178194121,
+          "median": 0.0007049824635612101,
+          "p10": -0.01722399266147767,
+          "p90": 0.02177179543758989,
+          "positive_rate": 0.6190476190476191,
+          "mean_mae": -0.014819572010675217,
+          "mean_mfe": 0.02036085050396632
+        }
+      }
+    },
+    {
+      "rule": "percentile_stretch",
+      "partition": "train",
+      "horizon": 3,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 19,
+          "mean": -0.008843551769076119,
+          "median": -0.006749774869175051,
+          "p10": -0.03255010926481041,
+          "p90": 0.015294293236916931,
+          "positive_rate": 0.2631578947368421,
+          "mean_mae": -0.03833874450635686,
+          "mean_mfe": 0.019381279141869934
+        },
+        "short": {
+          "n": 19,
+          "mean": 0.008843551769076119,
+          "median": 0.006749774869175051,
+          "p10": -0.015294293236916934,
+          "p90": 0.032550109264810397,
+          "positive_rate": 0.7368421052631579,
+          "mean_mae": -0.019381279141869934,
+          "mean_mfe": 0.03833874450635686
+        }
+      }
+    },
+    {
+      "rule": "percentile_stretch",
+      "partition": "train",
+      "horizon": 7,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 15,
+          "mean": -0.015410073496337178,
+          "median": -0.012578642070977808,
+          "p10": -0.05168906662658685,
+          "p90": 0.01253508024168828,
+          "positive_rate": 0.3333333333333333,
+          "mean_mae": -0.05087865364120614,
+          "mean_mfe": 0.022278625720663407
+        },
+        "short": {
+          "n": 15,
+          "mean": 0.015410073496337178,
+          "median": 0.012578642070977808,
+          "p10": -0.01253508024168828,
+          "p90": 0.05168906662658685,
+          "positive_rate": 0.6666666666666666,
+          "mean_mae": -0.022278625720663407,
+          "mean_mfe": 0.05087865364120614
+        }
+      }
+    },
+    {
+      "rule": "percentile_stretch",
+      "partition": "train",
+      "horizon": 14,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 8,
+          "mean": -0.028931120913349984,
+          "median": -0.02618188195763832,
+          "p10": -0.061717183627450295,
+          "p90": 0.005494997312115687,
+          "positive_rate": 0.25,
+          "mean_mae": -0.07300941851895437,
+          "mean_mfe": 0.023061907997047548
+        },
+        "short": {
+          "n": 8,
+          "mean": 0.028931120913349984,
+          "median": 0.02618188195763832,
+          "p10": -0.005494997312115689,
+          "p90": 0.061717183627450295,
+          "positive_rate": 0.75,
+          "mean_mae": -0.023061907997047548,
+          "mean_mfe": 0.07300941851895437
+        }
+      }
+    },
+    {
+      "rule": "percentile_stretch",
+      "partition": "train",
+      "horizon": 30,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      }
+    },
+    {
+      "rule": "percentile_stretch",
+      "partition": "test",
+      "horizon": 1,
+      "selected": 1,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 1,
+        "mean": -0.04994855317074931,
+        "median": -0.04994855317074931,
+        "p10": -0.04994855317074931,
+        "p90": -0.04994855317074931,
+        "positive_rate": 0,
+        "mean_mae": -0.07273859595284937,
+        "mean_mfe": 0.008048721049876528
+      },
+      "groups": {
+        "long": {
+          "n": 1,
+          "mean": -0.04994855317074931,
+          "median": -0.04994855317074931,
+          "p10": -0.04994855317074931,
+          "p90": -0.04994855317074931,
+          "positive_rate": 0,
+          "mean_mae": -0.07273859595284937,
+          "mean_mfe": 0.008048721049876528
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 1,
+          "mean": -0.04994855317074931,
+          "median": -0.04994855317074931,
+          "p10": -0.04994855317074931,
+          "p90": -0.04994855317074931,
+          "positive_rate": 0,
+          "mean_mae": -0.07273859595284937,
+          "mean_mfe": 0.008048721049876528
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 1,
+        "mean": -0.004531154789065628,
+        "median": -0.004531154789065628,
+        "p10": -0.004531154789065628,
+        "p90": -0.004531154789065628,
+        "positive_rate": 0,
+        "mean_mae": -0.07622070750728616,
+        "mean_mfe": 0.004989348184467612
+      },
+      "unconditional": {
+        "long": {
+          "n": 8,
+          "mean": -0.01873525353622016,
+          "median": -0.012827441705568876,
+          "p10": -0.049040892942514604,
+          "p90": 0.004012823211114135,
+          "positive_rate": 0.25,
+          "mean_mae": -0.04123442231832805,
+          "mean_mfe": 0.01007839129917576
+        },
+        "short": {
+          "n": 8,
+          "mean": 0.01873525353622016,
+          "median": 0.012827441705568876,
+          "p10": -0.004012823211114136,
+          "p90": 0.049040892942514604,
+          "positive_rate": 0.75,
+          "mean_mae": -0.01007839129917576,
+          "mean_mfe": 0.04123442231832805
+        }
+      }
+    },
+    {
+      "rule": "percentile_stretch",
+      "partition": "test",
+      "horizon": 3,
+      "selected": 1,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 1,
+        "mean": -0.04894782208422843,
+        "median": -0.04894782208422843,
+        "p10": -0.04894782208422843,
+        "p90": -0.04894782208422843,
+        "positive_rate": 0,
+        "mean_mae": -0.11743866996407748,
+        "mean_mfe": 0.008048721049876528
+      },
+      "groups": {
+        "long": {
+          "n": 1,
+          "mean": -0.04894782208422843,
+          "median": -0.04894782208422843,
+          "p10": -0.04894782208422843,
+          "p90": -0.04894782208422843,
+          "positive_rate": 0,
+          "mean_mae": -0.11743866996407748,
+          "mean_mfe": 0.008048721049876528
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 1,
+          "mean": -0.04894782208422843,
+          "median": -0.04894782208422843,
+          "p10": -0.04894782208422843,
+          "p90": -0.04894782208422843,
+          "positive_rate": 0,
+          "mean_mae": -0.11743866996407748,
+          "mean_mfe": 0.008048721049876528
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 1,
+        "mean": -0.12484163944614601,
+        "median": -0.12484163944614601,
+        "p10": -0.12484163944614601,
+        "p90": -0.12484163944614601,
+        "positive_rate": 0,
+        "mean_mae": -0.1458351304246609,
+        "mean_mfe": 0.0024620584221832775
+      },
+      "unconditional": {
+        "long": {
+          "n": 6,
+          "mean": -0.06650294246943005,
+          "median": -0.06193772428018762,
+          "p10": -0.10314490244281355,
+          "p90": -0.034426200685288955,
+          "positive_rate": 0,
+          "mean_mae": -0.09313056628662651,
+          "mean_mfe": 0.00702092114021291
+        },
+        "short": {
+          "n": 6,
+          "mean": 0.06650294246943005,
+          "median": 0.06193772428018762,
+          "p10": 0.034426200685288955,
+          "p90": 0.10314490244281355,
+          "positive_rate": 1,
+          "mean_mae": -0.00702092114021291,
+          "mean_mfe": 0.09313056628662651
+        }
+      }
+    },
+    {
+      "rule": "percentile_stretch",
+      "partition": "test",
+      "horizon": 7,
+      "selected": 1,
+      "censored": 1,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 2,
+          "mean": -0.1308065749605809,
+          "median": -0.1308065749605809,
+          "p10": -0.13665121979589673,
+          "p90": -0.12496193012526509,
+          "positive_rate": 0,
+          "mean_mae": -0.17505049170095782,
+          "mean_mfe": 0.009938989527716324
+        },
+        "short": {
+          "n": 2,
+          "mean": 0.1308065749605809,
+          "median": 0.1308065749605809,
+          "p10": 0.12496193012526509,
+          "p90": 0.13665121979589673,
+          "positive_rate": 1,
+          "mean_mae": -0.009938989527716324,
+          "mean_mfe": 0.17505049170095782
+        }
+      }
+    },
+    {
+      "rule": "percentile_stretch",
+      "partition": "test",
+      "horizon": 14,
+      "selected": 1,
+      "censored": 1,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      }
+    },
+    {
+      "rule": "percentile_stretch",
+      "partition": "test",
+      "horizon": 30,
+      "selected": 1,
+      "censored": 1,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      }
+    },
+    {
+      "rule": "percentile_structure",
+      "partition": "train",
+      "horizon": 1,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 21,
+          "mean": -0.00288005178194121,
+          "median": -0.0007049824635612101,
+          "p10": -0.02177179543758989,
+          "p90": 0.01722399266147767,
+          "positive_rate": 0.38095238095238093,
+          "mean_mae": -0.02036085050396632,
+          "mean_mfe": 0.014819572010675217
+        },
+        "short": {
+          "n": 21,
+          "mean": 0.00288005178194121,
+          "median": 0.0007049824635612101,
+          "p10": -0.01722399266147767,
+          "p90": 0.02177179543758989,
+          "positive_rate": 0.6190476190476191,
+          "mean_mae": -0.014819572010675217,
+          "mean_mfe": 0.02036085050396632
+        }
+      }
+    },
+    {
+      "rule": "percentile_structure",
+      "partition": "train",
+      "horizon": 3,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 19,
+          "mean": -0.008843551769076119,
+          "median": -0.006749774869175051,
+          "p10": -0.03255010926481041,
+          "p90": 0.015294293236916931,
+          "positive_rate": 0.2631578947368421,
+          "mean_mae": -0.03833874450635686,
+          "mean_mfe": 0.019381279141869934
+        },
+        "short": {
+          "n": 19,
+          "mean": 0.008843551769076119,
+          "median": 0.006749774869175051,
+          "p10": -0.015294293236916934,
+          "p90": 0.032550109264810397,
+          "positive_rate": 0.7368421052631579,
+          "mean_mae": -0.019381279141869934,
+          "mean_mfe": 0.03833874450635686
+        }
+      }
+    },
+    {
+      "rule": "percentile_structure",
+      "partition": "train",
+      "horizon": 7,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 15,
+          "mean": -0.015410073496337178,
+          "median": -0.012578642070977808,
+          "p10": -0.05168906662658685,
+          "p90": 0.01253508024168828,
+          "positive_rate": 0.3333333333333333,
+          "mean_mae": -0.05087865364120614,
+          "mean_mfe": 0.022278625720663407
+        },
+        "short": {
+          "n": 15,
+          "mean": 0.015410073496337178,
+          "median": 0.012578642070977808,
+          "p10": -0.01253508024168828,
+          "p90": 0.05168906662658685,
+          "positive_rate": 0.6666666666666666,
+          "mean_mae": -0.022278625720663407,
+          "mean_mfe": 0.05087865364120614
+        }
+      }
+    },
+    {
+      "rule": "percentile_structure",
+      "partition": "train",
+      "horizon": 14,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 8,
+          "mean": -0.028931120913349984,
+          "median": -0.02618188195763832,
+          "p10": -0.061717183627450295,
+          "p90": 0.005494997312115687,
+          "positive_rate": 0.25,
+          "mean_mae": -0.07300941851895437,
+          "mean_mfe": 0.023061907997047548
+        },
+        "short": {
+          "n": 8,
+          "mean": 0.028931120913349984,
+          "median": 0.02618188195763832,
+          "p10": -0.005494997312115689,
+          "p90": 0.061717183627450295,
+          "positive_rate": 0.75,
+          "mean_mae": -0.023061907997047548,
+          "mean_mfe": 0.07300941851895437
+        }
+      }
+    },
+    {
+      "rule": "percentile_structure",
+      "partition": "train",
+      "horizon": 30,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      }
+    },
+    {
+      "rule": "percentile_structure",
+      "partition": "test",
+      "horizon": 1,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 8,
+          "mean": -0.01873525353622016,
+          "median": -0.012827441705568876,
+          "p10": -0.049040892942514604,
+          "p90": 0.004012823211114135,
+          "positive_rate": 0.25,
+          "mean_mae": -0.04123442231832805,
+          "mean_mfe": 0.01007839129917576
+        },
+        "short": {
+          "n": 8,
+          "mean": 0.01873525353622016,
+          "median": 0.012827441705568876,
+          "p10": -0.004012823211114136,
+          "p90": 0.049040892942514604,
+          "positive_rate": 0.75,
+          "mean_mae": -0.01007839129917576,
+          "mean_mfe": 0.04123442231832805
+        }
+      }
+    },
+    {
+      "rule": "percentile_structure",
+      "partition": "test",
+      "horizon": 3,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 6,
+          "mean": -0.06650294246943005,
+          "median": -0.06193772428018762,
+          "p10": -0.10314490244281355,
+          "p90": -0.034426200685288955,
+          "positive_rate": 0,
+          "mean_mae": -0.09313056628662651,
+          "mean_mfe": 0.00702092114021291
+        },
+        "short": {
+          "n": 6,
+          "mean": 0.06650294246943005,
+          "median": 0.06193772428018762,
+          "p10": 0.034426200685288955,
+          "p90": 0.10314490244281355,
+          "positive_rate": 1,
+          "mean_mae": -0.00702092114021291,
+          "mean_mfe": 0.09313056628662651
+        }
+      }
+    },
+    {
+      "rule": "percentile_structure",
+      "partition": "test",
+      "horizon": 7,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 2,
+          "mean": -0.1308065749605809,
+          "median": -0.1308065749605809,
+          "p10": -0.13665121979589673,
+          "p90": -0.12496193012526509,
+          "positive_rate": 0,
+          "mean_mae": -0.17505049170095782,
+          "mean_mfe": 0.009938989527716324
+        },
+        "short": {
+          "n": 2,
+          "mean": 0.1308065749605809,
+          "median": 0.1308065749605809,
+          "p10": 0.12496193012526509,
+          "p90": 0.13665121979589673,
+          "positive_rate": 1,
+          "mean_mae": -0.009938989527716324,
+          "mean_mfe": 0.17505049170095782
+        }
+      }
+    },
+    {
+      "rule": "percentile_structure",
+      "partition": "test",
+      "horizon": 14,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      }
+    },
+    {
+      "rule": "percentile_structure",
+      "partition": "test",
+      "horizon": 30,
+      "selected": 0,
+      "censored": 0,
+      "status": "INSUFFICIENT_EVENTS",
+      "result": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "groups": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BULLISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "BEARISH": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      },
+      "random_control": {
+        "n": 0,
+        "mean": null,
+        "median": null,
+        "p10": null,
+        "p90": null,
+        "positive_rate": null,
+        "mean_mae": null,
+        "mean_mfe": null
+      },
+      "unconditional": {
+        "long": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        },
+        "short": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p10": null,
+          "p90": null,
+          "positive_rate": null,
+          "mean_mae": null,
+          "mean_mfe": null
+        }
+      }
+    }
+  ],
+  "events": [
+    {
+      "return_": -0.03172199827395972,
+      "mae": -0.06050863566348763,
+      "mfe": 0.010681785905461094,
+      "entry_time": 1740441600,
+      "exit_time": 1740528000,
+      "timestamp": 1740355200,
+      "direction": 1,
+      "trend": "BULLISH",
+      "rule": "percentile",
+      "partition": "test",
+      "horizon": 1,
+      "kind": "signal"
+    },
+    {
+      "return_": -0.004531154789065628,
+      "mae": -0.07622070750728616,
+      "mfe": 0.004989348184467612,
+      "entry_time": 1740700800,
+      "exit_time": 1740787200,
+      "timestamp": 1740614400,
+      "direction": 1,
+      "trend": "BULLISH",
+      "rule": "percentile",
+      "partition": "test",
+      "horizon": 1,
+      "kind": "random_control"
+    },
+    {
+      "return_": -0.07492762647614681,
+      "mae": -0.10215318061154266,
+      "mfe": 0.010681785905461094,
+      "entry_time": 1740441600,
+      "exit_time": 1740700800,
+      "timestamp": 1740355200,
+      "direction": 1,
+      "trend": "BULLISH",
+      "rule": "percentile",
+      "partition": "test",
+      "horizon": 3,
+      "kind": "signal"
+    },
+    {
+      "return_": -0.12484163944614601,
+      "mae": -0.1458351304246609,
+      "mfe": 0.0024620584221832775,
+      "entry_time": 1740355200,
+      "exit_time": 1740614400,
+      "timestamp": 1740268800,
+      "direction": 1,
+      "trend": "BULLISH",
+      "rule": "percentile",
+      "partition": "test",
+      "horizon": 3,
+      "kind": "random_control"
+    },
+    {
+      "return_": 0.005607543226296752,
+      "mae": -0.018061229336880036,
+      "mfe": 0.033512255367661004,
+      "entry_time": 1740614400,
+      "exit_time": 1740700800,
+      "timestamp": 1740528000,
+      "direction": 1,
+      "trend": "BULLISH",
+      "rule": "move",
+      "partition": "test",
+      "horizon": 1,
+      "kind": "signal"
+    },
+    {
+      "return_": -0.004531154789065628,
+      "mae": -0.07622070750728616,
+      "mfe": 0.004989348184467612,
+      "entry_time": 1740700800,
+      "exit_time": 1740787200,
+      "timestamp": 1740614400,
+      "direction": 1,
+      "trend": "BULLISH",
+      "rule": "move",
+      "partition": "test",
+      "horizon": 1,
+      "kind": "random_control"
+    },
+    {
+      "return_": -0.04994855317074931,
+      "mae": -0.07273859595284937,
+      "mfe": 0.008048721049876528,
+      "entry_time": 1740528000,
+      "exit_time": 1740614400,
+      "timestamp": 1740441600,
+      "direction": 1,
+      "trend": "BULLISH",
+      "rule": "stretch",
+      "partition": "test",
+      "horizon": 1,
+      "kind": "signal"
+    },
+    {
+      "return_": -0.004531154789065628,
+      "mae": -0.07622070750728616,
+      "mfe": 0.004989348184467612,
+      "entry_time": 1740700800,
+      "exit_time": 1740787200,
+      "timestamp": 1740614400,
+      "direction": 1,
+      "trend": "BULLISH",
+      "rule": "stretch",
+      "partition": "test",
+      "horizon": 1,
+      "kind": "random_control"
+    },
+    {
+      "return_": -0.04894782208422843,
+      "mae": -0.11743866996407748,
+      "mfe": 0.008048721049876528,
+      "entry_time": 1740528000,
+      "exit_time": 1740787200,
+      "timestamp": 1740441600,
+      "direction": 1,
+      "trend": "BULLISH",
+      "rule": "stretch",
+      "partition": "test",
+      "horizon": 3,
+      "kind": "signal"
+    },
+    {
+      "return_": -0.12484163944614601,
+      "mae": -0.1458351304246609,
+      "mfe": 0.0024620584221832775,
+      "entry_time": 1740355200,
+      "exit_time": 1740614400,
+      "timestamp": 1740268800,
+      "direction": 1,
+      "trend": "BULLISH",
+      "rule": "stretch",
+      "partition": "test",
+      "horizon": 3,
+      "kind": "random_control"
+    },
+    {
+      "return_": 0.005607543226296752,
+      "mae": -0.018061229336880036,
+      "mfe": 0.033512255367661004,
+      "entry_time": 1740614400,
+      "exit_time": 1740700800,
+      "timestamp": 1740528000,
+      "direction": 1,
+      "trend": "BULLISH",
+      "rule": "percentile_move",
+      "partition": "test",
+      "horizon": 1,
+      "kind": "signal"
+    },
+    {
+      "return_": -0.004531154789065628,
+      "mae": -0.07622070750728616,
+      "mfe": 0.004989348184467612,
+      "entry_time": 1740700800,
+      "exit_time": 1740787200,
+      "timestamp": 1740614400,
+      "direction": 1,
+      "trend": "BULLISH",
+      "rule": "percentile_move",
+      "partition": "test",
+      "horizon": 1,
+      "kind": "random_control"
+    },
+    {
+      "return_": -0.04994855317074931,
+      "mae": -0.07273859595284937,
+      "mfe": 0.008048721049876528,
+      "entry_time": 1740528000,
+      "exit_time": 1740614400,
+      "timestamp": 1740441600,
+      "direction": 1,
+      "trend": "BULLISH",
+      "rule": "percentile_stretch",
+      "partition": "test",
+      "horizon": 1,
+      "kind": "signal"
+    },
+    {
+      "return_": -0.004531154789065628,
+      "mae": -0.07622070750728616,
+      "mfe": 0.004989348184467612,
+      "entry_time": 1740700800,
+      "exit_time": 1740787200,
+      "timestamp": 1740614400,
+      "direction": 1,
+      "trend": "BULLISH",
+      "rule": "percentile_stretch",
+      "partition": "test",
+      "horizon": 1,
+      "kind": "random_control"
+    },
+    {
+      "return_": -0.04894782208422843,
+      "mae": -0.11743866996407748,
+      "mfe": 0.008048721049876528,
+      "entry_time": 1740528000,
+      "exit_time": 1740787200,
+      "timestamp": 1740441600,
+      "direction": 1,
+      "trend": "BULLISH",
+      "rule": "percentile_stretch",
+      "partition": "test",
+      "horizon": 3,
+      "kind": "signal"
+    },
+    {
+      "return_": -0.12484163944614601,
+      "mae": -0.1458351304246609,
+      "mfe": 0.0024620584221832775,
+      "entry_time": 1740355200,
+      "exit_time": 1740614400,
+      "timestamp": 1740268800,
+      "direction": 1,
+      "trend": "BULLISH",
+      "rule": "percentile_stretch",
+      "partition": "test",
+      "horizon": 3,
+      "kind": "random_control"
+    }
+  ],
+  "input_sha256": {
+    "raw.json": "1a70cfbeb8fa39cbe85805fd7c708f740a88ffc8dd71c3a21e6e1f366b1f88bf",
+    "daily.csv": "7486364aa2400fa6e5c5d9d3b8030d23ee65f9f70cb488330ddcb10bab36569e"
+  },
+  "input_quality": {
+    "version": "gate-daily-v1",
+    "symbol": "BTC",
+    "start": 1704067200,
+    "end_exclusive": 1740787200,
+    "as_of": 1790818518,
+    "timestamp_semantics": "UTC daily bucket start; closed at t + 86400",
+    "volume_unit": "contracts",
+    "raw_count": 425,
+    "valid_count": 425,
+    "missing_timestamps": [],
+    "issues": [],
+    "latest_contiguous_bars": 425,
+    "research_status": "READY",
+    "pages": [
+      {
+        "params": {
+          "contract": "BTC_USDT",
+          "interval": "1d",
+          "timezone": "utc0",
+          "from": 1704067200,
+          "to": 1740787199
+        },
+        "count": 425
+      }
+    ],
+    "sha256": {
+      "raw.json": "1a70cfbeb8fa39cbe85805fd7c708f740a88ffc8dd71c3a21e6e1f366b1f88bf",
+      "daily.csv": "7486364aa2400fa6e5c5d9d3b8030d23ee65f9f70cb488330ddcb10bab36569e"
+    }
+  },
+  "code_sha256": {
+    "event_study.py": "1923c8a3818d537f11c866b0ad25e7e500967794ebabdebd1ac680bfe2314f23",
+    "history.py": "0fde27d87de4628c48e46950c8f1593e8948ce59763ea79021a4ebd19bffe25f",
+    "indicators.py": "268f6b03ef8ca8f9fdbf6df87e84027bbd5aae15f4bb7f5352d2d39a8a7c59c0",
+    "structure_history.py": "66b250edaeed1055d3295df695ba3499c4afb89be006645aea9724248074c93b",
+    "smc.py": "c4f3ba05a25867fe059064e642603b4e91baf1c651f0b0f82573777de8d315f9"
+  },
+  "protocol": {
+    "entry": "next_day_open",
+    "exit": "horizon_day_close",
+    "units": "fraction",
+    "dedup_days": 30,
+    "split": "chronological_common_eligible_70_30",
+    "purge": "train_exit_time_lte_test_first_entry",
+    "costs_included": false,
+    "random_control": "uniform_times_same_count_and_direction_mix_may_overlap",
+    "legacy": "daily_local_30d_proxy_no_limit_fill_simulation"
+  }
+}

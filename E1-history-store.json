@@ -1,0 +1,66 @@
+{
+  "task": "E1",
+  "date": "2026-10-01",
+  "status": "PASS",
+  "database_sha256": "a37053aec6ea2807657691b83818ffcc4b7bde93bc6fde723054553ea9f79d80",
+  "snapshots": [
+    {
+      "snapshot_id": "15504e21d2ea8259c621fc3f932d408c5d59b2d2a248e9f8fe46310a4042ee9f",
+      "symbol": "BTC",
+      "rows": 425,
+      "query_rows": 28,
+      "first_timestamp": 1704067200,
+      "last_timestamp": 1740700800,
+      "input_sha256": {
+        "raw.json": "1a70cfbeb8fa39cbe85805fd7c708f740a88ffc8dd71c3a21e6e1f366b1f88bf",
+        "daily.csv": "7486364aa2400fa6e5c5d9d3b8030d23ee65f9f70cb488330ddcb10bab36569e"
+      },
+      "exact_roundtrip": true
+    },
+    {
+      "snapshot_id": "15cbac9254653f7a5ea570c3600f047b2a10c72c6c46e4821d25b32b04d8374b",
+      "symbol": "ETH",
+      "rows": 425,
+      "query_rows": 28,
+      "first_timestamp": 1704067200,
+      "last_timestamp": 1740700800,
+      "input_sha256": {
+        "raw.json": "6e7a694c80bf66c8273daf4bcc694dad5f26069a06519624c407a6b460349cee",
+        "daily.csv": "49919e7febf01b45482c2164b921fa091dd1abd4c5c755a1bf4ede64e832c585"
+      },
+      "exact_roundtrip": true
+    },
+    {
+      "snapshot_id": "8a23caf94005d64b4ef105368bb7e94527e588cd8a186c8106ffd7cba6534646",
+      "symbol": "BTC",
+      "rows": 2465,
+      "query_rows": 28,
+      "first_timestamp": 1577836800,
+      "last_timestamp": 1790726400,
+      "input_sha256": {
+        "raw.json": "d3501c8a0a6e7c2f1035f5c87758c5cc6148a6b022489be015d950d1c1166e8c",
+        "daily.csv": "bf1e362c093821504255be87f5e647b0d4fbde9d314f776ce3630119e2d0deaf"
+      },
+      "exact_roundtrip": true
+    },
+    {
+      "snapshot_id": "49a049de8cef2d974c73e189225f15fd7681e8f7a9fd04ef4b3c8aa910c616ca",
+      "symbol": "ETH",
+      "rows": 2465,
+      "query_rows": 28,
+      "first_timestamp": 1577836800,
+      "last_timestamp": 1790726400,
+      "input_sha256": {
+        "raw.json": "86b1846eea776bb036072f774f1e47ab606252f76e62058c8f38d77b7610ed59",
+        "daily.csv": "4de69c0a2720b313dace4091c9a382f74d4adb1ea2388a3873ad059434aa5112"
+      },
+      "exact_roundtrip": true
+    }
+  ],
+  "total_rows": 5780,
+  "integrity_check": "ok",
+  "foreign_key_errors": [],
+  "repeated_import_inserted": 0,
+  "tests_passed": 121,
+  "source_sha256": "000e7bbcb9cf29cf12df5e23ae14febe92868efc212037724da4307eb33d8114"
+}

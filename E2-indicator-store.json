@@ -1,0 +1,103 @@
+{
+  "task": "E2",
+  "date": "2026-10-01",
+  "status": "PASS",
+  "runs": [
+    {
+      "run_id": "ede65df7c65f1ac27476ff8e20caf3d2cf3aef73d3d0b0d16b32328d233eaf9c",
+      "inserted": true,
+      "snapshot_id": "15504e21d2ea8259c621fc3f932d408c5d59b2d2a248e9f8fe46310a4042ee9f",
+      "symbol": "BTC",
+      "version": "daily-indicators-v1",
+      "parameters": {
+        "window": 365,
+        "ema_period": 50,
+        "atr_period": 14
+      },
+      "implementation_sha256": "268f6b03ef8ca8f9fdbf6df87e84027bbd5aae15f4bb7f5352d2d39a8a7c59c0",
+      "input_sha256": {
+        "raw.json": "1a70cfbeb8fa39cbe85805fd7c708f740a88ffc8dd71c3a21e6e1f366b1f88bf",
+        "daily.csv": "7486364aa2400fa6e5c5d9d3b8030d23ee65f9f70cb488330ddcb10bab36569e"
+      },
+      "output_sha256": "c04f8ba79357f6d48a21847e8bc3ee6ba61dc5c69dc81078a813ba631e4e02a7",
+      "row_count": 425,
+      "exact_roundtrip": true,
+      "query_rows": 28,
+      "ready_rows": 30
+    },
+    {
+      "run_id": "ed53156fb19fa016f5f05796e7d1f8688236d0c762a40365fe5ef1f4cfb74038",
+      "inserted": true,
+      "snapshot_id": "8a23caf94005d64b4ef105368bb7e94527e588cd8a186c8106ffd7cba6534646",
+      "symbol": "BTC",
+      "version": "daily-indicators-v1",
+      "parameters": {
+        "window": 365,
+        "ema_period": 50,
+        "atr_period": 14
+      },
+      "implementation_sha256": "268f6b03ef8ca8f9fdbf6df87e84027bbd5aae15f4bb7f5352d2d39a8a7c59c0",
+      "input_sha256": {
+        "raw.json": "d3501c8a0a6e7c2f1035f5c87758c5cc6148a6b022489be015d950d1c1166e8c",
+        "daily.csv": "bf1e362c093821504255be87f5e647b0d4fbde9d314f776ce3630119e2d0deaf"
+      },
+      "output_sha256": "39b677c93e3cd1c3f4e99a7fc9ae504267b2623ee375835904b9cc6feed5ab12",
+      "row_count": 2465,
+      "exact_roundtrip": true,
+      "query_rows": 28,
+      "ready_rows": 2070
+    },
+    {
+      "run_id": "6eba06abdfec8f0d3f773656391dcd9289ab5a7bdd4e56774f6f06a37e5d9740",
+      "inserted": true,
+      "snapshot_id": "15cbac9254653f7a5ea570c3600f047b2a10c72c6c46e4821d25b32b04d8374b",
+      "symbol": "ETH",
+      "version": "daily-indicators-v1",
+      "parameters": {
+        "window": 365,
+        "ema_period": 50,
+        "atr_period": 14
+      },
+      "implementation_sha256": "268f6b03ef8ca8f9fdbf6df87e84027bbd5aae15f4bb7f5352d2d39a8a7c59c0",
+      "input_sha256": {
+        "raw.json": "6e7a694c80bf66c8273daf4bcc694dad5f26069a06519624c407a6b460349cee",
+        "daily.csv": "49919e7febf01b45482c2164b921fa091dd1abd4c5c755a1bf4ede64e832c585"
+      },
+      "output_sha256": "f3224c72ec323c9fd328c0c2bfc417260831bf53c51c4ce49534bad7a9b4e156",
+      "row_count": 425,
+      "exact_roundtrip": true,
+      "query_rows": 28,
+      "ready_rows": 30
+    },
+    {
+      "run_id": "55878d6a8ec4a8a23f9bcacd979ff229a67264e7dfbfb66cfc0ecd2644896e38",
+      "inserted": true,
+      "snapshot_id": "49a049de8cef2d974c73e189225f15fd7681e8f7a9fd04ef4b3c8aa910c616ca",
+      "symbol": "ETH",
+      "version": "daily-indicators-v1",
+      "parameters": {
+        "window": 365,
+        "ema_period": 50,
+        "atr_period": 14
+      },
+      "implementation_sha256": "268f6b03ef8ca8f9fdbf6df87e84027bbd5aae15f4bb7f5352d2d39a8a7c59c0",
+      "input_sha256": {
+        "raw.json": "86b1846eea776bb036072f774f1e47ab606252f76e62058c8f38d77b7610ed59",
+        "daily.csv": "4de69c0a2720b313dace4091c9a382f74d4adb1ea2388a3873ad059434aa5112"
+      },
+      "output_sha256": "d2e9ecff4b74cc479e4b3d6cb89c4ee8072b1401e1221253046d38ca0df1f6f7",
+      "row_count": 2465,
+      "exact_roundtrip": true,
+      "query_rows": 28,
+      "ready_rows": 2070
+    }
+  ],
+  "total_rows": 5780,
+  "integrity_check": "ok",
+  "foreign_key_errors": [],
+  "repeated_build_inserted": 0,
+  "original_E1_unchanged": true,
+  "original_E1_sha256": "a37053aec6ea2807657691b83818ffcc4b7bde93bc6fde723054553ea9f79d80",
+  "database_sha256": "e872f2def53db254f61587b55f47c0b39126b9393aab14563a6148b4081a437e",
+  "source_sha256": "df231bdeab693b48dabedc231c8b443b6ada4c9e6dd54bc7f624adbb5a7151ac"
+}

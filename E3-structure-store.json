@@ -1,0 +1,112 @@
+{
+  "task": "E3",
+  "date": "2026-10-01",
+  "status": "PASS",
+  "runs": [
+    {
+      "run_id": "69f125d7092988a4826b7d9d1bb9f8cc329b10c22218e7e914b4038c02620a24",
+      "inserted": true,
+      "snapshot_id": "15504e21d2ea8259c621fc3f932d408c5d59b2d2a248e9f8fe46310a4042ee9f",
+      "symbol": "BTC",
+      "version": "daily-structure-v1",
+      "parameters": {
+        "swing_length": 50
+      },
+      "implementation_sha256": {
+        "structure_history.py": "66b250edaeed1055d3295df695ba3499c4afb89be006645aea9724248074c93b",
+        "smc.py": "c4f3ba05a25867fe059064e642603b4e91baf1c651f0b0f82573777de8d315f9",
+        "indicators.py": "268f6b03ef8ca8f9fdbf6df87e84027bbd5aae15f4bb7f5352d2d39a8a7c59c0"
+      },
+      "input_sha256": {
+        "raw.json": "1a70cfbeb8fa39cbe85805fd7c708f740a88ffc8dd71c3a21e6e1f366b1f88bf",
+        "daily.csv": "7486364aa2400fa6e5c5d9d3b8030d23ee65f9f70cb488330ddcb10bab36569e"
+      },
+      "output_sha256": "750230f237086cb1b20e1c625dd5a393b527a3119ed03b3c0b04b478f1cff00d",
+      "row_count": 425,
+      "exact_roundtrip": true,
+      "query_rows": 28,
+      "ready_rows": 237
+    },
+    {
+      "run_id": "e013116c802f03cebf9bac5b0a07878a3a314e0c7237218e424c766801224ac4",
+      "inserted": true,
+      "snapshot_id": "8a23caf94005d64b4ef105368bb7e94527e588cd8a186c8106ffd7cba6534646",
+      "symbol": "BTC",
+      "version": "daily-structure-v1",
+      "parameters": {
+        "swing_length": 50
+      },
+      "implementation_sha256": {
+        "structure_history.py": "66b250edaeed1055d3295df695ba3499c4afb89be006645aea9724248074c93b",
+        "smc.py": "c4f3ba05a25867fe059064e642603b4e91baf1c651f0b0f82573777de8d315f9",
+        "indicators.py": "268f6b03ef8ca8f9fdbf6df87e84027bbd5aae15f4bb7f5352d2d39a8a7c59c0"
+      },
+      "input_sha256": {
+        "raw.json": "d3501c8a0a6e7c2f1035f5c87758c5cc6148a6b022489be015d950d1c1166e8c",
+        "daily.csv": "bf1e362c093821504255be87f5e647b0d4fbde9d314f776ce3630119e2d0deaf"
+      },
+      "output_sha256": "6eb391cb0ccfcaf1581b987e52f25aebe962041399c442402fca32fd527ca08c",
+      "row_count": 2465,
+      "exact_roundtrip": true,
+      "query_rows": 28,
+      "ready_rows": 2372
+    },
+    {
+      "run_id": "c92699407f91502b1abb6a4b225987f910b078946ebfbd1202ae05f965a2c4b5",
+      "inserted": true,
+      "snapshot_id": "15cbac9254653f7a5ea570c3600f047b2a10c72c6c46e4821d25b32b04d8374b",
+      "symbol": "ETH",
+      "version": "daily-structure-v1",
+      "parameters": {
+        "swing_length": 50
+      },
+      "implementation_sha256": {
+        "structure_history.py": "66b250edaeed1055d3295df695ba3499c4afb89be006645aea9724248074c93b",
+        "smc.py": "c4f3ba05a25867fe059064e642603b4e91baf1c651f0b0f82573777de8d315f9",
+        "indicators.py": "268f6b03ef8ca8f9fdbf6df87e84027bbd5aae15f4bb7f5352d2d39a8a7c59c0"
+      },
+      "input_sha256": {
+        "raw.json": "6e7a694c80bf66c8273daf4bcc694dad5f26069a06519624c407a6b460349cee",
+        "daily.csv": "49919e7febf01b45482c2164b921fa091dd1abd4c5c755a1bf4ede64e832c585"
+      },
+      "output_sha256": "da3147068267b47e430fb3d995c4b0b07df1bd7b0924f1084edb99d5ddfdc6c0",
+      "row_count": 425,
+      "exact_roundtrip": true,
+      "query_rows": 28,
+      "ready_rows": 209
+    },
+    {
+      "run_id": "a1eadf3513520808f31cea1d83b47a8c9cb122704768b542ce6c50f012977021",
+      "inserted": true,
+      "snapshot_id": "49a049de8cef2d974c73e189225f15fd7681e8f7a9fd04ef4b3c8aa910c616ca",
+      "symbol": "ETH",
+      "version": "daily-structure-v1",
+      "parameters": {
+        "swing_length": 50
+      },
+      "implementation_sha256": {
+        "structure_history.py": "66b250edaeed1055d3295df695ba3499c4afb89be006645aea9724248074c93b",
+        "smc.py": "c4f3ba05a25867fe059064e642603b4e91baf1c651f0b0f82573777de8d315f9",
+        "indicators.py": "268f6b03ef8ca8f9fdbf6df87e84027bbd5aae15f4bb7f5352d2d39a8a7c59c0"
+      },
+      "input_sha256": {
+        "raw.json": "86b1846eea776bb036072f774f1e47ab606252f76e62058c8f38d77b7610ed59",
+        "daily.csv": "4de69c0a2720b313dace4091c9a382f74d4adb1ea2388a3873ad059434aa5112"
+      },
+      "output_sha256": "bd4b6f912de80f9548185ac03492aa3216148b3f4dbb4ce001c0226273ea4d51",
+      "row_count": 2465,
+      "exact_roundtrip": true,
+      "query_rows": 28,
+      "ready_rows": 2370
+    }
+  ],
+  "total_rows": 5780,
+  "integrity_check": "ok",
+  "foreign_key_errors": [],
+  "repeated_build_inserted": 0,
+  "existing_indicators_unchanged": true,
+  "original_E2_unchanged": true,
+  "original_E2_sha256": "e872f2def53db254f61587b55f47c0b39126b9393aab14563a6148b4081a437e",
+  "database_sha256": "c0cb555de8a83062d0ff5df66499aff6254fae7a333f6a5a8651b08e19f3ba75",
+  "source_sha256": "210cfc7caaafcb17c87cec2b9651e275ad012c5571962226b1a8e1f8683d8df9"
+}
