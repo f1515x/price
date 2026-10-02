@@ -1,0 +1,68 @@
+{
+  "version": "price-cookie-history-v1",
+  "status": "LOCAL_SANITIZED_MIRROR_VERIFIED",
+  "source": "E:\\git\\0AAimportant\\price\\source",
+  "destination": "E:\\git\\0AAimportant\\price\\1\\data\\C2-sanitized-20261001.git",
+  "cookie_keys": [
+    "_sp_id.cf1a",
+    "cachec",
+    "device_t",
+    "etg",
+    "sessionid",
+    "sessionid_sign",
+    "tv_ecuid"
+  ],
+  "unique_sensitive_values": 5,
+  "historical_month_blobs_checked": 2,
+  "before": {
+    "object_counts": {
+      "commit": 304,
+      "tree": 348,
+      "blob": 475
+    },
+    "matching_objects": [
+      {
+        "object_id": "33ae3077c891ced402bf01872135746af4a8599d",
+        "object_type": "blob"
+      }
+    ]
+  },
+  "after": {
+    "object_counts": {
+      "blob": 475,
+      "tree": 348,
+      "commit": 304
+    },
+    "matching_objects": []
+  },
+  "source_refs": {
+    "refs/heads/feature": "ccd81ae40eb75dc57c7b9aa8bedba83c8d6938d0",
+    "refs/heads/main": "b3e9aab346589061e6a695d7c1879e66be310ea1",
+    "refs/remotes/origin/HEAD": "6ae74393ad7bf77c681d0f551b50c7542af40b3b",
+    "refs/remotes/origin/feature": "ac297797266aec33e6888ae040a69d83498816ae",
+    "refs/remotes/origin/main": "6ae74393ad7bf77c681d0f551b50c7542af40b3b"
+  },
+  "sanitized_refs": {
+    "refs/heads/feature": "9b95b03b6f8fd56d4540d7b3c1a0ab88d19efb9c",
+    "refs/heads/main": "5e8918ae8da7a69194c24a3aad6fdd60e7ff854c",
+    "refs/remotes/origin/HEAD": "b02732a8cfbdc3dcc4bd65448f71152567352268",
+    "refs/remotes/origin/feature": "22b5ea759f9e465dfdf7872dda65e3694ec56631",
+    "refs/remotes/origin/main": "b02732a8cfbdc3dcc4bd65448f71152567352268"
+  },
+  "source_commit_count": 304,
+  "sanitized_commit_count": 304,
+  "feature_tree": "7d9d0892072f81f9b5cde0358387695f5f1c681a",
+  "source_refs_unchanged": true,
+  "feature_tree_unchanged": true,
+  "remotes": [],
+  "remote_history_cleaned": false,
+  "session_revoked": false,
+  "source_sha256": "28b2a2747dbe157e2a5bb005a4ca257aad6bf07fb3d66ced67d2b607877dfe5c",
+  "filter_repo_version": "2.47.0",
+  "limitations": [
+    "Known literal cookies only; not a general secret scanner.",
+    "Original source and GitHub history remain unchanged.",
+    "Account session revocation has not been performed.",
+    "Local refs only; remote-only refs and caches are outside scope."
+  ]
+}

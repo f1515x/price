@@ -1,0 +1,13 @@
+﻿{
+    "task_name":  "Price-Research-Daily",
+    "root":  "E:\\git\\0AAimportant\\price\\1\\data\\daily-collection",
+    "python":  "C:\\Users\\TROY-DESKTOP\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+    "user":  "DESKTOP-SPTB32O\\TROY-DESKTOP",
+    "registered_at_utc":  "2026-10-01T11:54:48.6911977Z",
+    "schedule_utc":  "00:05",
+    "schedule_America_La_Paz":  "20:05 (previous calendar day)",
+    "logon_type":  "InteractiveToken",
+    "requires_user_logged_on":  true,
+    "validation":  "NOT_VALIDATED",
+    "execution_authorized":  false
+}

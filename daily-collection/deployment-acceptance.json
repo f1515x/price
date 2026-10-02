@@ -1,0 +1,96 @@
+{
+  "status": "PASS",
+  "mode": "LIVE_HTTP_WINDOWS_SCHEDULED_TASK",
+  "audited_at_utc": "2026-10-01T11:56:41.105365+00:00",
+  "task": {
+    "task_name": "Price-Research-Daily",
+    "enabled": true,
+    "state": 3,
+    "last_result": 0,
+    "last_run_local": "2026-10-01T07:55:50.0000000",
+    "next_run_local": "2026-10-01T20:05:00.0000000"
+  },
+  "counts": {
+    "BTC": {
+      "daily_rows": 1004,
+      "eligible_rows": 609
+    },
+    "ETH": {
+      "daily_rows": 1004,
+      "eligible_rows": 609
+    }
+  },
+  "cycle": "1790812800-058de5b1f97df68784c3cd908d5a41242976471fa501749615f9da30849ad1fd",
+  "all_four_layers_match_recomputation": true,
+  "repeated_insertions": 0,
+  "integrity_check": "ok",
+  "foreign_key_errors": 0,
+  "input_sha256": {
+    "E:\\git\\0AAimportant\\price\\1\\data\\daily-collection\\snapshots\\BTC-1704067200-1790812800\\raw.json": "941decae4c857a9c3aa80cd7738f00ce1eb098172f0a23f6d8efc9bbca4bf659",
+    "E:\\git\\0AAimportant\\price\\1\\data\\daily-collection\\snapshots\\BTC-1704067200-1790812800\\daily.csv": "c0b90faa963c144e6809e1d161f4908ddb2d7e984868aadd5883885b71688efe",
+    "E:\\git\\0AAimportant\\price\\1\\data\\daily-collection\\snapshots\\BTC-1704067200-1790812800\\quality.json": "759f65b22acfe91c93be6395bb3f27999f471c7d6f1ef9c33719bd698cac0421",
+    "E:\\git\\0AAimportant\\price\\1\\data\\daily-collection\\snapshots\\ETH-1704067200-1790812800\\raw.json": "0246acaeb59b43746623cae6618a5b27179dda5e8acb268d11aab3af5e935c3a",
+    "E:\\git\\0AAimportant\\price\\1\\data\\daily-collection\\snapshots\\ETH-1704067200-1790812800\\daily.csv": "e2a4632beec5f4fafb94ef645b74af2677ddaa5257777b4e7e6335aca214014c",
+    "E:\\git\\0AAimportant\\price\\1\\data\\daily-collection\\snapshots\\ETH-1704067200-1790812800\\quality.json": "c8191e297457e13411f1bec2d1ad79ab357dac44333cf125abf0128553beece9"
+  },
+  "evidence": {
+    "parameters": {
+      "symbols": [
+        "BTC",
+        "ETH"
+      ],
+      "start": 1704067200,
+      "close_delay": 300,
+      "indicators": {
+        "window": 365,
+        "ema_period": 50,
+        "atr_period": 14
+      },
+      "structures": {
+        "swing_length": 50
+      },
+      "candidates": {
+        "tail": 10,
+        "move": 2,
+        "stretch": 2
+      }
+    },
+    "implementation_sha256": {
+      "collection_scheduler.py": "9d2806c16d1da6ca5103a9477f3c34072854993a6246a41568eef782b99757df",
+      "history.py": "0fde27d87de4628c48e46950c8f1593e8948ce59763ea79021a4ebd19bffe25f",
+      "history_store.py": "000e7bbcb9cf29cf12df5e23ae14febe92868efc212037724da4307eb33d8114",
+      "kline.py": "174256f6e5785de8c25b6f8caaf635def43165e92becc10c44c14785336b7e9a",
+      "indicators.py": "268f6b03ef8ca8f9fdbf6df87e84027bbd5aae15f4bb7f5352d2d39a8a7c59c0",
+      "indicator_store.py": "df231bdeab693b48dabedc231c8b443b6ada4c9e6dd54bc7f624adbb5a7151ac",
+      "structure_history.py": "66b250edaeed1055d3295df695ba3499c4afb89be006645aea9724248074c93b",
+      "structure_store.py": "210cfc7caaafcb17c87cec2b9651e275ad012c5571962226b1a8e1f8683d8df9",
+      "candidate_store.py": "7fa7066e80b386f06c416e1112374138c13354488fbed7cd4fd5da95cbe52467",
+      "event_study.py": "1923c8a3818d537f11c866b0ad25e7e500967794ebabdebd1ac680bfe2314f23",
+      "smc.py": "c4f3ba05a25867fe059064e642603b4e91baf1c651f0b0f82573777de8d315f9"
+    }
+  },
+  "deployment": {
+    "task_name": "Price-Research-Daily",
+    "root": "E:\\git\\0AAimportant\\price\\1\\data\\daily-collection",
+    "python": "C:\\Users\\TROY-DESKTOP\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+    "user": "DESKTOP-SPTB32O\\TROY-DESKTOP",
+    "registered_at_utc": "2026-10-01T11:54:48.6911977Z",
+    "schedule_utc": "00:05",
+    "schedule_America_La_Paz": "20:05 (previous calendar day)",
+    "logon_type": "InteractiveToken",
+    "requires_user_logged_on": true,
+    "validation": "NOT_VALIDATED",
+    "execution_authorized": false
+  },
+  "deployment_source_sha256": {
+    "install_daily_collection.ps1": "a1d6b9de45e5009e05661047d3be425cc50fd5f2a944e9892605bb72e1e1647f",
+    "run_daily_collection.ps1": "b01e80043f82f756ae359004e0bdee7086bab207b3195085d1183b3e85dd8a22",
+    "audit_daily_collection.py": "3c65473adb1bd88c97e5b922640b4eb13c71b93abeefbd81fc6b4cac01479137"
+  },
+  "validation": "NOT_VALIDATED",
+  "execution_authorized": false,
+  "limitations": [
+    "Interactive user logon required.",
+    "Two immediate runs do not establish long-term uptime."
+  ]
+}
