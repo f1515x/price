@@ -9,7 +9,18 @@ from historical_notices import verify
 from kline import normalize_symbol
 from spec_evidence import _json
 
-VERSION = "intraday-order-scenario-v1"
+VERSION = "intraday-order-scenario-v2"
+
+
+def decimal_string(value):
+    """Serialize a nonnegative finite decimal Fraction without context rounding."""
+    scale = 0
+    power = 1
+    while power % value.denominator:
+        power *= 10
+        scale += 1
+    digits = str(value.numerator * (power // value.denominator)).zfill(scale + 1)
+    return digits if not scale else digits[:-scale] + "." + digits[-scale:]
 
 
 def number(value):
@@ -99,7 +110,9 @@ def replay(archive, notice_sha256, scenario, scenario_sha256, *, allow_scenario=
                 updated[field] = number(change["after"])
             specification({k: str(v) for k, v in updated.items()})
             log.append(dict(kind="notice", timestamp=event["effective_timestamp"],
-                            event_ids=[e["id"] for e in group], cancelled_order_ids=sorted(pending)))
+                            event_ids=[e["id"] for e in group], cancelled_order_ids=sorted(pending),
+                            cancelled_quantities={oid: order["remaining_quantity"]
+                                                  for oid, order in sorted(pending.items())}))
             pending.clear()
             spec = updated
             cursor += 1
@@ -109,7 +122,8 @@ def replay(archive, notice_sha256, scenario, scenario_sha256, *, allow_scenario=
         kind = action.get("kind")
         keys = ("kind", "timestamp", "order_id")
         _keys(action, keys + (("direction", "quantity", "limit_price") if kind == "submit"
-                             else ("price",) if kind == "fill" else ()))
+                             else (("price", "quantity") if "quantity" in action else ("price",))
+                             if kind == "fill" else ()))
         oid = action["order_id"]
         if not isinstance(oid, str) or not oid.strip():
             raise ValueError("Nonempty order ID required")
@@ -118,23 +132,39 @@ def replay(archive, notice_sha256, scenario, scenario_sha256, *, allow_scenario=
                 raise ValueError("Unique order ID and signed direction required")
             legal(action["quantity"], action["limit_price"], spec)
             used.add(oid)
-            pending[oid] = action
+            pending[oid] = dict(action, remaining_quantity=action["quantity"])
         elif kind in ("cancel", "fill"):
             if oid not in pending:
                 raise ValueError("Order is absent, cancelled or already filled")
-            order = pending.pop(oid)
+            order = pending[oid]
+            remaining = Fraction(number(order["remaining_quantity"]))
             if kind == "fill":
-                q, price = legal(order["quantity"], action["price"], spec)
+                q = number(action.get("quantity", order["remaining_quantity"]))
+                price = number(action["price"])
+                # Order minimum applies at submission, not to execution fragments.
+                if ((Fraction(q) / Fraction(spec["quantity_step"])).denominator != 1
+                        or Fraction(q) > remaining
+                        or (Fraction(price) / Fraction(spec["price_tick"])).denominator != 1):
+                    raise ValueError("Fill violates quantity step, remaining quantity or price tick")
                 if ((order["direction"] == 1 and price > number(order["limit_price"]))
                         or (order["direction"] == -1 and price < number(order["limit_price"]))):
                     raise ValueError("Fill exceeds order limit")
                 position += order["direction"] * Fraction(q)
-                fills.append(dict(action, quantity=order["quantity"], direction=order["direction"],
+                remaining -= Fraction(q)
+                order["remaining_quantity"] = decimal_string(remaining)
+                fills.append(dict(action, quantity=str(q), direction=order["direction"],
+                                  original_quantity=order["quantity"],
+                                  remaining_quantity=order["remaining_quantity"],
                                   specification={k: str(v) for k, v in spec.items()},
                                   notice_manifest_sha256=notice_sha256, scenario_sha256=scenario_sha256))
+            if kind == "cancel" or not remaining:
+                del pending[oid]
         else:
-            raise ValueError("Unsupported action; only submit/cancel/full fill declarations allowed")
-        log.append(dict(action))
+            raise ValueError("Unsupported action; only submit/cancel/fill declarations allowed")
+        entry = dict(action)
+        if kind in ("cancel", "fill"):
+            entry["remaining_quantity"] = decimal_string(remaining)
+        log.append(entry)
     advance(end - 1)
     if verify(archive, notice_sha256) != evidence:
         raise ValueError("Notice evidence changed during replay")
@@ -143,6 +173,9 @@ def replay(archive, notice_sha256, scenario, scenario_sha256, *, allow_scenario=
                 historical_specs_verified=False, market_fills_verified=False,
                 verified_coverage_seconds=0, notice_evidence=evidence,
                 scenario_sha256=scenario_sha256, audit_log=log, fills=fills,
-                pending_order_ids=sorted(pending), net_position_contracts=dict(
+                pending_order_ids=sorted(pending),
+                pending_quantities={oid: order["remaining_quantity"]
+                                    for oid, order in sorted(pending.items())},
+                net_position_contracts=dict(
                     numerator=position.numerator, denominator=position.denominator),
                 source_sha256=digest(Path(__file__).read_bytes()))
