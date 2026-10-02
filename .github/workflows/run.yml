@@ -73,6 +73,8 @@ jobs:
           printf '\nOrders Times: %s \n' "$(date +%s%3N)" \
             | tee -a reports/sizes.txt
 
+          cp reports/sizes.txt size.txt
+
 
       - name: Send calculated sizes to Telegram
         env:
@@ -82,14 +84,14 @@ jobs:
       - name: Commit generated files
         shell: bash
         run: |
-          if git diff --quiet -- reports/sizes.txt data/price_steps.json \
-             && [ -z "$(git ls-files --others --exclude-standard -- reports/sizes.txt data/price_steps.json)" ]; then
+          if git diff --quiet -- reports/sizes.txt size.txt data/price_steps.json \
+             && [ -z "$(git ls-files --others --exclude-standard -- reports/sizes.txt size.txt data/price_steps.json)" ]; then
             echo "Generated files are unchanged; nothing to commit."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add reports/sizes.txt data/price_steps.json
+          git add reports/sizes.txt size.txt data/price_steps.json
           git commit -m "chore: update calculated prices"
           git push
