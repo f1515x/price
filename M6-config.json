@@ -1,0 +1,18 @@
+{
+  "initial_equity": 10000,
+  "risk_fraction": 0.005,
+  "max_exposure": 1,
+  "max_drawdown": 0.15,
+  "entry_atr": 0.5,
+  "stop_atr": 1.5,
+  "target_r": 2,
+  "expiry_days": 7,
+  "holding_days": 30,
+  "fee_rate": 0.0005,
+  "slippage": 0.0005,
+  "funding_daily": 0.0003,
+  "multiplier": 1,
+  "quantity_step": 0.000001,
+  "min_quantity": 0.000001,
+  "min_events": 30
+}
