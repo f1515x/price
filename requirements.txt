@@ -1,3 +1,2 @@
-numpy
-pandas
-requests
+# Compatibility installer; dependencies are declared in pyproject.toml.
+-e .

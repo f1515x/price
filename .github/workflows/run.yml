@@ -14,8 +14,10 @@ on:
       - main
     paths:
       - "*.py"
-      - "symbol.txt"
-      - "id.txt"
+      - "src/**"
+      - "pyproject.toml"
+      - "config/symbols.txt"
+      - "config/chat_ids.txt"
       - "requirements.txt"
       - ".github/workflows/run.yml"
 
@@ -37,13 +39,14 @@ jobs:
       - name: Set up latest Python 3
         uses: actions/setup-python@v5
         with:
-          python-version: "3.x"
+          python-version: "3.12"
           cache: pip
+          cache-dependency-path: pyproject.toml
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -r requirements.txt
+          python -m pip install -e .
 
       - name: Read symbols and calculate sizes
         shell: bash
@@ -53,43 +56,40 @@ jobs:
         run: |
           set -o pipefail
 
-          mapfile -t symbols < <(sed -e 's/\r$//' -e '/^[[:space:]]*$/d' symbol.txt)
+          mapfile -t symbols < <(sed -e 's/\r$//' -e '/^[[:space:]]*$/d' config/symbols.txt)
 
           if [ "${#symbols[@]}" -eq 0 ]; then
-            echo "symbol.txt does not contain any symbols." >&2
+            echo "config/symbols.txt does not contain any symbols." >&2
             exit 1
           fi
 
-          printf 'API_KEY=%s\nAPI_SECRET=%s\n' "$API_KEY" "$API_SECRET" > .env
-          trap 'rm -f .env' EXIT
+          mkdir -p data reports
+          price-monitor precision "${symbols[@]}"
 
-          python size.py "${symbols[@]}" \
+          price-monitor sizes "${symbols[@]}" \
             | sed '/^[[:space:]]*none[[:space:]]*$/d' \
-            | tee size.txt
+            | tee reports/sizes.txt
 
           printf '\nOrders Times: %s \n' "$(date +%s%3N)" \
-            | tee -a size.txt
+            | tee -a reports/sizes.txt
 
-          touch float.js
-          chmod u+rw float.js
-          python float.py "${symbols[@]}" --output float.js
 
       - name: Send calculated sizes to Telegram
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        run: python tele_gate.py size.txt id.txt
+        run: price-monitor notify reports/sizes.txt config/chat_ids.txt
 
       - name: Commit generated files
         shell: bash
         run: |
-          if git diff --quiet -- size.txt float.js \
-             && [ -z "$(git ls-files --others --exclude-standard -- size.txt float.js)" ]; then
+          if git diff --quiet -- reports/sizes.txt data/price_steps.json \
+             && [ -z "$(git ls-files --others --exclude-standard -- reports/sizes.txt data/price_steps.json)" ]; then
             echo "Generated files are unchanged; nothing to commit."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add size.txt float.js
+          git add reports/sizes.txt data/price_steps.json
           git commit -m "chore: update calculated prices"
           git push

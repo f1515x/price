@@ -1,0 +1,23 @@
+{
+  "structure": {
+    "top_type": "Weak High",
+    "top_price": 125.6,
+    "bottom_type": "Weak Low",
+    "bottom_price": 101.2,
+    "trend": "UNSET",
+    "trend_bias": 0,
+    "top_index": "180",
+    "bottom_index": "160",
+    "swing_high": 125.6,
+    "swing_low": 101.2,
+    "swing_high_index": "180",
+    "swing_low_index": "160"
+  },
+  "signal_inputs": {
+    "weak_type": "high",
+    "weak_price": 125.6,
+    "adjusted_weak_price": 129.6,
+    "ratio": 0.23242522385216222,
+    "ratio_classification": "涨势过猛，有潜在开空交易机会。"
+  }
+}
