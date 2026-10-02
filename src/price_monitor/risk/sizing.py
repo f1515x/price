@@ -60,9 +60,11 @@ def _get_price_and_action(contract_name):
     base_asset = contract_name.removesuffix("_USDT")
     # 行情模块会打印更新日志；本脚本按要求只保留最终下单结果。
     with redirect_stdout(StringIO()):
-        perf_1m = price_module.get_month_performance(base_asset)
+        result = price_module.get_monthly_metrics(base_asset)
         structure = price_module.get_structure(base_asset, 50)
-        final_price = price_module.price(perf_1m, structure)
+        final_price = price_module.price(
+            result.performance_1m, structure, result.combined_average,
+        )
 
     if final_price is None:
         return None, None

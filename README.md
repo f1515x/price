@@ -81,6 +81,13 @@ price-monitor sizes BTC ETH
 
 `precision` 默认读取 `config/symbols.txt`，输出 `data/price_steps.json`；也可使用 `--file`、`--output`。`structure` 支持币种或本地 CSV/JSON/JS 文件。
 
+`signals` 和 `sizes` 使用 `market/quarterly.py` 的月度综合均值作为动态阈值：
+`T = (Perf.1M + 最近一个完整 UTC 自然月振幅) / 2`，单位为百分数。
+当 `Perf.1M > T`、`ratio > T / 100` 且 weak 类型为 `high` 时，挂单价为 weak price 的 1.01 倍；
+当 `Perf.1M < -T`、`ratio < -T / 100` 且 weak 类型为 `low` 时，挂单价为 weak price 的 0.99 倍。
+比较使用严格不等式，保留综合均值的符号及完整精度，两位小数仅用于展示；月度数据获取失败时报告错误。
+Python 调用需显式传入阈值：`price(perf_1m, structure, combined_average)`。
+
 根目录脚本调用仍可用，例如 `python size.py BTC ETH`、`python float.py`、`python smc.py BTC`。Python 导入旧模块会映射到包内实现；默认数据路径采用新目录。显式指定的路径不会自动转换，例如旧调用 `--output float.js` 仍会写该路径。
 
 ## 配置与通知

@@ -18,6 +18,7 @@ from price_monitor.analysis.indicators import atr14
 from price_monitor.analysis import structure
 from price_monitor.clients import telegram
 from price_monitor.market import candles, precision
+from price_monitor.market.quarterly import MonthlyMetrics
 from price_monitor.risk import allocation, sizing
 from price_monitor.strategy import signals
 
@@ -52,14 +53,58 @@ class MonitorTests(unittest.TestCase):
                     settings.credentials()
 
     def test_signal_boundaries_and_directions(self):
-        high = {"ratio": 0.11, "weak_type": "high", "adjusted_weak_price": 100}
-        low = {"ratio": -0.11, "weak_type": "low", "adjusted_weak_price": 100}
-        self.assertEqual(signals.price(16, high), 101)
-        self.assertEqual(signals.price(-16, low), 99)
-        self.assertIsNone(signals.price(15, high))
-        self.assertIsNone(signals.price(-15, low))
-        self.assertIsNone(signals.price(16, {**high, "ratio": 0.10}))
-        self.assertIsNone(signals.price(-16, {**low, "ratio": -0.10}))
+        for threshold in (5, 20, 35):
+            for direction, weak_type, expected in ((1, "high", 101), (-1, "low", 99)):
+                with self.subTest(threshold=threshold, weak_type=weak_type):
+                    perf = direction * (threshold + 1)
+                    structure = {"ratio": direction * (threshold + 1) / 100,
+                                 "weak_type": weak_type, "adjusted_weak_price": 100}
+                    self.assertEqual(signals.price(perf, structure, threshold), expected)
+                    self.assertIsNone(signals.price(direction * threshold, structure, threshold))
+                    self.assertIsNone(signals.price(
+                        perf, {**structure, "ratio": direction * threshold / 100}, threshold,
+                    ))
+                    self.assertIsNone(signals.price(
+                        perf, {**structure, "weak_type": "low" if direction == 1 else "high"}, threshold,
+                    ))
+
+    def test_signal_threshold_preserves_sign_and_precision(self):
+        high = {"ratio": 0.20003, "weak_type": "high", "adjusted_weak_price": 100}
+        self.assertIsNone(signals.price(20.003, high, 20.004))
+        self.assertEqual(signals.price(20.003, high, 20.002), 101)
+        self.assertEqual(signals.price(-4, {**high, "ratio": -0.04}, -5), 101)
+        low = {**high, "ratio": 0.04, "weak_type": "low"}
+        self.assertEqual(signals.price(4, low, -5), 99)
+        self.assertIsNone(signals.price(0, {**high, "ratio": 0}, 0))
+        for threshold in (float("nan"), float("inf"), float("-inf")):
+            with self.subTest(threshold=threshold), self.assertRaises(ValueError):
+                signals.price(30, high, threshold)
+
+    def test_monthly_threshold_used_by_analysis_and_sizing(self):
+        structure = {"ratio": 0.25, "weak_type": "high", "adjusted_weak_price": 100}
+        for amplitude, expected in ((10, 101), (40, None)):
+            with self.subTest(amplitude=amplitude):
+                metrics = MonthlyMetrics("BTC", 30, amplitude)
+                with patch.object(signals, "get_monthly_metrics", return_value=metrics) as get_metrics, \
+                        patch.object(signals, "get_structure", return_value=structure) as get_structure, \
+                        contextlib.redirect_stdout(io.StringIO()) as output:
+                    self.assertEqual(signals.analyze("btc", 7), expected)
+                    get_metrics.assert_called_once_with("BTC")
+                    get_structure.assert_called_once_with("BTC", 7)
+                    self.assertIn(f"{metrics.combined_average:+.2f}%", output.getvalue())
+                    get_metrics.reset_mock()
+                    self.assertEqual(sizing._get_price_and_action("BTC_USDT"),
+                                     (expected, "Open Short" if expected else None))
+                    get_metrics.assert_called_once_with("BTC")
+
+    def test_monthly_metrics_failure_propagates(self):
+        with patch.object(signals, "get_monthly_metrics", side_effect=ValueError("missing candles")), \
+                patch.object(signals, "get_structure") as get_structure:
+            with self.assertRaisesRegex(ValueError, "missing candles"):
+                signals.analyze("BTC")
+            with self.assertRaisesRegex(ValueError, "missing candles"):
+                sizing._get_price_and_action("BTC_USDT")
+            get_structure.assert_not_called()
 
     def test_allocation_formula(self):
         maximum = allocation.compute_max_open(196.63528496, 100, 0.00075)
