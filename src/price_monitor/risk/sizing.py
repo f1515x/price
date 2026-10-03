@@ -204,8 +204,8 @@ def size(contract_name=None):
         ("✨", "contract", contract_name),
         ("💰", "activation_price   ", f"{display_price} USDT"),
         (direction_icon, "side      ", action),
-        ("📦", "size    ", f"{order_size} Contracts"),
-        ("📦", "amount    ", f"{amount_valu} U"),
+        ("📦", "amount    ", f"{order_size} Contracts"),
+        ("📦", "value    ", f"{amount_valu} U"),
     )
     print("\n🚀 ====== Order Alert ======")
     for line in _format_order_detail_lines(order_details):
