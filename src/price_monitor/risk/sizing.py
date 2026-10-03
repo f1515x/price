@@ -201,11 +201,11 @@ def size(contract_name=None):
     display_price = price_value.quantize(price_step, rounding=ROUND_DOWN)
     direction_icon = "📉" if action == "Open Short" else "📈"
     order_details = (
-        ("✨", "Symbol", contract_name),
-        ("💰", "Price   ", f"{display_price} USDT"),
-        (direction_icon, "Side      ", action),
-        ("📦", "Size    ", f"{order_size} Contracts"),
-        ("📦", "Value    ", f"{amount_valu} U"),
+        ("✨", "contract", contract_name),
+        ("💰", "activation_price   ", f"{display_price} USDT"),
+        (direction_icon, "side      ", action),
+        ("📦", "size    ", f"{order_size} Contracts"),
+        ("📦", "amount    ", f"{amount_valu} U"),
     )
     print("\n🚀 ====== Order Alert ======")
     for line in _format_order_detail_lines(order_details):
