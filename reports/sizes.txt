@@ -1,11 +1,11 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : XAU_USDT
-💰  activation_price    : 4073.75 USDT
+💰  activation_price    : 4074 USDT
 📈  side                : Open Long
-📦  amount              : 364 Contracts
-📦  value               : 148.66 U
+📦  amount              : 366 Contracts
+📦  value               : 149.23 U
    ======================
 
 
-Timestamp: 1791032594382 
+Timestamp: 1791043291424 
