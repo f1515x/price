@@ -70,7 +70,7 @@ jobs:
             | sed '/^[[:space:]]*none[[:space:]]*$/d' \
             | tee reports/sizes.txt
 
-          printf '\nOrders Times: %s \n' "$(date +%s%3N)" \
+          printf '\nTimestamp: %s \n' "$(date +%s%3N)" \
             | tee -a reports/sizes.txt
 
 
