@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import call, patch
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -66,15 +66,73 @@ class SizesUploadTests(unittest.TestCase):
                     self.assertEqual(upload.main(["--sizes-file", str(path), *options]), 0)
                     send.assert_not_called()
 
-    def test_bulk_write_does_not_require_select(self):
+    def test_bulk_write_clears_table_before_insert(self):
         rows = upload.parse_sizes(order())
         with patch.object(upload, "load_config", return_value={
             "SUPABASE_URL": "https://example.supabase.co", "SUPABASE_KEY": "sb_secret_mock",
         }), patch.object(upload, "request_json", return_value=(201, rows)) as request, \
                 contextlib.redirect_stdout(io.StringIO()):
             self.assertEqual(upload.supabase(rows, minimal=True), rows)
-        request.assert_called_once_with("https://example.supabase.co/rest/v1/orders",
-                                        "sb_secret_mock", data=rows, token=None, minimal=True)
+        endpoint = "https://example.supabase.co/rest/v1/orders"
+        self.assertEqual(request.call_args_list, [
+            call(endpoint + "?or=(contract.is.null,contract.not.is.null)",
+                 "sb_secret_mock", token=None, minimal=True, method="DELETE"),
+            call(endpoint, "sb_secret_mock", data=rows, token=None, minimal=True),
+        ])
+
+    def test_delete_failure_prevents_insert(self):
+        with patch.object(upload, "load_config", return_value={
+            "SUPABASE_URL": "https://example.supabase.co", "SUPABASE_KEY": "sb_secret_mock",
+        }), patch.object(upload, "request_json", side_effect=RuntimeError("HTTP 403")) as request, \
+                contextlib.redirect_stderr(io.StringIO()):
+            self.assertEqual(upload.main(["--data", '{"contract": "BTC_USDT"}']), 1)
+        self.assertEqual(request.call_count, 1)
+        self.assertEqual(request.call_args.kwargs["method"], "DELETE")
+
+    def test_check_only_and_empty_data_never_delete(self):
+        with patch.object(upload, "load_config", return_value={
+            "SUPABASE_URL": "https://example.supabase.co", "SUPABASE_KEY": "sb_secret_mock",
+        }), patch.object(upload, "request_json", return_value=(200, [])) as request, \
+                contextlib.redirect_stdout(io.StringIO()):
+            upload.supabase(check_only=True)
+            request.assert_called_once_with(
+                "https://example.supabase.co/rest/v1/orders?select=*&limit=0",
+                "sb_secret_mock", token=None)
+            request.reset_mock()
+            self.assertEqual(upload.supabase([]), [])
+            request.assert_not_called()
+            with self.assertRaises(ValueError):
+                upload.supabase(["invalid"])
+            request.assert_not_called()
+
+    def test_custom_table_and_token_apply_to_both_requests(self):
+        row = {"contract": "BTC_USDT"}
+        with patch.object(upload, "load_config", return_value={
+            "SUPABASE_URL": "https://example.supabase.co/rest/v1",
+            "SUPABASE_KEY": "sb_publishable_mock", "SUPABASE_ACCESS_TOKEN": "user-jwt",
+        }), patch.object(upload, "request_json", side_effect=[(204, None), (201, [row])]) as request, \
+                contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(upload.supabase(row, table="custom_orders"), [row])
+        endpoint = "https://example.supabase.co/rest/v1/custom_orders"
+        self.assertEqual(request.call_args_list, [
+            call(endpoint + "?or=(contract.is.null,contract.not.is.null)",
+                 "sb_publishable_mock", token="user-jwt", minimal=True, method="DELETE"),
+            call(endpoint, "sb_publishable_mock", data=row, token="user-jwt", minimal=False),
+        ])
+
+    def test_http_delete_has_no_body_and_uses_auth(self):
+        with patch.object(upload, "urlopen") as open_url:
+            response = open_url.return_value.__enter__.return_value
+            response.status = 204
+            response.read.return_value = b""
+            self.assertEqual(upload.request_json(
+                "https://example.supabase.co/rest/v1/orders?or=(contract.is.null,contract.not.is.null)",
+                "sb_secret_mock", token="user-jwt", minimal=True, method="DELETE"), (204, None))
+        request = open_url.call_args.args[0]
+        self.assertEqual(request.get_method(), "DELETE")
+        self.assertIsNone(request.data)
+        self.assertEqual(request.get_header("Prefer"), "return=minimal")
+        self.assertEqual(request.get_header("Authorization"), "Bearer user-jwt")
 
     def test_http_request_serializes_bulk_payload(self):
         rows = upload.parse_sizes(order())

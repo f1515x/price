@@ -97,19 +97,21 @@ def load_config():
     return values
 
 
-def request_json(url, key, *, data=None, token=None, minimal=False):
+def request_json(url, key, *, data=None, token=None, minimal=False, method=None):
+    method = method or ("GET" if data is None else "POST")
     headers = {"apikey": key, "Accept": "application/json"}
     if token:
         headers["Authorization"] = f"Bearer {token}"
     elif not key.startswith("sb_"):
         headers["Authorization"] = f"Bearer {key}"
     body = None
+    if data is not None or method == "DELETE":
+        headers["Prefer"] = "return=minimal" if minimal else "return=representation"
     if data is not None:
         headers["Content-Type"] = "application/json"
-        headers["Prefer"] = "return=minimal" if minimal else "return=representation"
         body = json.dumps(data, ensure_ascii=False).encode("utf-8")
     request = Request(url, data=body, headers=headers,
-                      method="GET" if data is None else "POST")
+                      method=method)
     try:
         with urlopen(request, timeout=20) as response:
             content = response.read()
@@ -152,6 +154,10 @@ def supabase(data=None, *, table=None, check_only=False, minimal=False):
         status, _ = request_json(endpoint + "?select=*&limit=0", key, token=token)
         print(f"连接成功：{table}，HTTP {status}", flush=True)
         return None
+    # 覆盖 contract 为空的历史记录及非空记录，清空整张目标表。
+    status, _ = request_json(endpoint + "?or=(contract.is.null,contract.not.is.null)",
+                             key, token=token, minimal=True, method="DELETE")
+    print(f"旧数据清空成功：{table}，HTTP {status}")
     status, result = request_json(endpoint, key, data=data, token=token, minimal=minimal)
     count = len(data) if isinstance(data, list) else 1
     print(f"数据写入成功：{table}，{count} 条，HTTP {status}")

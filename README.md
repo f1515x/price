@@ -122,14 +122,14 @@ price-monitor notify reports/sizes.txt config/chat_ids.txt
 
 首次使用，在 Supabase SQL Editor 执行 [`docs/supabase_sizes.sql`](docs/supabase_sizes.sql)，
 为现有 `orders` 表添加 `contract`、`activation_price`、`side`、`amount`、`value`、`timestamp` 列。
-脚本不删除历史记录。价格和价值使用 `numeric`，张数保留多空正负号，
+每次非空写入前，脚本先删除目标表的全部旧记录（包括 `contract` 为 NULL 的历史记录），再批量插入新记录。价格和价值使用 `numeric`，张数保留多空正负号，
 `timestamp` 保存报告末尾的 Unix 毫秒时间戳；没有时间戳时写入 NULL。
 
 ```powershell
 python supabase.py --check-only
 # 预览解析结果，不连接数据库
 python supabase.py --dry-run
-# 默认读取 reports/sizes.txt，一次请求批量插入所有订单
+# 默认读取 reports/sizes.txt，先清空目标表，再一次请求批量插入所有订单
 python supabase.py
 # 显式指定 Sizes 文件
 python supabase.py --sizes-file reports/sizes.txt --minimal
@@ -139,11 +139,13 @@ python supabase.py --data-file test_order.json
 
 每个 Order Alert 对应一条记录，单位和图标不会写入数据库。数字字符串由数据库转为 numeric，
 避免解析时丢失小数精度。空报告或只有 `none` / 时间戳时跳过写入；格式错误时终止整个批次。
-每次运行追加记录，重复运行同一文件会重复插入。
+重复运行同一文件会替换旧记录，不再追加重复记录。删除失败时立即终止，不执行插入。
+删除和插入是两次独立请求，并非原子事务；插入失败时目标表可能为空，需修复原因后重新运行。避免并发上传到同一张表。
 成功时输出条数、HTTP 状态及插入记录，失败时输出原因并以退出码 1 结束。
-`--minimal` 可以避免返回插入记录，写入时无需预先 SELECT；连接检查需要 SELECT 权限。
+`--minimal` 可以避免返回插入记录；清空旧记录始终不返回数据，连接检查需要 SELECT 权限。
 如果提示 `42501` 或 `row-level security`，说明数据库拒绝当前身份读写：
-需要配置表的 SELECT / INSERT 权限及策略，或在本地 `.env` 配置服务端 secret key。
+需要配置表的 SELECT / INSERT / DELETE 权限及策略，或在本地 `.env` 配置服务端 secret key。
+启用 RLS 时，DELETE 只能删除 SELECT 策略可见且 DELETE 策略允许的行；要清空整表，须允许当前身份删除全部行，或使用服务端密钥。
 服务端密钥不要提交到 Git。使用登录用户权限时可配置 `SUPABASE_ACCESS_TOKEN` 为用户 JWT。
 
 ### GitHub Actions 的 Repository secrets
@@ -153,7 +155,7 @@ python supabase.py --data-file test_order.json
 | Secret 名称 | 是否必填 | 内容 |
 | --- | --- | --- |
 | `SUPABASE_URL` | 新增，必填 | Supabase 项目地址，例如 `https://<项目>.supabase.co`，不包含表名。 |
-| `SUPABASE_KEY` | 新增，必填 | Supabase API key，必须具有目标表的 INSERT 权限；可使用服务端 secret key 或 legacy `service_role` key。 |
+| `SUPABASE_KEY` | 新增，必填 | Supabase API key，必须具有目标表的 INSERT / DELETE 权限，并能删除全部行；可使用服务端 secret key 或 legacy `service_role` key。 |
 | `SUPABASE_TABLE` | 新增，可选 | 目标表名；不配置时使用 `orders`。 |
 | `SUPABASE_ACCESS_TOKEN` | 新增，可选 | 使用登录用户权限时填写用户 JWT；使用服务端密钥时无需配置。 |
 | `API_KEY` | 原有，必填 | Gate.io API key，用于仓位计算中的账户请求。 |
@@ -162,7 +164,7 @@ python supabase.py --data-file test_order.json
 
 CI 首次运行前，也需在 Supabase 执行上面的 SQL 脚本；使用自定义表名时，确保该表具备相同列结构及写入权限。
 
-`run.yml` 保留每四小时一次的 UTC 定时和 `main` push 触发；手动执行可选分支。工作顺序为精度更新 → 仓位和信号计算 → 写入 Supabase → Telegram 通知 → 提交生成文件。上传命令为 `python supabase.py --sizes-file reports/sizes.txt --minimal`：没有订单时跳过写入，上传失败时工作流失败并停止后续步骤；重复执行同一报告会追加重复记录。凭据直接使用 Actions 环境变量，不再创建临时 `.env`。部署时需一并提交 `supabase.py`，确保远端 checkout 后可以运行上传脚本。
+`run.yml` 保留每四小时一次的 UTC 定时和 `main` push 触发；手动执行可选分支。工作顺序为精度更新 → 仓位和信号计算 → 写入 Supabase → Telegram 通知 → 提交生成文件。上传命令为 `python supabase.py --sizes-file reports/sizes.txt --minimal`：没有订单时跳过写入，上传失败时工作流失败并停止后续步骤；每次非空上传先清空目标表，再插入当前报告，重复执行不再追加重复记录。凭据直接使用 Actions 环境变量，不再创建临时 `.env`。部署时需一并提交 `supabase.py`，确保远端 checkout 后可以运行上传脚本。
 
 `ci.yml` 在 `main`、`1` 分支及 PR 执行离线测试：
 
