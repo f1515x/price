@@ -12,6 +12,7 @@ on:
   push:
     branches:
       - main
+      - "feature/**"
     paths:
       - "*.py"
       - "src/**"
@@ -25,7 +26,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: calculate-price
+  group: calculate-price-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -75,6 +76,14 @@ jobs:
 
           price-monitor signals "${symbols[@]}" | tee reports/signals.txt
 
+
+      - name: Write calculated sizes to Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          SUPABASE_TABLE: ${{ secrets.SUPABASE_TABLE || 'orders' }}
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: python supabase.py --sizes-file reports/sizes.txt --minimal
 
       - name: Send calculated sizes to Telegram
         env:
