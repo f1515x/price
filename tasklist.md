@@ -14,10 +14,11 @@
 - 已推送 feature-issue-4-timestamp-only 分支。
 - 已创建 PR #5：https://github.com/f1515x/price/pull/5，尚未合并。
 - 已按用户要求关闭 issue #4：https://github.com/f1515x/price/issues/4。
+- 远端 Checks 已通过，包含新增回归测试：https://github.com/f1515x/price/actions/runs/38012403632（代码提交 9ba8ec7）。
 
 ## 没做：
 - 按仓库约定，不做本地构建、编译或会触发编译的测试，也不连接真实数据库做删除验证。
 - 未合并 PR。
 
 ## 在做：
-- 远端 Checks 已启动，正在等待测试结果；未进行本地编译验证。
+- 无，推送、创建 PR、关闭 issue 和远端测试结果记录均已完成。
