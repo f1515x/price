@@ -1,11 +1,11 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : SNDK_USDT
-💰  activation_price    : 1552.92 USDT
+💰  activation_price    : 1555.62 USDT
 📈  side                : Open Long
 📦  amount              : 8 Contracts
-📦  value               : 139.05 U
+📦  value               : 139.06 U
    ======================
 
 
-Timestamp: 1791603123749 
+Timestamp: 1791627967416 
