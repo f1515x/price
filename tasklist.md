@@ -11,10 +11,13 @@
 - 已更新 README，说明没有订单时如何替换旧记录，以及订单字段需要允许 NULL。
 - 已通过 Python AST 静态语法检查和 git diff --check，未运行项目代码。
 - 首次推送因远端已有 feature 分支而命名冲突，改用 feature-issue-4-timestamp-only 分支继续推送。
+- 已推送 feature-issue-4-timestamp-only 分支。
+- 已创建 PR #5：https://github.com/f1515x/price/pull/5，尚未合并。
+- 已按用户要求关闭 issue #4：https://github.com/f1515x/price/issues/4。
 
 ## 没做：
 - 按仓库约定，不做本地构建、编译或会触发编译的测试，也不连接真实数据库做删除验证。
-- 未运行远端 CI，回归测试尚未执行。
+- 未合并 PR。
 
 ## 在做：
-- 用户已同意推送分支、关闭 issue 并创建 PR，也已知悉推送会触发真实数据库写入和 Telegram 通知；正在执行这些收尾操作。
+- 远端 Checks 已启动，正在等待测试结果；未进行本地编译验证。
