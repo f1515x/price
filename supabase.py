@@ -81,6 +81,8 @@ def parse_sizes(text):
         if record["amount"] * sign <= 0 or Decimal(record["value"]) * sign < 0:
             raise ValueError(f"{record['contract']} 的张数或价值符号与开仓方向不符")
         record["timestamp"] = timestamp
+    if not records and timestamp is not None:
+        records.append({**dict.fromkeys(sorted(ORDER_FIELDS)), "timestamp": timestamp})
     return records
 
 

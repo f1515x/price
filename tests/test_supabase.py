@@ -37,7 +37,16 @@ class SizesUploadTests(unittest.TestCase):
 
     def test_optional_timestamp_and_no_signals(self):
         self.assertIsNone(upload.parse_sizes(order())[0]["timestamp"])
-        self.assertEqual(upload.parse_sizes("none\n\nTimestamp: 1791169976034"), [])
+        for text in ("", "\n", "none\n"):
+            with self.subTest(text=text):
+                self.assertEqual(upload.parse_sizes(text), [])
+
+    def test_timestamp_only_report_preserves_timestamp_with_null_order_fields(self):
+        expected = [{"contract": None, "activation_price": None, "side": None,
+                     "amount": None, "value": None, "timestamp": 1791569579832}]
+        for text in ("Timestamp: 1791569579832", "none\n\nTimestamp: 1791569579832 \n"):
+            with self.subTest(text=text):
+                self.assertEqual(upload.parse_sizes(text), expected)
 
     def test_corrupt_report_never_partially_uploads(self):
         invalid = [order().replace("348 Contracts", "1.2 Contracts"),
@@ -46,7 +55,9 @@ class SizesUploadTests(unittest.TestCase):
                    order().replace("   ======================", ""),
                    order().replace("📦  value               : 142.42 U\n", ""),
                    order() + "执行失败: timeout",
-                   order() + "Timestamp: 1\n" + order()]
+                   order() + "Timestamp: 1\n" + order(),
+                   "Timestamp: invalid", "Timestamp: 1\nTimestamp: 2",
+                   "Timestamp: 1\n执行失败: timeout"]
         for text in invalid:
             with self.subTest(text=text), self.assertRaises(ValueError):
                 upload.parse_sizes(text)
@@ -60,11 +71,30 @@ class SizesUploadTests(unittest.TestCase):
     def test_dry_run_and_empty_report_do_not_connect(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "sizes.txt"
-            for text, options in ((order(), ["--dry-run"]), ("Timestamp: 1", [])):
+            for text, options in ((order(), ["--dry-run"]),
+                                  ("Timestamp: 1", ["--dry-run"]), ("", []), ("none", [])):
                 path.write_text(text, encoding="utf-8-sig")
                 with patch.object(upload, "supabase") as send, contextlib.redirect_stdout(io.StringIO()):
                     self.assertEqual(upload.main(["--sizes-file", str(path), *options]), 0)
                     send.assert_not_called()
+
+    def test_cli_timestamp_only_report_clears_table_then_inserts_null_fields(self):
+        rows = [{"contract": None, "activation_price": None, "side": None,
+                 "amount": None, "value": None, "timestamp": 1791569579832}]
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "sizes.txt"
+            path.write_text("\nTimestamp: 1791569579832 \n", encoding="utf-8-sig")
+            with patch.object(upload, "load_config", return_value={
+                "SUPABASE_URL": "https://example.supabase.co", "SUPABASE_KEY": "sb_secret_mock",
+            }), patch.object(upload, "request_json", side_effect=[(204, None), (201, None)]) as request, \
+                    contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(upload.main(["--sizes-file", str(path), "--minimal"]), 0)
+        endpoint = "https://example.supabase.co/rest/v1/orders"
+        self.assertEqual(request.call_args_list, [
+            call(endpoint + "?or=(contract.is.null,contract.not.is.null)",
+                 "sb_secret_mock", token=None, minimal=True, method="DELETE"),
+            call(endpoint, "sb_secret_mock", data=rows, token=None, minimal=True),
+        ])
 
     def test_bulk_write_clears_table_before_insert(self):
         rows = upload.parse_sizes(order())
