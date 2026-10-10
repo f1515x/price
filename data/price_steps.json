@@ -1,11 +1,11 @@
 [
   {
     "contract": "BTC_USDT",
-    "step": "0.1"
+    "step": "1"
   },
   {
     "contract": "ETH_USDT",
-    "step": "0.01"
+    "step": "1"
   },
   {
     "contract": "SOL_USDT",
