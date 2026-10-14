@@ -1,7 +1,7 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : SNDK_USDT
-💰  activation_price    : 1363.1 USDT
+💰  activation_price    : 1364.99 USDT
 📈  side                : Open Long
 📦  amount              : 10 Contracts
 📦  value               : 139.02 U
@@ -10,11 +10,11 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : XAU_USDT
-💰  activation_price    : 4028.87 USDT
+💰  activation_price    : 4030.0 USDT
 📈  side                : Open Long
-📦  amount              : 445 Contracts
-📦  value               : 179.31 U
+📦  amount              : 444 Contracts
+📦  value               : 179.32 U
    ======================
 
 
-Timestamp: 1791996922491 
+Timestamp: 1792008036917 
