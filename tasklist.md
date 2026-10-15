@@ -48,5 +48,4 @@
 - 未合并 PR。
 
 ## 在做：
-- 2026-10-15：issue #10 修改已完成，正在提交 PR 并等待远端 CI。
-
+- 2026-10-15：已创建 PR #11：https://github.com/f1515x/price/pull/11；等待远端 Checks，通过后按要求关闭 issue #10。
