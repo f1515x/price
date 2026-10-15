@@ -3,6 +3,9 @@ import time
 import hashlib
 import hmac
 import re
+from decimal import Decimal, InvalidOperation
+
+import requests
 from price_monitor.settings import credentials
 
 HOST = "https://api.gateio.ws"
@@ -66,11 +69,47 @@ def parse_max_leverage_from_q_multiplier(message):
     return int(leverage)
 
 
+def get_contract_info(contract_name, session=None, timeout=15):
+    """从 Gate 公开接口读取合约参数，保留数字字符串。"""
+    contract_name = contract_name.strip().upper().replace("-", "_")
+    if "_" not in contract_name:
+        contract_name += "_USDT"
+    if not re.fullmatch(r"[A-Z0-9_]+_USDT", contract_name):
+        raise ValueError("合约名称无效，仅支持 USDT 合约")
+    owns_session = session is None
+    client = session or requests.Session()
+    try:
+        response = client.get(
+            f"{HOST}{PREFIX}/futures/usdt/contracts/{contract_name}",
+            headers={"Accept": "application/json"}, timeout=timeout,
+        )
+        response.raise_for_status()
+        data = response.json()
+    except (requests.RequestException, ValueError):
+        raise RuntimeError(f"获取 {contract_name} 合约参数失败，请检查 Gate 接口") from None
+    finally:
+        if owns_session:
+            client.close()
+    if not isinstance(data, dict) or data.get("name") != contract_name:
+        raise RuntimeError(f"{contract_name} 的合约记录不匹配")
+    for field in ("quanto_multiplier", "order_price_round", "leverage_max"):
+        value = data.get(field)
+        if not isinstance(value, str):
+            raise RuntimeError(f"{contract_name} 的 {field} 必须是数字字符串")
+        try:
+            number = Decimal(value)
+        except InvalidOperation:
+            raise RuntimeError(f"{contract_name} 的 {field} 无效") from None
+        if not number.is_finite() or number <= 0:
+            raise RuntimeError(f"{contract_name} 的 {field} 必须为正数")
+        if field == "leverage_max" and number != number.to_integral_value():
+            raise RuntimeError(f"{contract_name} 的 leverage_max 必须为整数")
+    return data
+
+
 def get_max_leverage(session, contract_name):
-    """从 Supabase 对应合约记录读取最大杠杆；session 保留兼容调用。"""
-    from decimal import Decimal
-    from price_monitor.clients.supabase import load_contract
-    return int(Decimal(load_contract(contract_name)["leverage_max"]))
+    """从 Gate 公开合约接口读取最大杠杆。"""
+    return int(Decimal(get_contract_info(contract_name, session)["leverage_max"]))
 
 
 def get_total_available_margin(session):

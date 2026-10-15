@@ -1,5 +1,4 @@
-"""Supabase credential and contract storage; never log response bodies."""
-from decimal import Decimal, InvalidOperation
+"""Supabase credential storage; never log response bodies."""
 import re
 
 import requests
@@ -7,7 +6,7 @@ import requests
 from price_monitor.settings import load_env
 
 
-def request(method, table, *, params=None, data=None):
+def request(method, table, *, params=None):
     values = load_env()
     url = values.get("SUPABASE_URL", "").strip().rstrip("/")
     key = (values.get("SUPABASE_KEY") or values.get("SUPABASE_ANON_KEY", "")).strip()
@@ -19,11 +18,9 @@ def request(method, table, *, params=None, data=None):
     token = values.get("SUPABASE_ACCESS_TOKEN", "").strip()
     if token or not key.startswith("sb_"):
         headers["Authorization"] = "Bearer " + (token or key)
-    if data is not None:
-        headers["Prefer"] = "resolution=merge-duplicates,return=minimal"
     try:
         response = requests.request(method, f"{url}/{table}", params=params,
-                                    json=data, headers=headers, timeout=20)
+                                    headers=headers, timeout=20)
         if not response.ok:
             raise RuntimeError(f"Supabase {table} 请求失败（HTTP {response.status_code}），请检查表结构和权限")
         return response.json() if response.content else None
@@ -48,47 +45,3 @@ def load_credentials():
             raise RuntimeError(f"Supabase secret 表的 {field} 无效")
         result.append(value)
     return tuple(result)
-
-
-def contract_name(value):
-    value = value.strip().upper().replace("-", "_")
-    if "_" not in value:
-        value += "_USDT"
-    if not re.fullmatch(r"[A-Z0-9_]+_USDT", value):
-        raise ValueError("合约名称无效，仅支持 USDT 合约")
-    return value
-
-
-def validate_contract(contract, row):
-    if not isinstance(row, dict) or row.get("contract", row.get("name")) != contract:
-        raise RuntimeError(f"{contract} 的合约记录不匹配")
-    record = {"contract": contract}
-    for field in ("quanto_multiplier", "order_price_round", "leverage_max"):
-        value = row.get(field)
-        # Gate returns decimal strings. Reject floats instead of preserving already lost precision.
-        if not isinstance(value, str):
-            raise RuntimeError(f"{contract} 的 {field} 必须是数字字符串")
-        try:
-            number = Decimal(value)
-        except InvalidOperation:
-            raise RuntimeError(f"{contract} 的 {field} 无效") from None
-        if not number.is_finite() or number <= 0:
-            raise RuntimeError(f"{contract} 的 {field} 必须为正数")
-        if field == "leverage_max" and number != number.to_integral_value():
-            raise RuntimeError(f"{contract} 的 leverage_max 必须为整数")
-        record[field] = value
-    return record
-
-
-def save_contract(contract, data):
-    contract = contract_name(contract)
-    record = validate_contract(contract, data)
-    request("POST", "contracts", params={"on_conflict": "contract"}, data=record)
-
-
-def load_contract(contract):
-    contract = contract_name(contract)
-    rows = request("GET", "contracts", params={"select": "*", "contract": f"eq.{contract}"})
-    if not isinstance(rows, list) or len(rows) != 1:
-        raise RuntimeError(f"Supabase 中缺少唯一的 {contract} 合约记录，请先运行 precision 更新")
-    return validate_contract(contract, rows[0])

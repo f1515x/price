@@ -15,7 +15,7 @@ from typing import Any
 
 import requests
 from price_monitor.settings import CONFIG_DIR, DATA_DIR
-from price_monitor.clients.supabase import save_contract, load_contract
+from price_monitor.clients.gate import get_contract_info
 
 
 HOST = "https://api.gateio.ws"
@@ -85,7 +85,6 @@ def get_price_precision(
             result[field] = {"value": Decimal(str(raw)), "step": decimal_step(raw)}
         except (InvalidOperation, ValueError) as exc:
             raise RuntimeError(f"{contract} 的 {field} 无效: {raw!r}") from exc
-    save_contract(contract, data)
     return result
 
 
@@ -141,9 +140,9 @@ def main(argv: list[str] | None = None) -> int:
     with requests.Session() as session:
         for contract in contracts:
             try:
-                get_price_precision(contract, session, args.timeout)
-                # Keep this file as a compatibility report; sizing reads Supabase.
-                max_step = Decimal(load_contract(contract)["order_price_round"])
+                # Keep the compatibility report using Gate's actual order tick.
+                data = get_contract_info(contract, session, args.timeout)
+                max_step = Decimal(data["order_price_round"])
                 output_data.append(
                     {"contract": contract, "step": format_decimal(max_step)}
                 )

@@ -4,7 +4,7 @@
 
 ```text
 cli / 根目录兼容脚本
-├── market.precision → Gate.io 公开合约接口 → Supabase contracts + data/price_steps.json（兼容报告）
+├── market.precision → Gate.io 公开合约接口 → data/price_steps.json（兼容报告）
 ├── strategy.signals
 │   ├── market.performance → TradingView
 │   └── analysis.structure
@@ -12,14 +12,15 @@ cli / 根目录兼容脚本
 │       └── analysis.indicators → ATR14 / r 值
 ├── risk.sizing
 │   ├── strategy.signals → 当次分析的价格和方向
-│   ├── risk.allocation → Supabase contracts 杠杆 + clients.gate 账户保证金
-│   ├── Supabase contracts → quanto_multiplier
-│   ├── Supabase contracts → order_price_round
+│   ├── risk.allocation → Gate 公开合约接口杠杆 + clients.gate 账户保证金
+│   ├── Gate 公开合约接口 → quanto_multiplier
+│   ├── Gate 公开合约接口 → order_price_round
 │   └── reporting.text → 仓位报告
+├── supabase.py → reports/sizes.txt → Supabase orders（报告六字段）
 └── clients.telegram → 报告 + config/chat_ids.txt → Telegram
 ```
 
-`settings` 统一解析运行路径与数据库连接配置；`clients.supabase` 读取 Gate 凭据、读写合约参数。纯信号公式、SMC、ATR 和报告格式均可独立使用；部分外部请求仍位于市场模块和仓位编排模块，未额外引入无实现的抽象层。
+`settings` 统一解析运行路径与数据库连接配置；`clients.supabase` 读取 Gate 凭据。纯信号公式、SMC、ATR 和报告格式均可独立使用；部分外部请求仍位于市场模块和仓位编排模块，未额外引入无实现的抽象层。
 
 ## 迁移映射
 
@@ -51,12 +52,12 @@ SMC/ATR/r 值使用 200 根合成 K 线与迁移前实现逐项核对，预期�
 - Gate 凭证延后到签名请求时从 Supabase secret 读取，列名为 API_KEY= 和 API_SECRET=，不再读取本地 Gate 凭证。数据库连接配置仍为环境变量优先于可选 .env。
 - 账户保证金请求增加 15 秒超时。
 - 移除 TradingView 源码内嵌会话 cookie；保留原 URL、请求字段和 headers。尚未验证真实匿名请求响应。
-- 工作流先抓取并保存当次合约参数，再从 Supabase 读取参数计算仓位；feature push 只验证，不发布真实报告。
+- 工作流先生成精度报告，仓位计算直接从 Gate 公开接口读取参数；feature push 只验证，不发布真实报告。
 - 数据使用 JSON 扩展名，输入配置和报告分目录保存。
 - 统一 CLI 的 performance 命令在查询失败时返回非零退出码。
 
 ## 后续工程边界
 
-合约乘数、实际下单步长及最大杠杆存入 Supabase，数字字符串原样保存并以 Decimal 参与精度相关计算。数据库结构和迁移顺序见 README 与 docs/supabase_contracts.sql。K 线更新仍采用末尾 8 条替换，长时间停机时未自动补齐断档。生成报告依然追加时间戳并提交，因此仍可能每次运行产生提交。
+合约乘数、实际下单步长及最大杠杆直接从 Gate 公开接口读取，数字字符串以 Decimal 参与精度相关计算。订单上传直接使用报告中的六个字段。凭证表结构见 README 与 docs/supabase_secret.sql。K 线更新仍采用末尾 8 条替换，长时间停机时未自动补齐断档。生成报告依然追加时间戳并提交，因此仍可能每次运行产生提交。
 
 依赖已集中声明在 pyproject.toml，尚未锁定版本。部署前可在选定 Python 和操作系统上生成依赖锁文件。生产定时任务仍遵循 GitHub 默认分支上的 schedule 行为，迁移分支上的 CI 会独立执行。

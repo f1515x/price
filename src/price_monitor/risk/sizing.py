@@ -7,7 +7,7 @@ from decimal import Decimal, InvalidOperation, ROUND_DOWN, localcontext
 from io import StringIO
 
 from price_monitor.risk import allocation as amount_module
-from price_monitor.clients.supabase import load_contract
+from price_monitor.clients.gate import get_contract_info
 
 
 def normalize_contract_name(contract_name):
@@ -22,8 +22,8 @@ def normalize_contract_name(contract_name):
 
 
 def get_price_step(contract_name):
-    """从 Supabase 读取该合约真实的下单价格步长。"""
-    return Decimal(load_contract(normalize_contract_name(contract_name))["order_price_round"])
+    """从 Gate 公开接口读取该合约真实的下单价格步长。"""
+    return Decimal(get_contract_info(normalize_contract_name(contract_name))["order_price_round"])
 
 
 def _get_price_and_action(contract_name):
@@ -91,9 +91,9 @@ def amount(contract_name=None):
     return suggested_position
 
 def getquanto_multiplier(contract_name=None, session=None):
-    """从 Supabase 读取对应合约乘数；session 保留兼容调用。"""
+    """从 Gate 公开接口读取对应合约乘数。"""
     contract_name = normalize_contract_name(contract_name or contract())
-    return load_contract(contract_name)["quanto_multiplier"]
+    return get_contract_info(contract_name, session)["quanto_multiplier"]
 
 
 def size(contract_name=None):
