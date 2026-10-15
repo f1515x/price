@@ -121,8 +121,8 @@ price-monitor notify reports/sizes.txt config/chat_ids.txt
 `SUPABASE_TABLE=orders`，参考 `.env.example`。环境变量优先于 `.env`。
 
 首次使用，在 Supabase SQL Editor 执行 [`docs/supabase_sizes.sql`](docs/supabase_sizes.sql)，
-为现有 `orders` 表添加 `contract`、`activation_price`、`side`、`amount`、`value`、`timestamp` 列。
-每次非空写入前，脚本先删除目标表的全部旧记录（包括 `contract` 为 NULL 的历史记录），再批量插入新记录。价格和价值使用 `numeric`，张数保留多空正负号，
+为现有 `orders` 表添加 `contract`、`activation_price`、`side`、`amount`、`value`、`timestamp`、`quanto_multiplier`、`order_price_round` 列。
+每次非空写入前，脚本先从 `contracts` 读取每个订单对应的合约参数，全部校验通过后再删除目标表的全部旧记录（包括 `contract` 为 NULL 的历史记录），再批量插入新记录。价格和价值使用 `numeric`，张数保留多空正负号，
 `timestamp` 保存报告末尾的 Unix 毫秒时间戳；没有时间戳时写入 NULL。
 
 ```powershell
@@ -140,7 +140,7 @@ python supabase.py --data-file test_order.json
 每个 Order Alert 对应一条记录，单位和图标不会写入数据库。数字字符串由数据库转为 numeric，
 避免解析时丢失小数精度。没有 Order Alert、只有 `Timestamp`（可带 `none`）时，也先清空目标表，
 再写入一条保留 `timestamp` 的记录，`contract`、`activation_price`、`side`、`amount`、`value` 全部为 NULL，避免旧订单残留。
-这些订单列需要允许 NULL；仓库提供的 SQL 新增列默认允许 NULL。真正的空报告或只有 `none` 时仍跳过写入；格式错误时终止整个批次。
+`quanto_multiplier` 和 `order_price_round` 也为 NULL。这些订单列需要允许 NULL；仓库提供的 SQL 新增列默认允许 NULL。真正的空报告或只有 `none` 时仍跳过写入；格式错误时终止整个批次。
 重复运行同一文件会替换旧记录，不再追加重复记录。删除失败时立即终止，不执行插入。
 删除和插入是两次独立请求，并非原子事务；插入失败时目标表可能为空，需修复原因后重新运行。避免并发上传到同一张表。
 成功时输出条数、HTTP 状态及插入记录，失败时输出原因并以退出码 1 结束。
@@ -184,7 +184,9 @@ python -m unittest discover -s tests -v
 3. 配置 `.env` 或 Actions 的 `SUPABASE_URL`、`SUPABASE_KEY`（服务端 secret key 或 legacy service_role key）。客户端也兼容 Orders3 的 `SUPABASE_ANON_KEY` 变量名，但该身份必须有相应数据库权限。`SUPABASE_TABLE` 仍只影响订单上传，不改变凭证或合约表。
 4. 先运行 `price-monitor precision BTC ETH`，再运行 `price-monitor sizes BTC ETH` 或 `allocation`。工作流已保持这个顺序。删除旧的 Gate `API_KEY` / `API_SECRET` Actions secrets 即可，它们不再被读取。
 
-`precision` 访问每个合约的 `/futures/usdt/contracts/{contract}`，校验并按 `contract` 主键 upsert 到 `contracts`，同时更新 `quanto_multiplier`、`order_price_round`、`leverage_max` 和更新时间。两个精度参数使用 `text` 原样保存，不经过 float，计算时才转 Decimal；例如 `0.00010000` 的尾随零仍保留。更新失败会使命令返回失败，工作流不会继续生成和上传订单。
+`precision` 访问每个合约的 `/futures/usdt/contracts/{contract}`，校验并按 `contract` 主键 upsert 到 `contracts`，同时更新 `quanto_multiplier`、`order_price_round`、`leverage_max` 和更新时间。上传订单时，`supabase.py` 从 `contracts` 按合约读取两个参数，写入目标订单表（默认 `orders`）的同名列；订单中手动传入的参数会被数据库参数覆盖。读取失败、记录重复、合约不匹配或参数无效时，在删除旧订单之前终止。一个批次内同一合约只读取一次。无订单的时间戳记录不查询合约，并把两个参数写为 NULL。`--dry-run` 仍只预览报告解析，不连接数据库，两个参数在实际上传时补齐。已有 `orders` 表也需重新执行 `docs/supabase_sizes.sql` 添加这两列，自定义订单表需同样添加。
+
+两个精度参数在缓存表和订单表均使用 `text` 原样保存，不经过 float，计算时才转 Decimal；例如 `0.00010000` 的尾随零仍保留。更新失败会使命令返回失败，工作流不会继续生成和上传订单。
 
 仓位计算从 Supabase 读取对应合约的乘数、价格步长和最大杠杆，不回退到本地价格文件或交易所请求。单独执行 sizes/allocation 时使用数据库最后同步的参数；需要最新参数时先执行 precision。价格按实际步长向下取整（包括 `0.25` 这种步长），再用该价格换算张数，保持 1% 建议仓位、多空符号和无信号返回 none 的规则。工具仍不执行真实下单。
 
