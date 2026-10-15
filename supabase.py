@@ -129,40 +129,6 @@ def request_json(url, key, *, data=None, token=None, minimal=False, method=None)
         raise RuntimeError(f"网络请求失败: {error}") from None
 
 
-def attach_contract_parameters(data, endpoint, key, token):
-    """先读齐每个合约的参数，再允许替换订单；保留数字字符串。"""
-    rows = data if isinstance(data, list) else [data]
-    cache = {}
-    result = []
-    for row in rows:
-        contract = row.get("contract")
-        parameters = dict.fromkeys(("quanto_multiplier", "order_price_round"))
-        if contract is not None:
-            if not isinstance(contract, str) or not re.fullmatch(r"[A-Z0-9_]+_USDT", contract):
-                raise ValueError("合约名称无效")
-            if contract not in cache:
-                _, records = request_json(
-                    endpoint + "/contracts?select=contract,quanto_multiplier,order_price_round"
-                    + "&contract=eq." + contract, key, token=token)
-                if not isinstance(records, list) or len(records) != 1 or not isinstance(records[0], dict) or records[0].get("contract") != contract:
-                    raise ValueError(f"缺少唯一的 {contract} 合约参数，请先运行 precision")
-                for field in parameters:
-                    value = records[0].get(field)
-                    if not isinstance(value, str):
-                        raise ValueError(f"{contract} 的 {field} 必须是数字字符串")
-                    try:
-                        number = Decimal(value)
-                    except InvalidOperation:
-                        raise ValueError(f"{contract} 的 {field} 无效") from None
-                    if not number.is_finite() or number <= 0:
-                        raise ValueError(f"{contract} 的 {field} 必须为正数")
-                    parameters[field] = value
-                cache[contract] = parameters
-            parameters = cache[contract]
-        result.append({**row, **parameters})
-    return result if isinstance(data, list) else result[0]
-
-
 def supabase(data=None, *, table=None, check_only=False, minimal=False):
     config = load_config()
     url = config.get("SUPABASE_URL", "").strip().rstrip("/")
@@ -190,8 +156,6 @@ def supabase(data=None, *, table=None, check_only=False, minimal=False):
         status, _ = request_json(endpoint + "?select=*&limit=0", key, token=token)
         print(f"连接成功：{table}，HTTP {status}", flush=True)
         return None
-    # 参数读取和校验全部成功后才清空，避免缺参数时删掉旧订单。
-    data = attach_contract_parameters(data, endpoint.rsplit("/", 1)[0], key, token)
     # 覆盖 contract 为空的历史记录及非空记录，清空整张目标表。
     status, _ = request_json(endpoint + "?or=(contract.is.null,contract.not.is.null)",
                              key, token=token, minimal=True, method="DELETE")
