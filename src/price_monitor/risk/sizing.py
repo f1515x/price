@@ -73,12 +73,13 @@ def get_max_leverage(session, contract_name):
     return amount_module.get_max_leverage(session, contract_name)
 
 
-def amount(contract_name=None):
+def amount(contract_name=None, *, max_leverage=None):
     """计算指定交易品种的建议仓位价值（最大开仓价值的 1%）。"""
     contract_name = normalize_contract_name(contract_name) if contract_name else contract()
 
     with requests.Session() as session:
-        max_leverage = get_max_leverage(session, contract_name)
+        if max_leverage is None:
+            max_leverage = get_max_leverage(session, contract_name)
         available_margin = amount_module.get_total_available_margin(session)
 
     max_open = amount_module.compute_max_open(
@@ -96,6 +97,12 @@ def getquanto_multiplier(contract_name=None, session=None):
     return get_contract_info(contract_name, session)["quanto_multiplier"]
 
 
+def getorder_price_round(contract_name=None, session=None):
+    """从 Gate 公开接口读取对应合约的订单价格步长。"""
+    contract_name = normalize_contract_name(contract_name or contract())
+    return get_contract_info(contract_name, session)["order_price_round"]
+
+
 def size(contract_name=None):
     """计算下单张数；做空返回负整数，做多返回正整数。
 
@@ -107,8 +114,12 @@ def size(contract_name=None):
     if final_price is None:
         return None
 
-    suggested_amount = amount(contract_name)
-    quanto_multiplier = getquanto_multiplier(contract_name)
+    contract_info = get_contract_info(contract_name)
+    quanto_multiplier = contract_info["quanto_multiplier"]
+    order_price_round = contract_info["order_price_round"]
+    suggested_amount = amount(
+        contract_name, max_leverage=int(Decimal(contract_info["leverage_max"])),
+    )
 
     try:
         amount_value = Decimal(str(suggested_amount))
@@ -127,7 +138,7 @@ def size(contract_name=None):
     if multiplier_value <= 0 or price_value <= 0:
         raise ValueError("quanto_multiplier 和 price 必须大于 0")
 
-    price_step = get_price_step(contract_name)
+    price_step = Decimal(order_price_round)
     # quantize alone only sets decimal places; division also honors ticks such as 0.25.
     with localcontext() as context:
         inputs = (amount_value, multiplier_value, price_value, price_step)
@@ -150,6 +161,8 @@ def size(contract_name=None):
         (direction_icon, "side      ", action),
         ("📦", "amount    ", f"{order_size} Contracts"),
         ("📦", "value    ", f"{amount_valu} U"),
+        ("🔢", "quanto_multiplier", quanto_multiplier),
+        ("🔢", "order_price_round", order_price_round),
     )
     print("\n🚀 ====== Order Alert ======")
     for line in _format_order_detail_lines(order_details):

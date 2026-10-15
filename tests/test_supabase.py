@@ -26,6 +26,54 @@ def order(contract="BTC_USDT", side="Open Long", amount="348", value="142.42"):
 
 
 class SizesUploadTests(unittest.TestCase):
+    def test_generated_orders_keep_metadata_through_http_upload(self):
+        from price_monitor.risk import sizing
+
+        metadata = {"name": "ETH_USDT", "quanto_multiplier": "0.000100000000000001",
+                    "order_price_round": "0.2500", "leverage_max": "100"}
+        for action in ("Open Long", "Open Short"):
+            with self.subTest(action=action), \
+                    patch.object(sizing, "get_contract_info", return_value=metadata) as fetch, \
+                    patch.object(sizing, "_get_price_and_action", return_value=(10.24, action)), \
+                    patch.object(sizing.amount_module, "get_total_available_margin", return_value=100), \
+                    patch.object(sizing, "get_max_leverage", side_effect=AssertionError("duplicate metadata request")), \
+                    contextlib.redirect_stdout(io.StringIO()) as output:
+                sizing.size("eth")
+            fetch.assert_called_once_with("ETH_USDT")
+            rows = upload.parse_sizes(output.getvalue() + "Timestamp: 1")
+            self.assertEqual(rows[0]["contract"], "ETH_USDT")
+            self.assertEqual(rows[0]["activation_price"], "10.0000")
+            for field in upload.CONTRACT_FIELDS:
+                self.assertEqual(rows[0][field], metadata[field])
+            with patch.object(upload, "load_config", return_value={
+                "SUPABASE_URL": "https://example.supabase.co", "SUPABASE_KEY": "sb_secret_mock",
+            }), patch.object(upload, "urlopen") as open_url, contextlib.redirect_stdout(io.StringIO()):
+                response = open_url.return_value.__enter__.return_value
+                response.status = 201
+                response.read.return_value = b""
+                upload.supabase(rows, minimal=True)
+            self.assertEqual(json.loads(open_url.call_args.args[0].data), rows)
+            self.assertEqual(open_url.call_count, 2)
+
+    def test_metadata_validation_and_legacy_reports(self):
+        self.assertIsNone(upload.parse_sizes(order())[0]["quanto_multiplier"])
+        extra = "🔢 quanto_multiplier: 0.00010000\n🔢 order_price_round: 0.2500\n"
+        report = order().replace("   ======================", extra + "   ======================")
+        self.assertEqual(upload.parse_sizes(report)[0]["quanto_multiplier"], "0.00010000")
+        mixed = upload.parse_sizes(order() + report)
+        self.assertEqual(set(mixed[0]), set(mixed[1]))
+        self.assertIsNone(mixed[0]["order_price_round"])
+        self.assertEqual(mixed[1]["order_price_round"], "0.2500")
+        invalid = [report.replace("🔢 order_price_round: 0.2500\n", ""),
+                   report.replace("🔢 quanto_multiplier: 0.00010000\n", ""),
+                   report.replace("🔢 order_price_round: 0.2500", "🔢 order_price_round: 0.25\n🔢 order_price_round: 0.25")]
+        for field, original in (("quanto_multiplier", "0.00010000"), ("order_price_round", "0.2500")):
+            for value in ("NaN", "Infinity", "0", "-1", "bad", "0.25 U", "0_1"):
+                invalid.append(report.replace(f"{field}: {original}", f"{field}: {value}"))
+        for text in invalid:
+            with self.subTest(text=text), self.assertRaises(ValueError):
+                upload.parse_sizes(text)
+
     def test_multiple_orders_share_report_timestamp_and_preserve_precision(self):
         rows = upload.parse_sizes(order() + order("ETH_USDT", "Open Short", "-4", "-10.2")
                                   + "\nTimestamp: 1791169976034 \n")
@@ -43,7 +91,8 @@ class SizesUploadTests(unittest.TestCase):
 
     def test_timestamp_only_report_preserves_timestamp_with_null_order_fields(self):
         expected = [{"contract": None, "activation_price": None, "side": None,
-                     "amount": None, "value": None, "timestamp": 1791569579832}]
+                     "amount": None, "value": None, "quanto_multiplier": None,
+                 "order_price_round": None, "timestamp": 1791569579832}]
         for text in ("Timestamp: 1791569579832", "none\n\nTimestamp: 1791569579832 \n"):
             with self.subTest(text=text):
                 self.assertEqual(upload.parse_sizes(text), expected)
@@ -80,7 +129,8 @@ class SizesUploadTests(unittest.TestCase):
 
     def test_cli_timestamp_only_report_clears_table_then_inserts_null_fields(self):
         rows = [{"contract": None, "activation_price": None, "side": None,
-                 "amount": None, "value": None, "timestamp": 1791569579832}]
+                 "amount": None, "value": None, "quanto_multiplier": None,
+                 "order_price_round": None, "timestamp": 1791569579832}]
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "sizes.txt"
             path.write_text("\nTimestamp: 1791569579832 \n", encoding="utf-8-sig")

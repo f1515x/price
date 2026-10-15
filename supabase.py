@@ -13,6 +13,7 @@ from urllib.request import Request, urlopen
 
 DEFAULT_SIZES_FILE = Path(__file__).resolve().parent / "reports" / "sizes.txt"
 ORDER_FIELDS = {"contract", "activation_price", "side", "amount", "value"}
+CONTRACT_FIELDS = {"quanto_multiplier", "order_price_round"}
 
 
 def parse_sizes(text):
@@ -32,8 +33,10 @@ def parse_sizes(text):
             current = {}
             continue
         if line == "======================":
-            if current is None or set(current) != ORDER_FIELDS:
-                missing = ORDER_FIELDS - set(current or {})
+            if (current is None or not ORDER_FIELDS <= set(current)
+                    or (set(current) & CONTRACT_FIELDS) not in (set(), CONTRACT_FIELDS)):
+                required = ORDER_FIELDS | (CONTRACT_FIELDS if set(current or {}) & CONTRACT_FIELDS else set())
+                missing = required - set(current or {})
                 raise ValueError(f"第 {line_number} 行：订单字段不完整：{', '.join(sorted(missing))}")
             records.append(current)
             current = None
@@ -44,7 +47,7 @@ def parse_sizes(text):
                 raise ValueError(f"第 {line_number} 行：Timestamp 位置错误或重复")
             timestamp = int(match[1])
             continue
-        match = re.search(r"\b(contract|activation_price|side|amount|value)\s*:\s*(.+)$", line)
+        match = re.search(r"\b(contract|activation_price|side|amount|value|quanto_multiplier|order_price_round)\s*:\s*(.+)$", line)
         if current is None or not match:
             raise ValueError(f"第 {line_number} 行：无法识别的报告内容：{line}")
         field, value = match.groups()
@@ -61,6 +64,15 @@ def parse_sizes(text):
             if not number or int(number[1]) == 0:
                 raise ValueError(f"第 {line_number} 行：张数必须为非零整数")
             value = int(number[1])
+        elif field in CONTRACT_FIELDS:
+            if not re.fullmatch(r"[+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?", value):
+                raise ValueError(f"第 {line_number} 行：{field} 数值无效")
+            try:
+                numeric = Decimal(value)
+            except InvalidOperation:
+                raise ValueError(f"第 {line_number} 行：{field} 数值无效") from None
+            if not numeric.is_finite() or numeric <= 0:
+                raise ValueError(f"第 {line_number} 行：{field} 必须为正数")
         else:
             unit = "USDT" if field == "activation_price" else "U"
             number = re.fullmatch(r"([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s+" + unit, value)
@@ -80,9 +92,11 @@ def parse_sizes(text):
         sign = 1 if record["side"] == "Open Long" else -1
         if record["amount"] * sign <= 0 or Decimal(record["value"]) * sign < 0:
             raise ValueError(f"{record['contract']} 的张数或价值符号与开仓方向不符")
+        for field in CONTRACT_FIELDS:
+            record.setdefault(field, None)
         record["timestamp"] = timestamp
     if not records and timestamp is not None:
-        records.append({**dict.fromkeys(sorted(ORDER_FIELDS)), "timestamp": timestamp})
+        records.append({**dict.fromkeys(sorted(ORDER_FIELDS | CONTRACT_FIELDS)), "timestamp": timestamp})
     return records
 
 

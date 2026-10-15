@@ -59,7 +59,7 @@ price/
 ├── docs/
 │   ├── architecture.md              # 依赖树、迁移映射与后续边界
 │   ├── supabase_secret.sql          # 按需创建凭证表，保留已有表权限
-│   └── supabase_sizes.sql           # 为现有订单表添加报告字段
+│   └── supabase_sizes.sql           # 新建或升级订单表的报告字段
 └── amount.py / float.py / kline.py / month.py /
     price.py / size.py / smc.py / tele_gate.py  # 兼容入口
 ```
@@ -124,7 +124,7 @@ price-monitor notify reports/sizes.txt config/chat_ids.txt
 `SUPABASE_TABLE=orders`，参考 `.env.example`。环境变量优先于 `.env`。
 
 首次使用，在 Supabase SQL Editor 执行 [`docs/supabase_sizes.sql`](docs/supabase_sizes.sql)，
-为现有 `orders` 表添加 `contract`、`activation_price`、`side`、`amount`、`value`、`timestamp` 列。
+创建 `orders` 表（尚不存在时），或为已有表补齐 `contract`、`activation_price`、`side`、`amount`、`value`、`timestamp`、`quanto_multiplier`、`order_price_round` 列。SQL 可重复执行，保留已有字段、约束和记录；新增数值参数采用不限制小数位数的 `numeric`。
 每次非空写入直接删除目标表的全部旧记录（包括 `contract` 为 NULL 的历史记录），再批量插入报告中的新记录。价格和价值使用 `numeric`，张数保留多空正负号，
 `timestamp` 保存报告末尾的 Unix 毫秒时间戳；没有时间戳时写入 NULL。
 
@@ -142,7 +142,7 @@ python supabase.py --data-file test_order.json
 
 每个 Order Alert 对应一条记录，单位和图标不会写入数据库。数字字符串由数据库转为 numeric，
 避免解析时丢失小数精度。没有 Order Alert、只有 `Timestamp`（可带 `none`）时，也先清空目标表，
-再写入一条保留 `timestamp` 的记录，`contract`、`activation_price`、`side`、`amount`、`value` 全部为 NULL，避免旧订单残留。
+再写入一条保留 `timestamp` 的记录，`contract`、`activation_price`、`side`、`amount`、`value`、`quanto_multiplier`、`order_price_round` 全部为 NULL，避免旧订单残留。
 这些订单列需要允许 NULL；仓库提供的 SQL 新增列默认允许 NULL。真正的空报告或只有 `none` 时仍跳过写入；格式错误时终止整个批次。
 重复运行同一文件会替换旧记录，不再追加重复记录。删除失败时立即终止，不执行插入。
 删除和插入是两次独立请求，并非原子事务；插入失败时目标表可能为空，需修复原因后重新运行。避免并发上传到同一张表。
@@ -188,12 +188,12 @@ python -m unittest discover -s tests -v
 
 `precision` 和仓位计算直接从 Gate 公开合约接口读取参数。价格步长、合约乘数和最大杠杆保留数字字符串，计算时转为 Decimal；价格按实际步长向下取整（包括 `0.25`），再换算张数，保持 1% 建议仓位、多空符号和无信号返回 none 的规则。
 
-订单上传直接使用报告中的六个字段，不再补充合约乘数和下单价格步长，也不查询合约参数表。数据库只需现有凭证表和订单表。工具仍不执行真实下单。
+每条新订单在原有展示字段之后追加 `quanto_multiplier` 和 `order_price_round`，原样保留 Gate 数字字符串。一次仓位计算只获取一次该合约参数，复用于最大杠杆、张数、价格处理和报告；`getorder_price_round(contract_name=None, session=None)` 与 `getquanto_multiplier()` 一样支持指定合约及复用会话。上传从报告解析相同的参数字符串并交给 `numeric` 列保存，不再次查询 Gate，也不查询合约参数表。旧报告允许同时省略这两个字段，上传时写入 NULL；仅包含一个参数或参数非正数时，在删除旧订单前拒绝整个报告。数据库只需凭证表和订单表。工具仍不执行真实下单。
 
 ### 从 PR #8 的版本升级
 
 PR #8 已合并的版本把 Supabase `contracts` 表设为运行依赖；该表返回 HTTP 404 时，计算流程会提前退出，订单上传不会执行。本次修复删除这张表的读写和建表脚本，合约参数改由 Gate 公开接口提供。
 
-已有 `secret` 和订单表的部署只需更新代码并确认原有权限。新部署按上面的凭证和订单说明准备数据库。无需创建或同步 `contracts` 表；已执行过旧 SQL 的数据库不会被本次代码更新自动删除表或列。订单上传不再自动填入 `quanto_multiplier`、`order_price_round`，已有这两列时需允许省略写入（可为空或有合适默认值）。
+已有 `secret` 和订单表的部署只需更新代码并确认原有权限。新部署按上面的凭证和订单说明准备数据库。无需创建或同步 `contracts` 表；已执行过旧 SQL 的数据库不会被本次代码更新自动删除表或列。issue #10 增加报告参数入库后，上线新代码前请再次执行 `docs/supabase_sizes.sql`，补齐两个 `numeric` 列；已有这两列时保持原定义。为兼容旧报告和只有时间戳的报告，这两列需允许 NULL。
 
 修复后的远端 Checks 使用模拟接口验证精度、仓位换算及订单上传，不会访问真实账户、数据库或发送通知。真实业务流程仍依赖 Gate 行情接口、账户权限及现有订单表权限。

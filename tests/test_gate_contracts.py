@@ -17,6 +17,17 @@ BTC = {"name": "BTC_USDT", "quanto_multiplier": "0.00010000",
 
 
 class GateContractTests(unittest.TestCase):
+    def test_order_price_round_helper_normalizes_input_and_reuses_session(self):
+        session = Mock()
+        with patch.object(sizing, "get_contract_info", return_value=BTC) as fetch:
+            self.assertEqual(sizing.getorder_price_round(" btc_usdt ", session), "0.2500")
+            fetch.assert_called_once_with("BTC_USDT", session)
+        with patch.object(sizing, "contract", return_value="BTC_USDT") as prompt, \
+                patch.object(sizing, "get_contract_info", return_value=BTC) as fetch:
+            self.assertEqual(sizing.getorder_price_round(), "0.2500")
+            prompt.assert_called_once_with()
+            fetch.assert_called_once_with("BTC_USDT", None)
+
     def test_metadata_uses_public_gate_without_database_or_signature(self):
         session = Mock()
         session.get.return_value.json.return_value = BTC
