@@ -35,12 +35,6 @@ jobs:
     # Feature pushes run offline PR checks, without publishing live reports.
     if: github.event_name != 'push' || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    env:
-      # Match local .env names; Gate API credentials are loaded from Supabase secret.
-      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-      SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-      SUPABASE_TABLE: ${{ secrets.SUPABASE_TABLE || 'orders' }}
-      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
 
     steps:
       - name: Checkout repository
@@ -60,6 +54,10 @@ jobs:
 
       - name: Read symbols and calculate sizes and signals
         shell: bash
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
         run: |
           set -o pipefail
 
@@ -84,6 +82,11 @@ jobs:
 
 
       - name: Write calculated sizes to Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          SUPABASE_TABLE: ${{ secrets.SUPABASE_TABLE || 'orders' }}
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
         run: python supabase.py --sizes-file reports/sizes.txt --minimal
 
       - name: Send calculated sizes to Telegram
