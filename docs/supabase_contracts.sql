@@ -1,10 +1,20 @@
 -- Run once before enabling the migrated workflow. Existing Orders3 secret rows are preserved.
 begin;
 
-create table if not exists public.secret (
-    "API_KEY=" text not null,
-    "API_SECRET=" text not null
-);
+-- Do not change permissions on an existing Orders3 credential table.
+do $$
+begin
+    if to_regclass('public.secret') is null then
+        create table public.secret (
+            "API_KEY=" text not null,
+            "API_SECRET=" text not null
+        );
+        alter table public.secret enable row level security;
+        revoke all on public.secret from anon, authenticated;
+        grant select on public.secret to service_role;
+    end if;
+end;
+$$;
 
 -- Text keeps the exact decimal representation, including trailing zeroes.
 create table if not exists public.contracts (
@@ -32,11 +42,8 @@ drop trigger if exists price_contract_updated_at on public.contracts;
 create trigger price_contract_updated_at before update on public.contracts
 for each row execute function public.price_contract_updated_at();
 
-alter table public.secret enable row level security;
 alter table public.contracts enable row level security;
-revoke all on public.secret from anon, authenticated;
 revoke all on public.contracts from anon, authenticated;
-grant select on public.secret to service_role;
 grant select, insert, update on public.contracts to service_role;
 
 commit;

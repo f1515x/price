@@ -4,6 +4,8 @@
 - 完成 issue #6：从 Supabase 读取 Gate 凭证，保存每个合约的乘数和下单价格步长，调整脚本、文档和远端测试。
 
 ## 做完：
+- 2026-10-14：补查迁移脚本，已有 Orders3 secret 表保留原权限，只为新建凭证表设置服务端读取权限，避免影响原有客户端。
+
 - 2026-10-14：代码提交 d5c2d3e 的远端 Checks 已通过：https://github.com/f1515x/price/actions/runs/38677785215。
 
 - 2026-10-14：已推送 feature-issue-6-supabase-contracts 并创建 PR #7：https://github.com/f1515x/price/pull/7。PR 写有 Closes #6，合并后自动关闭 issue；目前保持 issue 打开。

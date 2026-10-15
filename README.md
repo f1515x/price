@@ -179,7 +179,7 @@ python -m unittest discover -s tests -v
 
 ### issue #6：凭证和合约参数迁移
 
-1. 先在 Supabase SQL Editor 执行 [`docs/supabase_contracts.sql`](docs/supabase_contracts.sql)。它创建 `secret` 和 `contracts` 表，不会填入或覆盖现有凭证。默认启用 RLS，撤销匿名和登录用户访问，允许服务端 `service_role` 读取凭证、读写合约。已有 Orders3 客户端如使用匿名密钥访问这两张表，需要改用服务端身份或由管理员设置适合的权限。
+1. 先在 Supabase SQL Editor 执行 [`docs/supabase_contracts.sql`](docs/supabase_contracts.sql)。它创建 `secret` 和 `contracts` 表，不会填入或覆盖现有凭证。新建的凭证表和合约表默认启用 RLS，撤销匿名和登录用户访问，允许服务端 `service_role` 读取凭证、读写合约。已存在的 Orders3 `secret` 表保留原来的权限，管理员需确认当前服务端身份有读取权限。
 2. 在数据库控制台为 `secret` 保留唯一一条 Gate 凭证记录，填写 `API_KEY=` 和 `API_SECRET=` 两列。不要把真实凭证放入 SQL 文件或 Git。该迁移脚本针对新建的合约表；若已有同名且结构不同的表，先由管理员对齐结构。
 3. 配置 `.env` 或 Actions 的 `SUPABASE_URL`、`SUPABASE_KEY`（服务端 secret key 或 legacy service_role key）。客户端也兼容 Orders3 的 `SUPABASE_ANON_KEY` 变量名，但该身份必须有相应数据库权限。`SUPABASE_TABLE` 仍只影响订单上传，不改变凭证或合约表。
 4. 先运行 `price-monitor precision BTC ETH`，再运行 `price-monitor sizes BTC ETH` 或 `allocation`。工作流已保持这个顺序。删除旧的 Gate `API_KEY` / `API_SECRET` Actions secrets 即可，它们不再被读取。
