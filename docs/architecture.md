@@ -16,6 +16,7 @@ cli / 根目录兼容脚本
 │   ├── Gate 公开合约接口 → quanto_multiplier
 │   ├── Gate 公开合约接口 → order_price_round
 │   └── reporting.text → 仓位报告
+├── supabase.py → reports/sizes.txt → Supabase orders（报告六字段）
 └── clients.telegram → 报告 + config/chat_ids.txt → Telegram
 ```
 

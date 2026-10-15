@@ -31,6 +31,7 @@ price/
 │   ├── clients/
 │   │   ├── __init__.py
 │   │   ├── gate.py                  # 签名、合约杠杆与账户保证金请求
+│   │   ├── supabase.py              # 从 secret 表读取 Gate 凭证
 │   │   └── telegram.py              # 消息分段、发送与重试
 │   ├── market/
 │   │   ├── __init__.py
@@ -56,7 +57,9 @@ price/
 │   └── fixtures/
 │       └── structure_expected.json  # 迁移前代码的合成行情基线
 ├── docs/
-│   └── architecture.md              # 依赖树、迁移映射与后续边界
+│   ├── architecture.md              # 依赖树、迁移映射与后续边界
+│   ├── supabase_secret.sql          # 按需创建凭证表，保留已有表权限
+│   └── supabase_sizes.sql           # 为现有订单表添加报告字段
 └── amount.py / float.py / kline.py / month.py /
     price.py / size.py / smc.py / tele_gate.py  # 兼容入口
 ```
@@ -186,3 +189,11 @@ python -m unittest discover -s tests -v
 `precision` 和仓位计算直接从 Gate 公开合约接口读取参数。价格步长、合约乘数和最大杠杆保留数字字符串，计算时转为 Decimal；价格按实际步长向下取整（包括 `0.25`），再换算张数，保持 1% 建议仓位、多空符号和无信号返回 none 的规则。
 
 订单上传直接使用报告中的六个字段，不再补充合约乘数和下单价格步长，也不查询合约参数表。数据库只需现有凭证表和订单表。工具仍不执行真实下单。
+
+### 从 PR #8 的版本升级
+
+PR #8 已合并的版本把 Supabase `contracts` 表设为运行依赖；该表返回 HTTP 404 时，计算流程会提前退出，订单上传不会执行。本次修复删除这张表的读写和建表脚本，合约参数改由 Gate 公开接口提供。
+
+已有 `secret` 和订单表的部署只需更新代码并确认原有权限。新部署按上面的凭证和订单说明准备数据库。无需创建或同步 `contracts` 表；已执行过旧 SQL 的数据库不会被本次代码更新自动删除表或列。订单上传不再自动填入 `quanto_multiplier`、`order_price_round`，已有这两列时需允许省略写入（可为空或有合适默认值）。
+
+修复后的远端 Checks 使用模拟接口验证精度、仓位换算及订单上传，不会访问真实账户、数据库或发送通知。真实业务流程仍依赖 Gate 行情接口、账户权限及现有订单表权限。
