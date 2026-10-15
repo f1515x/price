@@ -1,9 +1,10 @@
 # 本文档为4象限的任务清单，全文书写大白话
 
 ## 想做：
-- 完成 issue #6：从 Supabase 读取 Gate 凭证，保存每个合约的乘数和下单价格步长，调整脚本、文档和远端测试。
+- 上线时执行订单和合约 SQL，准备数据库权限及凭证，再合并 PR #8。
 
 ## 做完：
+- 2026-10-15：已创建 PR #8：https://github.com/f1515x/price/pull/8；代码提交 0ee8d4a 的远端 Checks 已通过：https://github.com/f1515x/price/actions/runs/38679231902。按 issue 要求关闭 #6，PR 保持未合并。
 - 2026-10-15：补齐 orders 的 quanto_multiplier 和 order_price_round 写入；上传前读齐并校验对应合约参数，读取失败保留旧订单。已更新 SQL、README 和远端回归测试，AST 静态语法检查及差异检查通过，未进行本地编译或测试。
 - 2026-10-14：按用户要求撤回最近一次 yml 配置集中调整及配套 README 说明，关闭未合并的 PR #7。issue #6 的实现保留在 feature 分支，issue 仍打开；未进行本地编译或测试。
 
@@ -32,10 +33,10 @@
 - 远端 Checks 已通过，包含新增回归测试：https://github.com/f1515x/price/actions/runs/38012403632（代码提交 9ba8ec7）。
 
 ## 没做：
-- issue #6 未执行真实 Supabase 迁移、账户查询或通知，未合并 PR；上线前需执行 docs/supabase_contracts.sql，准备唯一凭证记录和服务端权限，再同步合约参数。
+- issue #6 未执行真实 Supabase 迁移、账户查询或通知，未合并 PR；上线前需执行 docs/supabase_sizes.sql 和 docs/supabase_contracts.sql，准备唯一凭证记录和服务端权限，再同步合约参数。
 
 - 按仓库约定，不做本地构建、编译或会触发编译的测试，也不连接真实数据库做删除验证。
 - 未合并 PR。
 
 ## 在做：
-- 2026-10-15：正在提交 issue #6 的完整修复并创建新 PR，随后查看远端测试结果。
+- 无。issue #6 的代码、文档、远端测试和 PR 已完成，等待 PR 审阅及上线。
