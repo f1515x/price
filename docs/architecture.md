@@ -16,7 +16,7 @@ cli / 根目录兼容脚本
 │   ├── Gate 公开合约接口 → quanto_multiplier
 │   ├── Gate 公开合约接口 → order_price_round
 │   └── reporting.text → 仓位报告
-├── supabase.py → reports/sizes.txt → Supabase orders（报告六字段）
+├── supabase.py → reports/sizes.txt → Supabase orders（报告八字段，含乘数和价格步长）
 └── clients.telegram → 报告 + config/chat_ids.txt → Telegram
 ```
 
@@ -58,6 +58,6 @@ SMC/ATR/r 值使用 200 根合成 K 线与迁移前实现逐项核对，预期�
 
 ## 后续工程边界
 
-合约乘数、实际下单步长及最大杠杆直接从 Gate 公开接口读取，数字字符串以 Decimal 参与精度相关计算。订单上传直接使用报告中的六个字段。凭证表结构见 README 与 docs/supabase_secret.sql。K 线更新仍采用末尾 8 条替换，长时间停机时未自动补齐断档。生成报告依然追加时间戳并提交，因此仍可能每次运行产生提交。
+合约乘数、实际下单步长及最大杠杆直接从 Gate 公开接口读取，数字字符串以 Decimal 参与精度相关计算。单次仓位计算复用同一份 Gate 合约参数，订单上传直接保存报告中的八个字段，含合约乘数与价格步长，不重新请求合约接口。凭证表结构见 README 与 docs/supabase_secret.sql。K 线更新仍采用末尾 8 条替换，长时间停机时未自动补齐断档。生成报告依然追加时间戳并提交，因此仍可能每次运行产生提交。
 
 依赖已集中声明在 pyproject.toml，尚未锁定版本。部署前可在选定 Python 和操作系统上生成依赖锁文件。生产定时任务仍遵循 GitHub 默认分支上的 schedule 行为，迁移分支上的 CI 会独立执行。
