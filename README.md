@@ -121,8 +121,8 @@ price-monitor notify reports/sizes.txt config/chat_ids.txt
 `SUPABASE_TABLE=orders`，参考 `.env.example`。环境变量优先于 `.env`。
 
 首次使用，在 Supabase SQL Editor 执行 [`docs/supabase_sizes.sql`](docs/supabase_sizes.sql)，
-为现有 `orders` 表添加 `contract`、`activation_price`、`side`、`amount`、`value`、`timestamp`、`quanto_multiplier`、`order_price_round` 列。
-每次非空写入前，脚本先从 `contracts` 读取每个订单对应的合约参数，全部校验通过后再删除目标表的全部旧记录（包括 `contract` 为 NULL 的历史记录），再批量插入新记录。价格和价值使用 `numeric`，张数保留多空正负号，
+为现有 `orders` 表添加 `contract`、`activation_price`、`side`、`amount`、`value`、`timestamp` 列。
+每次非空写入直接删除目标表的全部旧记录（包括 `contract` 为 NULL 的历史记录），再批量插入报告中的新记录。价格和价值使用 `numeric`，张数保留多空正负号，
 `timestamp` 保存报告末尾的 Unix 毫秒时间戳；没有时间戳时写入 NULL。
 
 ```powershell
@@ -140,7 +140,7 @@ python supabase.py --data-file test_order.json
 每个 Order Alert 对应一条记录，单位和图标不会写入数据库。数字字符串由数据库转为 numeric，
 避免解析时丢失小数精度。没有 Order Alert、只有 `Timestamp`（可带 `none`）时，也先清空目标表，
 再写入一条保留 `timestamp` 的记录，`contract`、`activation_price`、`side`、`amount`、`value` 全部为 NULL，避免旧订单残留。
-`quanto_multiplier` 和 `order_price_round` 也为 NULL。这些订单列需要允许 NULL；仓库提供的 SQL 新增列默认允许 NULL。真正的空报告或只有 `none` 时仍跳过写入；格式错误时终止整个批次。
+这些订单列需要允许 NULL；仓库提供的 SQL 新增列默认允许 NULL。真正的空报告或只有 `none` 时仍跳过写入；格式错误时终止整个批次。
 重复运行同一文件会替换旧记录，不再追加重复记录。删除失败时立即终止，不执行插入。
 删除和插入是两次独立请求，并非原子事务；插入失败时目标表可能为空，需修复原因后重新运行。避免并发上传到同一张表。
 成功时输出条数、HTTP 状态及插入记录，失败时输出原因并以退出码 1 结束。
@@ -157,12 +157,12 @@ python supabase.py --data-file test_order.json
 | Secret 名称 | 是否必填 | 内容 |
 | --- | --- | --- |
 | `SUPABASE_URL` | 新增，必填 | Supabase 项目地址，例如 `https://<项目>.supabase.co`，不包含表名。 |
-| `SUPABASE_KEY` | 新增，必填 | Supabase API key，必须能读取 secret，读取和新增/更新 contracts，以及读取/新增/删除订单表全部行；可使用服务端 secret key 或 legacy `service_role` key。 |
+| `SUPABASE_KEY` | 新增，必填 | Supabase API key，必须能读取 secret，以及读取/新增/删除订单表全部行；可使用服务端 secret key 或 legacy `service_role` key。 |
 | `SUPABASE_TABLE` | 新增，可选 | 目标表名；不配置时使用 `orders`。 |
 | `SUPABASE_ACCESS_TOKEN` | 新增，可选 | 使用登录用户权限时填写用户 JWT；使用服务端密钥时无需配置。 |
 | `TELEGRAM_BOT_TOKEN` | 原有，必填 | Telegram Bot token，用于发送 sizes 报告。 |
 
-CI 首次运行前，需在 Supabase 执行上面的订单 SQL 和下面的合约 SQL 脚本；使用自定义表名时，确保该表具备相同列结构及写入权限。
+CI 首次运行前，需在 Supabase 执行上面的订单 SQL 和下面的凭证 SQL 脚本；使用自定义表名时，确保该表具备相同列结构及写入权限。
 
 `run.yml` 保留每四小时一次的 UTC 定时和 `main` push 触发；手动执行可选分支。feature 分支 push 不运行真实数据库写入和通知，PR 只运行离线 Checks；合并到 main 或手动执行时才运行完整计算流程。工作顺序为精度更新 → 仓位和信号计算 → 写入 Supabase → Telegram 通知 → 提交生成文件。上传命令为 `python supabase.py --sizes-file reports/sizes.txt --minimal`：没有订单但有时间戳时，清空旧数据并写入一条订单字段为 NULL 的时间戳记录；上传失败时工作流失败并停止后续步骤。每次非空上传先清空目标表，再插入当前报告，重复执行不再追加重复记录。凭据直接使用 Actions 环境变量，不再创建临时 `.env`。部署时需一并提交 `supabase.py`，确保远端 checkout 后可以运行上传脚本。
 
@@ -177,17 +177,12 @@ python -m unittest discover -s tests -v
 此次迁移没有执行真实账户查询或 Telegram 发送；外部服务可用性需要在配置凭据后验证。依赖版本锁定和 K 线断档补齐尚未加入，详见架构文档。
 
 
-### issue #6：凭证和合约参数迁移
+### Gate 凭证和合约参数
 
-1. 先在 Supabase SQL Editor 执行 [`docs/supabase_contracts.sql`](docs/supabase_contracts.sql)。它创建 `secret` 和 `contracts` 表，不会填入或覆盖现有凭证。新建的凭证表和合约表默认启用 RLS，撤销匿名和登录用户访问，允许服务端 `service_role` 读取凭证、读写合约。已存在的 Orders3 `secret` 表保留原来的权限，管理员需确认当前服务端身份有读取权限。
-2. 在数据库控制台为 `secret` 保留唯一一条 Gate 凭证记录，填写 `API_KEY=` 和 `API_SECRET=` 两列。不要把真实凭证放入 SQL 文件或 Git。该迁移脚本针对新建的合约表；若已有同名且结构不同的表，先由管理员对齐结构。
-3. 配置 `.env` 或 Actions 的 `SUPABASE_URL`、`SUPABASE_KEY`（服务端 secret key 或 legacy service_role key）。客户端也兼容 Orders3 的 `SUPABASE_ANON_KEY` 变量名，但该身份必须有相应数据库权限。`SUPABASE_TABLE` 仍只影响订单上传，不改变凭证或合约表。
-4. 先运行 `price-monitor precision BTC ETH`，再运行 `price-monitor sizes BTC ETH` 或 `allocation`。工作流已保持这个顺序。删除旧的 Gate `API_KEY` / `API_SECRET` Actions secrets 即可，它们不再被读取。
+1. 在 Supabase SQL Editor 执行 [`docs/supabase_secret.sql`](docs/supabase_secret.sql)。它只在 `secret` 不存在时创建凭证表并配置服务端读取权限，保留已有 Orders3 表的记录和权限。
+2. 为 `secret` 保留唯一一条 Gate 凭证记录，填写 `API_KEY=` 和 `API_SECRET=` 两列。不要把真实凭证放入 SQL 文件或 Git。
+3. 配置 `.env` 或 Actions 的 `SUPABASE_URL`、`SUPABASE_KEY`。凭证客户端也兼容 Orders3 的 `SUPABASE_ANON_KEY` 变量名，该身份必须能读取凭证。`SUPABASE_TABLE` 只影响订单上传。
 
-`precision` 访问每个合约的 `/futures/usdt/contracts/{contract}`，校验并按 `contract` 主键 upsert 到 `contracts`，同时更新 `quanto_multiplier`、`order_price_round`、`leverage_max` 和更新时间。上传订单时，`supabase.py` 从 `contracts` 按合约读取两个参数，写入目标订单表（默认 `orders`）的同名列；订单中手动传入的参数会被数据库参数覆盖。读取失败、记录重复、合约不匹配或参数无效时，在删除旧订单之前终止。一个批次内同一合约只读取一次。无订单的时间戳记录不查询合约，并把两个参数写为 NULL。`--dry-run` 仍只预览报告解析，不连接数据库，两个参数在实际上传时补齐。已有 `orders` 表也需重新执行 `docs/supabase_sizes.sql` 添加这两列，自定义订单表需同样添加。
+`precision` 和仓位计算直接从 Gate 公开合约接口读取参数。价格步长、合约乘数和最大杠杆保留数字字符串，计算时转为 Decimal；价格按实际步长向下取整（包括 `0.25`），再换算张数，保持 1% 建议仓位、多空符号和无信号返回 none 的规则。
 
-两个精度参数在缓存表和订单表均使用 `text` 原样保存，不经过 float，计算时才转 Decimal；例如 `0.00010000` 的尾随零仍保留。更新失败会使命令返回失败，工作流不会继续生成和上传订单。
-
-仓位计算从 Supabase 读取对应合约的乘数、价格步长和最大杠杆，不回退到本地价格文件或交易所请求。单独执行 sizes/allocation 时使用数据库最后同步的参数；需要最新参数时先执行 precision。价格按实际步长向下取整（包括 `0.25` 这种步长），再用该价格换算张数，保持 1% 建议仓位、多空符号和无信号返回 none 的规则。工具仍不执行真实下单。
-
-参考：[Orders3 凭证实现](https://github.com/C0verSnow/Orders3/blob/master/src/services/fetcher.cpp)、[Gate 合约响应示例](https://github.com/C0verSnow/Orders3/blob/master/docs/test_response.md)、[PostgREST upsert](https://docs.postgrest.org/en/stable/references/api/tables_views.html#upsert)。
+订单上传直接使用报告中的六个字段，不再补充合约乘数和下单价格步长，也不查询合约参数表。数据库只需现有凭证表和订单表。工具仍不执行真实下单。

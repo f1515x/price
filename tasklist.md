@@ -1,9 +1,12 @@
 # 本文档为4象限的任务清单，全文书写大白话
 
 ## 想做：
-- 上线时执行订单和合约 SQL，准备数据库权限及凭证，再合并 PR #8。
+- 上线时确认凭证表和订单表的权限及配置，再审阅 PR #8。
 
 ## 做完：
+- 2026-10-15：按用户要求删除 PR #8 的 contracts 表读写、上传前参数补齐、建表 SQL 和相关测试；凭证 SQL 独立为 docs/supabase_secret.sql，继续保留现有 secret 凭证读取。
+- 2026-10-15：精度报告和仓位计算改用 Gate 公开合约接口，保留数字字符串、实际价格步长和多空张数规则。订单恢复直接上传报告中的六个字段，订单 SQL 不再添加乘数和步长列，README 和架构说明已同步。
+- 2026-10-15：已调整远端 CI 用的回归测试，覆盖不访问合约数据库、参数校验、真实步长换算、正常订单和仅时间戳上传。38 个 Python 文件的 AST 静态语法检查及 git diff --check 通过；未执行本地编译或测试。
 - 2026-10-15：已创建 PR #8：https://github.com/f1515x/price/pull/8；代码提交 0ee8d4a 的远端 Checks 已通过：https://github.com/f1515x/price/actions/runs/38679231902。按 issue 要求关闭 #6，PR 保持未合并。
 - 2026-10-15：补齐 orders 的 quanto_multiplier 和 order_price_round 写入；上传前读齐并校验对应合约参数，读取失败保留旧订单。已更新 SQL、README 和远端回归测试，AST 静态语法检查及差异检查通过，未进行本地编译或测试。
 - 2026-10-14：按用户要求撤回最近一次 yml 配置集中调整及配套 README 说明，关闭未合并的 PR #7。issue #6 的实现保留在 feature 分支，issue 仍打开；未进行本地编译或测试。
@@ -33,10 +36,11 @@
 - 远端 Checks 已通过，包含新增回归测试：https://github.com/f1515x/price/actions/runs/38012403632（代码提交 9ba8ec7）。
 
 ## 没做：
-- issue #6 未执行真实 Supabase 迁移、账户查询或通知，未合并 PR；上线前需执行 docs/supabase_sizes.sql 和 docs/supabase_contracts.sql，准备唯一凭证记录和服务端权限，再同步合约参数。
+- 本次修改尚未提交、推送或更新 PR #8，远端 CI 尚未运行；未改动真实数据库中的表和列。
+- 未执行真实 Supabase 迁移、账户查询或通知；上线前按需执行 docs/supabase_sizes.sql 和 docs/supabase_secret.sql，准备唯一凭证记录和服务端权限。
 
 - 按仓库约定，不做本地构建、编译或会触发编译的测试，也不连接真实数据库做删除验证。
 - 未合并 PR。
 
 ## 在做：
-- 无。issue #6 的代码、文档、远端测试和 PR 已完成，等待 PR 审阅及上线。
+- 无。本次 contracts 表相关产物清理已完成。

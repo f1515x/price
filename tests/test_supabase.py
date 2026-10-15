@@ -93,11 +93,10 @@ class SizesUploadTests(unittest.TestCase):
         self.assertEqual(request.call_args_list, [
             call(endpoint + "?or=(contract.is.null,contract.not.is.null)",
                  "sb_secret_mock", token=None, minimal=True, method="DELETE"),
-            call(endpoint, "sb_secret_mock", data=[{**rows[0], "quanto_multiplier": None, "order_price_round": None}], token=None, minimal=True),
+            call(endpoint, "sb_secret_mock", data=rows, token=None, minimal=True),
         ])
 
-    @patch.object(upload, "attach_contract_parameters", side_effect=lambda data, *args: data)
-    def test_bulk_write_clears_table_before_insert(self, enrich):
+    def test_bulk_write_clears_table_before_insert(self):
         rows = upload.parse_sizes(order())
         with patch.object(upload, "load_config", return_value={
             "SUPABASE_URL": "https://example.supabase.co", "SUPABASE_KEY": "sb_secret_mock",
@@ -111,8 +110,7 @@ class SizesUploadTests(unittest.TestCase):
             call(endpoint, "sb_secret_mock", data=rows, token=None, minimal=True),
         ])
 
-    @patch.object(upload, "attach_contract_parameters", side_effect=lambda data, *args: data)
-    def test_delete_failure_prevents_insert(self, enrich):
+    def test_delete_failure_prevents_insert(self):
         with patch.object(upload, "load_config", return_value={
             "SUPABASE_URL": "https://example.supabase.co", "SUPABASE_KEY": "sb_secret_mock",
         }), patch.object(upload, "request_json", side_effect=RuntimeError("HTTP 403")) as request, \
@@ -137,8 +135,7 @@ class SizesUploadTests(unittest.TestCase):
                 upload.supabase(["invalid"])
             request.assert_not_called()
 
-    @patch.object(upload, "attach_contract_parameters", side_effect=lambda data, *args: data)
-    def test_custom_table_and_token_apply_to_both_requests(self, enrich):
+    def test_custom_table_and_token_apply_to_both_requests(self):
         row = {"contract": "BTC_USDT"}
         with patch.object(upload, "load_config", return_value={
             "SUPABASE_URL": "https://example.supabase.co/rest/v1",
@@ -183,56 +180,6 @@ class SizesUploadTests(unittest.TestCase):
         with patch.object(upload, "supabase", side_effect=RuntimeError("HTTP 403")), \
                 contextlib.redirect_stderr(io.StringIO()):
             self.assertEqual(upload.main([]), 1)
-
-
-class ContractParameterUploadTests(unittest.TestCase):
-    config = {"SUPABASE_URL": "https://example.supabase.co", "SUPABASE_KEY": "sb_secret_mock"}
-    btc = {"contract": "BTC_USDT", "quanto_multiplier": "0.00010000", "order_price_round": "0.2500"}
-    eth = {"contract": "ETH_USDT", "quanto_multiplier": "0.0100", "order_price_round": "0.05"}
-
-    def test_parameters_are_read_before_delete_and_written_to_matching_orders(self):
-        rows = [{"contract": "BTC_USDT", "quanto_multiplier": "wrong"},
-                {"contract": "ETH_USDT"}, {"contract": "BTC_USDT"}]
-        with patch.object(upload, "load_config", return_value=self.config), \
-                patch.object(upload, "request_json", side_effect=[(200, [self.btc]), (200, [self.eth]), (204, None), (201, None)]) as send, \
-                contextlib.redirect_stdout(io.StringIO()):
-            upload.supabase(rows, table="custom_orders", minimal=True)
-        calls = send.call_args_list
-        self.assertIn("/contracts?", calls[0].args[0])
-        self.assertTrue(calls[0].args[0].endswith("contract=eq.BTC_USDT"))
-        self.assertTrue(calls[1].args[0].endswith("contract=eq.ETH_USDT"))
-        self.assertEqual(calls[2].kwargs["method"], "DELETE")
-        self.assertTrue(calls[3].args[0].endswith("/custom_orders"))
-        self.assertEqual(calls[3].kwargs["data"], [self.btc, self.eth, self.btc])
-        self.assertEqual(len(calls), 4)
-        self.assertEqual(rows[0]["quanto_multiplier"], "wrong")
-
-    def test_invalid_or_missing_parameters_never_delete_old_orders(self):
-        invalid = [[], [self.btc, self.btc], [self.eth], {}, [None],
-                   *([{**self.btc, field: value}] for field in ("quanto_multiplier", "order_price_round")
-                     for value in (None, 0.25, "NaN", "Infinity", "0", "-1", "bad"))]
-        for records in invalid:
-            with self.subTest(records=records), patch.object(upload, "load_config", return_value=self.config), \
-                    patch.object(upload, "request_json", return_value=(200, records)) as send:
-                with self.assertRaises(ValueError):
-                    upload.supabase([{"contract": "BTC_USDT"}])
-                self.assertEqual(send.call_count, 1)
-                self.assertNotIn("method", send.call_args.kwargs)
-
-    def test_later_contract_read_failure_preserves_old_orders(self):
-        with patch.object(upload, "load_config", return_value=self.config), \
-                patch.object(upload, "request_json", side_effect=[(200, [self.btc]), RuntimeError("HTTP 403")]) as send:
-            with self.assertRaises(RuntimeError):
-                upload.supabase([{"contract": "BTC_USDT"}, {"contract": "ETH_USDT"}])
-        self.assertEqual(send.call_count, 2)
-        self.assertTrue(all("method" not in item.kwargs for item in send.call_args_list))
-
-    def test_single_object_uses_database_parameters_and_user_token(self):
-        with patch.object(upload, "request_json", return_value=(200, [self.btc])) as send:
-            result = upload.attach_contract_parameters({"contract": "BTC_USDT"},
-                "https://example.supabase.co/rest/v1", "key", "user-token")
-        self.assertEqual(result, self.btc)
-        self.assertEqual(send.call_args.kwargs["token"], "user-token")
 
 
 if __name__ == "__main__":

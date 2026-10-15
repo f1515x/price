@@ -142,17 +142,9 @@ class MonitorTests(unittest.TestCase):
                                       "quanto_multiplier": "1", "order_price_round": "0.1", "leverage_max": "100"}
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory, "nested/price_steps.json")
-            records = {}
-            def fake_request(method, table, *, params=None, data=None):
-                self.assertEqual(table, "contracts")
-                if method == "POST":
-                    records[data["contract"]] = dict(data)
-                    return None
-                return [records[params["contract"].removeprefix("eq.")]]
-            with patch.object(storage, "request", side_effect=fake_request), patch.object(precision.requests.Session, "get", return_value=response), contextlib.redirect_stdout(io.StringIO()):
+            with patch.object(storage, "request", side_effect=AssertionError("unexpected database access")), patch.object(precision.requests.Session, "get", return_value=response), contextlib.redirect_stdout(io.StringIO()):
                 self.assertEqual(precision.main(["BTC", "--output", str(path)]), 0)
-            self.assertEqual(json.loads(path.read_text())[0]["step"], "0.1")
-            with patch.object(storage, "request", side_effect=fake_request):
+                self.assertEqual(json.loads(path.read_text())[0]["step"], "0.1")
                 self.assertEqual(sizing.get_price_step("BTC"), precision.Decimal("0.1"))
                 for action, expected in (("Open Long", 9), ("Open Short", -9)):
                     with patch.object(sizing, "_get_price_and_action", return_value=(10.19, action)), patch.object(sizing, "amount", return_value=100), contextlib.redirect_stdout(io.StringIO()) as output:
