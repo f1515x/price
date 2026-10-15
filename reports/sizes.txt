@@ -1,20 +1,35 @@
 
 🚀 ====== Order Alert ======
+✨  contract            : ETH_USDT
+💰  activation_price    : 2263.97 USDT
+📈  side                : Open Long
+📦  amount              : 13 Contracts
+📦  value               : 307.88 U
+🔢  quanto_multiplier   : 0.01
+🔢  order_price_round   : 0.01
+   ======================
+
+
+🚀 ====== Order Alert ======
 ✨  contract            : SNDK_USDT
-💰  activation_price    : 1304.03 USDT
+💰  activation_price    : 1293.41 USDT
 📈  side                : Open Long
 📦  amount              : 10 Contracts
-📦  value               : 136.71 U
+📦  value               : 134.98 U
+🔢  quanto_multiplier   : 0.01
+🔢  order_price_round   : 0.01
    ======================
 
 
 🚀 ====== Order Alert ======
 ✨  contract            : XAU_USDT
-💰  activation_price    : 4029.19 USDT
+💰  activation_price    : 4029.46 USDT
 📈  side                : Open Long
-📦  amount              : 437 Contracts
-📦  value               : 176.39 U
+📦  amount              : 432 Contracts
+📦  value               : 174.09 U
+🔢  quanto_multiplier   : 0.0001
+🔢  order_price_round   : 0.01
    ======================
 
 
-Timestamp: 1792039472376 
+Timestamp: 1792043913591 
