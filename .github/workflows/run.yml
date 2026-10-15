@@ -22,13 +22,14 @@ on:
       - "config/chat_ids.txt"
       - "requirements.txt"
       - ".github/workflows/run.yml"
+      - "scripts/commit_generated_files.sh"
 
 permissions:
   contents: write
 
 concurrency:
   group: calculate-price-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   calculate-price:
@@ -39,6 +40,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up latest Python 3
         uses: actions/setup-python@v5
@@ -96,15 +99,6 @@ jobs:
 
       - name: Commit generated files
         shell: bash
-        run: |
-          if git diff --quiet -- reports/sizes.txt reports/signals.txt data/price_steps.json \
-             && [ -z "$(git ls-files --others --exclude-standard -- reports/sizes.txt reports/signals.txt data/price_steps.json)" ]; then
-            echo "Generated files are unchanged; nothing to commit."
-            exit 0
-          fi
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add reports/sizes.txt reports/signals.txt data/price_steps.json
-          git commit -m "chore: update calculated prices"
-          git push
+        env:
+          REPORT_BRANCH: ${{ github.ref_name }}
+        run: bash scripts/commit_generated_files.sh "$REPORT_BRANCH"
