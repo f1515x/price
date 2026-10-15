@@ -4,6 +4,8 @@
 - 完成 issue #6：从 Supabase 读取 Gate 凭证，保存每个合约的乘数和下单价格步长，调整脚本、文档和远端测试。
 
 ## 做完：
+- 2026-10-14：已对照工作区 .env，将 yml 的 Supabase 配置统一到 job 层，计算和上传共用；订单表默认 orders，访问令牌可省略。已整理最少三个 Repository secrets，并说明本地 publishable key 需换为有权限的服务端密钥。未复制或提交本地密钥。
+
 - 2026-10-14：补查迁移脚本，已有 Orders3 secret 表保留原权限，只为新建凭证表设置服务端读取权限，避免影响原有客户端。
 
 - 2026-10-14：代码提交 d5c2d3e 的远端 Checks 已通过：https://github.com/f1515x/price/actions/runs/38677785215。

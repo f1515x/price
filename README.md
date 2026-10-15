@@ -162,6 +162,9 @@ python supabase.py --data-file test_order.json
 | `SUPABASE_ACCESS_TOKEN` | 新增，可选 | 使用登录用户权限时填写用户 JWT；使用服务端密钥时无需配置。 |
 | `TELEGRAM_BOT_TOKEN` | 原有，必填 | Telegram Bot token，用于发送 sizes 报告。 |
 
+当前工作流将 Supabase 配置放在 job 的 `env`，计算与订单上传共用同一配置。最少添加 `SUPABASE_URL`、`SUPABASE_KEY`、`TELEGRAM_BOT_TOKEN` 三个 Repository secrets。订单表为 `orders` 时无需添加 `SUPABASE_TABLE`；使用服务端密钥时无需添加 `SUPABASE_ACCESS_TOKEN`。
+`SUPABASE_KEY` 应填写服务端 `sb_secret_...` 或 legacy `service_role` key，不能直接使用没有表访问权限的 `sb_publishable_...`。`SUPABASE_ANON_KEY` 不需要另加，Gate 的 `API_KEY` / `API_SECRET` 保存到数据库；部署 SSH 配置、`AUTH_KEY` 和 `SUPABASE_TEST_DATA` 不被此工作流使用。
+
 CI 首次运行前，需在 Supabase 执行上面的订单 SQL 和下面的合约 SQL 脚本；使用自定义表名时，确保该表具备相同列结构及写入权限。
 
 `run.yml` 保留每四小时一次的 UTC 定时和 `main` push 触发；手动执行可选分支。feature 分支 push 不运行真实数据库写入和通知，PR 只运行离线 Checks；合并到 main 或手动执行时才运行完整计算流程。工作顺序为精度更新 → 仓位和信号计算 → 写入 Supabase → Telegram 通知 → 提交生成文件。上传命令为 `python supabase.py --sizes-file reports/sizes.txt --minimal`：没有订单但有时间戳时，清空旧数据并写入一条订单字段为 NULL 的时间戳记录；上传失败时工作流失败并停止后续步骤。每次非空上传先清空目标表，再插入当前报告，重复执行不再追加重复记录。凭据直接使用 Actions 环境变量，不再创建临时 `.env`。部署时需一并提交 `supabase.py`，确保远端 checkout 后可以运行上传脚本。
