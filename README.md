@@ -171,6 +171,10 @@ CI 首次运行前，需在 Supabase 执行上面的订单 SQL 和下面的凭�
 
 `ci.yml` 在 `main`、`1` 分支及 PR 执行离线测试：
 
+报告提交由 `scripts/commit_generated_files.sh` 处理：先保存本次生成的三个文件，再取目标分支最新提交，只替换 `reports/sizes.txt`、`reports/signals.txt` 和 `data/price_steps.json`，保留远端代码和其他文件。推送时若分支再次更新，最多尝试三次，始终使用普通推送；三次仍失败则明确报错。远端已有相同报告时不重复提交。相同分支的计算工作流排队执行，避免已有任务在写库或通知后被新任务取消。重试只涉及 Git 提交，不重复写库或发送通知。
+
+远端 Checks 通过临时 Git 仓库验证旧 checkout、报告冲突、推送前并发更新、未跟踪报告、相同报告及持续拒绝推送的处理，不访问真实数据库或发送通知。
+
 ```powershell
 python -m unittest discover -s tests -v
 ```
