@@ -61,7 +61,7 @@ price/
     price.py / size.py / smc.py / tele_gate.py  # 兼容入口
 ```
 
-运行时 K 线缓存写入 `data/candles/<SYMBOL>.json`，该目录已忽略。精度映射与报告继续跟踪和提交，保留原来的结果发布方式。
+运行时 K 线缓存写入 `data/candles/<SYMBOL>.json`，该目录已忽略。精度映射仅作为兼容报告，仓位计算不再读取该文件；精度映射与报告继续跟踪和提交，保留原来的结果发布方式。
 
 ## 安装与使用
 
@@ -95,12 +95,12 @@ Python 调用需显式传入阈值：`price(perf_1m, structure, combined_average
 在根目录 `.env` 中配置，或设置同名环境变量；进程环境变量优先：
 
 ```dotenv
-API_KEY=
-API_SECRET=
+SUPABASE_URL=https://<project>.supabase.co
+SUPABASE_KEY=
 TELEGRAM_BOT_TOKEN=
 ```
 
-密钥只在调用签名账户接口时校验，导入模块和查看帮助无需密钥。Telegram 也支持根目录 `.env`。
+Gate 凭证只从 Supabase 的 `secret` 表读取，使用 Orders3 相同的 `API_KEY=` 和 `API_SECRET=` 列名（等号属于列名）。必须恰好有一条记录；支持去掉值两端配对的引号。环境变量和 `.env` 中的 `API_KEY` / `API_SECRET` 不再生效。数据库读取失败、记录重复或字段缺失会终止账户请求。导入模块和查看帮助无需连接数据库。Telegram 也支持根目录 `.env`。
 
 `config/symbols.txt` 配置币种；`config/chat_ids.txt` 配置接收者。以下命令会向这些接收者发送报告：
 
@@ -157,16 +157,14 @@ python supabase.py --data-file test_order.json
 | Secret 名称 | 是否必填 | 内容 |
 | --- | --- | --- |
 | `SUPABASE_URL` | 新增，必填 | Supabase 项目地址，例如 `https://<项目>.supabase.co`，不包含表名。 |
-| `SUPABASE_KEY` | 新增，必填 | Supabase API key，必须具有目标表的 INSERT / DELETE 权限，并能删除全部行；可使用服务端 secret key 或 legacy `service_role` key。 |
+| `SUPABASE_KEY` | 新增，必填 | Supabase API key，必须能读取 secret，读取和新增/更新 contracts，以及读取/新增/删除订单表全部行；可使用服务端 secret key 或 legacy `service_role` key。 |
 | `SUPABASE_TABLE` | 新增，可选 | 目标表名；不配置时使用 `orders`。 |
 | `SUPABASE_ACCESS_TOKEN` | 新增，可选 | 使用登录用户权限时填写用户 JWT；使用服务端密钥时无需配置。 |
-| `API_KEY` | 原有，必填 | Gate.io API key，用于仓位计算中的账户请求。 |
-| `API_SECRET` | 原有，必填 | Gate.io API secret。 |
 | `TELEGRAM_BOT_TOKEN` | 原有，必填 | Telegram Bot token，用于发送 sizes 报告。 |
 
-CI 首次运行前，也需在 Supabase 执行上面的 SQL 脚本；使用自定义表名时，确保该表具备相同列结构及写入权限。
+CI 首次运行前，需在 Supabase 执行上面的订单 SQL 和下面的合约 SQL 脚本；使用自定义表名时，确保该表具备相同列结构及写入权限。
 
-`run.yml` 保留每四小时一次的 UTC 定时和 `main` push 触发；手动执行可选分支。工作顺序为精度更新 → 仓位和信号计算 → 写入 Supabase → Telegram 通知 → 提交生成文件。上传命令为 `python supabase.py --sizes-file reports/sizes.txt --minimal`：没有订单但有时间戳时，清空旧数据并写入一条订单字段为 NULL 的时间戳记录；上传失败时工作流失败并停止后续步骤。每次非空上传先清空目标表，再插入当前报告，重复执行不再追加重复记录。凭据直接使用 Actions 环境变量，不再创建临时 `.env`。部署时需一并提交 `supabase.py`，确保远端 checkout 后可以运行上传脚本。
+`run.yml` 保留每四小时一次的 UTC 定时和 `main` push 触发；手动执行可选分支。feature 分支 push 不运行真实数据库写入和通知，PR 只运行离线 Checks；合并到 main 或手动执行时才运行完整计算流程。工作顺序为精度更新 → 仓位和信号计算 → 写入 Supabase → Telegram 通知 → 提交生成文件。上传命令为 `python supabase.py --sizes-file reports/sizes.txt --minimal`：没有订单但有时间戳时，清空旧数据并写入一条订单字段为 NULL 的时间戳记录；上传失败时工作流失败并停止后续步骤。每次非空上传先清空目标表，再插入当前报告，重复执行不再追加重复记录。凭据直接使用 Actions 环境变量，不再创建临时 `.env`。部署时需一并提交 `supabase.py`，确保远端 checkout 后可以运行上传脚本。
 
 `ci.yml` 在 `main`、`1` 分支及 PR 执行离线测试：
 
@@ -176,4 +174,18 @@ python -m unittest discover -s tests -v
 
 测试覆盖：无密钥导入/帮助、配置优先级、策略阈值、SMC 迁移基线、ATR、精度、模拟精度到仓位流程、多空符号、无信号跳过账户接口、K 线合并、消息分段和兼容导入。迁移时核对了五个配置/数据/报告文件，除 Git 换行规范外内容不变。
 
-此次迁移没有执行真实账户查询或 Telegram 发送；外部服务可用性需要在配置凭据后验证。依赖版本锁定、K 线断档补齐和交易允许步长校验尚未加入，详见架构文档。
+此次迁移没有执行真实账户查询或 Telegram 发送；外部服务可用性需要在配置凭据后验证。依赖版本锁定和 K 线断档补齐尚未加入，详见架构文档。
+
+
+### issue #6：凭证和合约参数迁移
+
+1. 先在 Supabase SQL Editor 执行 [`docs/supabase_contracts.sql`](docs/supabase_contracts.sql)。它创建 `secret` 和 `contracts` 表，不会填入或覆盖现有凭证。默认启用 RLS，撤销匿名和登录用户访问，允许服务端 `service_role` 读取凭证、读写合约。已有 Orders3 客户端如使用匿名密钥访问这两张表，需要改用服务端身份或由管理员设置适合的权限。
+2. 在数据库控制台为 `secret` 保留唯一一条 Gate 凭证记录，填写 `API_KEY=` 和 `API_SECRET=` 两列。不要把真实凭证放入 SQL 文件或 Git。该迁移脚本针对新建的合约表；若已有同名且结构不同的表，先由管理员对齐结构。
+3. 配置 `.env` 或 Actions 的 `SUPABASE_URL`、`SUPABASE_KEY`（服务端 secret key 或 legacy service_role key）。客户端也兼容 Orders3 的 `SUPABASE_ANON_KEY` 变量名，但该身份必须有相应数据库权限。`SUPABASE_TABLE` 仍只影响订单上传，不改变凭证或合约表。
+4. 先运行 `price-monitor precision BTC ETH`，再运行 `price-monitor sizes BTC ETH` 或 `allocation`。工作流已保持这个顺序。删除旧的 Gate `API_KEY` / `API_SECRET` Actions secrets 即可，它们不再被读取。
+
+`precision` 访问每个合约的 `/futures/usdt/contracts/{contract}`，校验并按 `contract` 主键 upsert 到 `contracts`，同时更新 `quanto_multiplier`、`order_price_round`、`leverage_max` 和更新时间。两个精度参数使用 `text` 原样保存，不经过 float，计算时才转 Decimal；例如 `0.00010000` 的尾随零仍保留。更新失败会使命令返回失败，工作流不会继续生成和上传订单。
+
+仓位计算从 Supabase 读取对应合约的乘数、价格步长和最大杠杆，不回退到本地价格文件或交易所请求。单独执行 sizes/allocation 时使用数据库最后同步的参数；需要最新参数时先执行 precision。价格按实际步长向下取整（包括 `0.25` 这种步长），再用该价格换算张数，保持 1% 建议仓位、多空符号和无信号返回 none 的规则。工具仍不执行真实下单。
+
+参考：[Orders3 凭证实现](https://github.com/C0verSnow/Orders3/blob/master/src/services/fetcher.cpp)、[Gate 合约响应示例](https://github.com/C0verSnow/Orders3/blob/master/docs/test_response.md)、[PostgREST upsert](https://docs.postgrest.org/en/stable/references/api/tables_views.html#upsert)。

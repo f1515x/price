@@ -34,9 +34,5 @@ def load_env():
 
 
 def credentials():
-    values = load_env()
-    key = values.get("API_KEY", "").strip()
-    secret = values.get("API_SECRET", "").strip()
-    if not key or not secret:
-        raise RuntimeError("账户接口需要 API_KEY 和 API_SECRET：请设置环境变量或根目录 .env")
-    return key, secret
+    from price_monitor.clients.supabase import load_credentials
+    return load_credentials()

@@ -1,22 +1,13 @@
 from price_monitor.reporting.text import _display_width, _format_order_detail_lines
 
 import argparse
-import json
 import requests
 from contextlib import redirect_stdout
-from decimal import Decimal, InvalidOperation, ROUND_DOWN
+from decimal import Decimal, InvalidOperation, ROUND_DOWN, localcontext
 from io import StringIO
-from pathlib import Path
 
 from price_monitor.risk import allocation as amount_module
-from price_monitor.settings import DATA_DIR
-
-
-PRICE_STEP_FILE = DATA_DIR / "price_steps.json"
-
-
-
-
+from price_monitor.clients.supabase import load_contract
 
 
 def normalize_contract_name(contract_name):
@@ -30,28 +21,10 @@ def normalize_contract_name(contract_name):
     return normalized if normalized.endswith("_USDT") else f"{normalized}_USDT"
 
 
-def get_price_step(contract_name, path=PRICE_STEP_FILE):
-    """从 price_steps.json 读取合约的最大价格 step。"""
-    contract_name = normalize_contract_name(contract_name)
-    try:
-        entries = json.loads(path.read_text(encoding="utf-8-sig"))
-    except (OSError, json.JSONDecodeError) as exc:
-        raise RuntimeError(f"无法读取价格 step 映射表 {path}: {exc}") from exc
+def get_price_step(contract_name):
+    """从 Supabase 读取该合约真实的下单价格步长。"""
+    return Decimal(load_contract(normalize_contract_name(contract_name))["order_price_round"])
 
-    for entry in entries:
-        if entry.get("contract") != contract_name:
-            continue
-        try:
-            step = Decimal(str(entry["step"]))
-        except (KeyError, InvalidOperation, ValueError) as exc:
-            raise RuntimeError(
-                f"{contract_name} 的价格 step 无效: {entry.get('step')!r}"
-            ) from exc
-        if not step.is_finite() or step <= 0:
-            raise RuntimeError(f"{contract_name} 的价格 step 必须大于 0: {step}")
-        return step
-
-    raise RuntimeError(f"价格 step 映射表中没有 {contract_name}")
 
 def _get_price_and_action(contract_name):
     """获取挂单价格以及开仓方向，保证两者来自同一次行情分析。"""
@@ -118,45 +91,10 @@ def amount(contract_name=None):
     return suggested_position
 
 def getquanto_multiplier(contract_name=None, session=None):
-    """获取指定 USDT 合约的 quanto_multiplier，返回原始字符串值。"""
+    """从 Supabase 读取对应合约乘数；session 保留兼容调用。"""
     contract_name = normalize_contract_name(contract_name or contract())
-    url = f"/futures/usdt/contracts/{contract_name}"
-    headers = {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-    }
+    return load_contract(contract_name)["quanto_multiplier"]
 
-    owns_session = session is None
-    session = session or requests.Session()
-    try:
-        response = session.get(
-            amount_module.HOST + amount_module.PREFIX + url,
-            headers=headers,
-            timeout=15,
-        )
-        try:
-            data = response.json()
-        except ValueError as exc:
-            raise RuntimeError(
-                f"获取 {contract_name} quanto_multiplier 失败: "
-                f"HTTP {response.status_code} {response.text}"
-            ) from exc
-
-        if not response.ok:
-            raise RuntimeError(
-                f"获取 {contract_name} quanto_multiplier 失败: "
-                f"HTTP {response.status_code} {data}"
-            )
-
-        quanto_multiplier = data.get("quanto_multiplier")
-        if quanto_multiplier is None:
-            raise RuntimeError(
-                f"{contract_name} 的合约信息缺少 quanto_multiplier: {data}"
-            )
-        return str(quanto_multiplier)
-    finally:
-        if owns_session:
-            session.close()
 
 def size(contract_name=None):
     """计算下单张数；做空返回负整数，做多返回正整数。
@@ -189,20 +127,26 @@ def size(contract_name=None):
     if multiplier_value <= 0 or price_value <= 0:
         raise ValueError("quanto_multiplier 和 price 必须大于 0")
 
-    unsigned_size = int(amount_value / (multiplier_value * price_value))
+    price_step = get_price_step(contract_name)
+    # quantize alone only sets decimal places; division also honors ticks such as 0.25.
+    with localcontext() as context:
+        inputs = (amount_value, multiplier_value, price_value, price_step)
+        context.prec = max(28, sum(len(v.as_tuple().digits) + abs(v.as_tuple().exponent)
+                                   for v in inputs) + 10)
+        display_price = (price_value / price_step).to_integral_value(rounding=ROUND_DOWN) * price_step
+        if display_price <= 0:
+            raise ValueError("按下单步长处理后的价格必须大于 0")
+        unsigned_size = int(amount_value / (multiplier_value * display_price))
     if unsigned_size == 0:
         return None
 
     order_size = -unsigned_size if action == "Open Short" else unsigned_size
     amount_valu = -amount_value if action == "Open Short" else amount_value
 
-    price_step = get_price_step(contract_name)
-    decimal_places = max(0, -price_step.as_tuple().exponent)
-    display_price = price_value.quantize(price_step, rounding=ROUND_DOWN)
     direction_icon = "📉" if action == "Open Short" else "📈"
     order_details = (
         ("✨", "contract", contract_name),
-        ("💰", "activation_price   ", f"{display_price} USDT"),
+        ("💰", "activation_price   ", f"{display_price:f} USDT"),
         (direction_icon, "side      ", action),
         ("📦", "amount    ", f"{order_size} Contracts"),
         ("📦", "value    ", f"{amount_valu} U"),

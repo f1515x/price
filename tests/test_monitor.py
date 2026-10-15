@@ -16,7 +16,7 @@ import pandas as pd
 from price_monitor import settings
 from price_monitor.analysis.indicators import atr14
 from price_monitor.analysis import structure
-from price_monitor.clients import telegram
+from price_monitor.clients import telegram, supabase as storage
 from price_monitor.market import candles, precision
 from price_monitor.market.quarterly import MonthlyMetrics
 from price_monitor.risk import allocation, sizing
@@ -42,9 +42,9 @@ class MonitorTests(unittest.TestCase):
 
     def test_environment_overrides_dotenv(self):
         with tempfile.TemporaryDirectory() as directory:
-            Path(directory, ".env").write_text('API_KEY=file-key\nAPI_SECRET="file-secret"\n')
-            with patch.object(settings, "ROOT_DIR", Path(directory)), patch.dict(os.environ, {"API_KEY": "env-key"}, clear=True):
-                self.assertEqual(settings.credentials(), ("env-key", "file-secret"))
+            Path(directory, ".env").write_text('SUPABASE_KEY=file-key\n')
+            with patch.object(settings, "ROOT_DIR", Path(directory)), patch.dict(os.environ, {"SUPABASE_KEY": "env-key"}, clear=True):
+                self.assertEqual(settings.load_env()["SUPABASE_KEY"], "env-key")
 
     def test_missing_credentials_raise_only_when_requested(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -138,17 +138,24 @@ class MonitorTests(unittest.TestCase):
 
     def test_mocked_precision_then_sizing(self):
         response = unittest.mock.Mock()
-        response.json.return_value = {"last_price": "10.10", "mark_price": "10.1", "index_price": "10.100"}
+        response.json.return_value = {"name": "BTC_USDT", "last_price": "10.10", "mark_price": "10.1", "index_price": "10.100",
+                                      "quanto_multiplier": "1", "order_price_round": "0.1", "leverage_max": "100"}
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory, "nested/price_steps.json")
-            with patch.object(precision.requests.Session, "get", return_value=response), contextlib.redirect_stdout(io.StringIO()):
+            records = {}
+            def fake_request(method, table, *, params=None, data=None):
+                self.assertEqual(table, "contracts")
+                if method == "POST":
+                    records[data["contract"]] = dict(data)
+                    return None
+                return [records[params["contract"].removeprefix("eq.")]]
+            with patch.object(storage, "request", side_effect=fake_request), patch.object(precision.requests.Session, "get", return_value=response), contextlib.redirect_stdout(io.StringIO()):
                 self.assertEqual(precision.main(["BTC", "--output", str(path)]), 0)
             self.assertEqual(json.loads(path.read_text())[0]["step"], "0.1")
-            step = sizing.get_price_step("BTC", path)
-            for action, expected in (("Open Long", 9), ("Open Short", -9)):
-                with patch.object(sizing, "_get_price_and_action", return_value=(10.19, action)), patch.object(sizing, "amount", return_value=100), patch.object(sizing, "getquanto_multiplier", return_value="1"):
-                    # Inject the generated mapping through the existing reader.
-                    with patch.object(sizing, "get_price_step", return_value=step), contextlib.redirect_stdout(io.StringIO()) as output:
+            with patch.object(storage, "request", side_effect=fake_request):
+                self.assertEqual(sizing.get_price_step("BTC"), precision.Decimal("0.1"))
+                for action, expected in (("Open Long", 9), ("Open Short", -9)):
+                    with patch.object(sizing, "_get_price_and_action", return_value=(10.19, action)), patch.object(sizing, "amount", return_value=100), contextlib.redirect_stdout(io.StringIO()) as output:
                         self.assertEqual(sizing.size("BTC"), expected)
                     self.assertIn("10.1 USDT", output.getvalue())
 

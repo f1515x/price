@@ -67,33 +67,10 @@ def parse_max_leverage_from_q_multiplier(message):
 
 
 def get_max_leverage(session, contract_name):
-    """从公开合约信息接口读取合约允许的最大杠杆。"""
-    url = f'/futures/usdt/contracts/{contract_name}'
-    headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
-    resp = session.get(
-        HOST + PREFIX + url,
-        headers=headers,
-        timeout=15,
-    )
-
-    try:
-        data = resp.json()
-    except ValueError as exc:
-        raise RuntimeError(
-            f"获取 {contract_name} 最大杠杆失败: "
-            f"HTTP {resp.status_code} {resp.text}"
-        ) from exc
-
-    if not resp.ok:
-        raise RuntimeError(
-            f"获取 {contract_name} 最大杠杆失败: "
-            f"HTTP {resp.status_code} {data}"
-        )
-
-    max_leverage = parse_max_leverage_from_q_multiplier(data)
-    if max_leverage is None:
-        raise RuntimeError(f"{contract_name} 的合约信息缺少 leverage_max: {data}")
-    return max_leverage
+    """从 Supabase 对应合约记录读取最大杠杆；session 保留兼容调用。"""
+    from decimal import Decimal
+    from price_monitor.clients.supabase import load_contract
+    return int(Decimal(load_contract(contract_name)["leverage_max"]))
 
 
 def get_total_available_margin(session):
