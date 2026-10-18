@@ -31,7 +31,8 @@ price/
 │   ├── clients/
 │   │   ├── __init__.py
 │   │   ├── gate.py                  # 签名、合约杠杆与账户保证金请求
-│   │   ├── supabase.py              # 从 secret 表读取 Gate 凭证
+│   │   ├── infisical.py             # Universal Auth 与 Gate 凭证读取
+│   │   ├── supabase.py              # 保留的 Supabase REST 工具
 │   │   └── telegram.py              # 消息分段、发送与重试
 │   ├── market/
 │   │   ├── __init__.py
@@ -58,7 +59,7 @@ price/
 │       └── structure_expected.json  # 迁移前代码的合成行情基线
 ├── docs/
 │   ├── architecture.md              # 依赖树、迁移映射与后续边界
-│   ├── supabase_secret.sql          # 按需创建凭证表，保留已有表权限
+│   ├── supabase_secret.sql          # 历史凭证表脚本，新部署不使用
 │   └── supabase_sizes.sql           # 新建或升级订单表的报告字段
 └── amount.py / float.py / kline.py / month.py /
     price.py / size.py / smc.py / tele_gate.py  # 兼容入口
@@ -98,12 +99,22 @@ Python 调用需显式传入阈值：`price(perf_1m, structure, combined_average
 在根目录 `.env` 中配置，或设置同名环境变量；进程环境变量优先：
 
 ```dotenv
+INFISICAL_CLIENT_ID=
+INFISICAL_CLIENT_SECRET=
+INFISICAL_PROJECT_ID=
+INFISICAL_ENV=prod
+INFISICAL_URL=https://us.infisical.com
+INFISICAL_SECRET_PATH=/
 SUPABASE_URL=https://<project>.supabase.co
 SUPABASE_KEY=
 TELEGRAM_BOT_TOKEN=
 ```
 
-Gate 凭证只从 Supabase 的 `secret` 表读取，使用 Orders3 相同的 `API_KEY=` 和 `API_SECRET=` 列名（等号属于列名）。必须恰好有一条记录；支持去掉值两端配对的引号。环境变量和 `.env` 中的 `API_KEY` / `API_SECRET` 不再生效。数据库读取失败、记录重复或字段缺失会终止账户请求。导入模块和查看帮助无需连接数据库。Telegram 也支持根目录 `.env`。
+Gate 凭证只从 Infisical 读取 `GATE_API_KEY` 和 `GATE_API_SECRET`，默认路径为 `/`。`settings.credentials()` 仍返回 `(API_KEY, API_SECRET)`，清理首尾空格及配对的外层引号；Gate 签名和请求格式保持不变。认证失败、权限错误、请求超时或密钥缺失/无效时直接报错，绝不回退到 Supabase、环境变量或 `.env` 中的旧 Gate 密钥。导入模块和查看帮助不连接外部服务。Telegram 也支持根目录 `.env`。
+
+本地现有 `INFISICAL_ENVIRONMENT` 明确映射为 `INFISICAL_ENV` 的别名；同一来源同时配置时优先使用 `INFISICAL_ENV`，进程环境中的任一名称优先于文件中的配置。`INFISICAL_URL` 是服务根地址，默认使用官方美国云 `https://us.infisical.com`，欧洲云或自托管实例需填写实际地址（生产环境使用 HTTPS）。`INFISICAL_SECRET_PATH` 是密钥所在文件夹，必须与 Machine Identity 的读取权限一致。代码仅解析 Infisical 相关配置项，不输出配置值。
+
+客户端复用现有 `requests`，不增加依赖。每次获取凭证都重新认证并只读取指定的两个共享密钥，不缓存或落盘 Access Token；请求有 20 秒超时，拒绝自动重定向，异常不包含请求体、响应体或敏感值。接口依据 [Universal Auth 登录文档](https://infisical.com/docs/api-reference/endpoints/universal-auth/login)与 [Secrets v4 读取文档](https://infisical.com/docs/api-reference/endpoints/secrets/read)。
 
 `config/symbols.txt` 配置币种；`config/chat_ids.txt` 配置接收者。以下命令会向这些接收者发送报告：
 
@@ -159,13 +170,19 @@ python supabase.py --data-file test_order.json
 
 | Secret 名称 | 是否必填 | 内容 |
 | --- | --- | --- |
+| `INFISICAL_CLIENT_ID` | 必填 | Machine Identity 的 Universal Auth Client ID。 |
+| `INFISICAL_CLIENT_SECRET` | 必填 | Machine Identity 的 Universal Auth Client Secret。 |
+| `INFISICAL_PROJECT_ID` | 必填 | 存储 Gate 密钥的项目 ID。 |
+| `INFISICAL_ENV` | 必填 | 环境标识，例如 `prod`；兼容已有 `INFISICAL_ENVIRONMENT` Secret，优先使用标准名称。 |
+| `INFISICAL_URL` | 可选 | 实例根地址，默认 `https://us.infisical.com`。 |
+| `INFISICAL_SECRET_PATH` | 可选 | 密钥路径，默认 `/`。 |
 | `SUPABASE_URL` | 新增，必填 | Supabase 项目地址，例如 `https://<项目>.supabase.co`，不包含表名。 |
-| `SUPABASE_KEY` | 新增，必填 | Supabase API key，必须能读取 secret，以及读取/新增/删除订单表全部行；可使用服务端 secret key 或 legacy `service_role` key。 |
+| `SUPABASE_KEY` | 新增，必填 | Supabase API key，必须能读取/新增/删除订单表全部行；可使用服务端 secret key 或 legacy `service_role` key。 |
 | `SUPABASE_TABLE` | 新增，可选 | 目标表名；不配置时使用 `orders`。 |
 | `SUPABASE_ACCESS_TOKEN` | 新增，可选 | 使用登录用户权限时填写用户 JWT；使用服务端密钥时无需配置。 |
 | `TELEGRAM_BOT_TOKEN` | 原有，必填 | Telegram Bot token，用于发送 sizes 报告。 |
 
-CI 首次运行前，需在 Supabase 执行上面的订单 SQL 和下面的凭证 SQL 脚本；使用自定义表名时，确保该表具备相同列结构及写入权限。
+生产工作流首次运行前，需在 Infisical 配置两个 Gate 密钥与 Machine Identity 权限，并在 Supabase 执行上面的订单 SQL；使用自定义表名时，确保该表具备相同列结构及写入权限。离线 Checks 无需真实凭据。
 
 `run.yml` 保留每四小时一次的 UTC 定时和 `main` push 触发；手动执行可选分支。feature 分支 push 不运行真实数据库写入和通知，PR 只运行离线 Checks；合并到 main 或手动执行时才运行完整计算流程。工作顺序为精度更新 → 仓位和信号计算 → 写入 Supabase → Telegram 通知 → 提交生成文件。上传命令为 `python supabase.py --sizes-file reports/sizes.txt --minimal`：没有订单但有时间戳时，清空旧数据并写入一条订单字段为 NULL 的时间戳记录；上传失败时工作流失败并停止后续步骤。每次非空上传先清空目标表，再插入当前报告，重复执行不再追加重复记录。凭据直接使用 Actions 环境变量，不再创建临时 `.env`。部署时需一并提交 `supabase.py`，确保远端 checkout 后可以运行上传脚本。
 
@@ -179,25 +196,26 @@ CI 首次运行前，需在 Supabase 执行上面的订单 SQL 和下面的凭�
 python -m unittest discover -s tests -v
 ```
 
-测试覆盖：无密钥导入/帮助、配置优先级、策略阈值、SMC 迁移基线、ATR、精度、模拟精度到仓位流程、多空符号、无信号跳过账户接口、K 线合并、消息分段和兼容导入。迁移时核对了五个配置/数据/报告文件，除 Git 换行规范外内容不变。
+测试仅在远端 CI 运行，不做本地编译验证。Infisical 测试模拟认证和 Secret 响应，覆盖配置别名及优先级、自托管地址和路径、凭证清理、签名兼容、认证/权限/连接/超时错误、无效响应、隐藏或缺失密钥、禁止旧密钥回退和敏感信息不泄露，不使用真实 Gate 密钥。原有测试覆盖：无密钥导入/帮助、配置优先级、策略阈值、SMC 迁移基线、ATR、精度、模拟精度到仓位流程、多空符号、无信号跳过账户接口、K 线合并、消息分段和兼容导入。迁移时核对了五个配置/数据/报告文件，除 Git 换行规范外内容不变。
 
 此次迁移没有执行真实账户查询或 Telegram 发送；外部服务可用性需要在配置凭据后验证。依赖版本锁定和 K 线断档补齐尚未加入，详见架构文档。
 
 
 ### Gate 凭证和合约参数
 
-1. 在 Supabase SQL Editor 执行 [`docs/supabase_secret.sql`](docs/supabase_secret.sql)。它只在 `secret` 不存在时创建凭证表并配置服务端读取权限，保留已有 Orders3 表的记录和权限。
-2. 为 `secret` 保留唯一一条 Gate 凭证记录，填写 `API_KEY=` 和 `API_SECRET=` 两列。不要把真实凭证放入 SQL 文件或 Git。
-3. 配置 `.env` 或 Actions 的 `SUPABASE_URL`、`SUPABASE_KEY`。凭证客户端也兼容 Orders3 的 `SUPABASE_ANON_KEY` 变量名，该身份必须能读取凭证。`SUPABASE_TABLE` 只影响订单上传。
+1. 在 Infisical 项目目标环境及路径创建 `GATE_API_KEY` 和 `GATE_API_SECRET`，填写真实 Gate 凭证，不提交至 Git。
+2. 创建启用 Universal Auth 的 Machine Identity，并授予目标项目、环境、路径的密钥读取权限（含读取密钥值权限）。
+3. 按上表在 Actions 配置四项必填 Infisical Secrets；自托管、不同云区域或非根路径还需配置可选项。本地开发在仓库根 `.env` 配置同样信息；本机父目录 `.env` 只作参考，不会自动加载。
+4. Supabase 只负责订单数据，保留原有订单配置、权限和上传步骤；无需再为本项目创建或查询 `public.secret`。历史 SQL 保留供旧部署参考，不自动删除数据库中的旧记录；确认其他应用不再使用后，可人工清理旧 Gate 凭证。
 
 `precision` 和仓位计算直接从 Gate 公开合约接口读取参数。价格步长、合约乘数和最大杠杆保留数字字符串，计算时转为 Decimal；价格按实际步长向下取整（包括 `0.25`），再换算张数，保持 1% 建议仓位、多空符号和无信号返回 none 的规则。
 
-每条新订单在原有展示字段之后追加 `quanto_multiplier` 和 `order_price_round`，原样保留 Gate 数字字符串。一次仓位计算只获取一次该合约参数，复用于最大杠杆、张数、价格处理和报告；`getorder_price_round(contract_name=None, session=None)` 与 `getquanto_multiplier()` 一样支持指定合约及复用会话。上传从报告解析相同的参数字符串并交给 `numeric` 列保存，不再次查询 Gate，也不查询合约参数表。旧报告允许同时省略这两个字段，上传时写入 NULL；仅包含一个参数或参数非正数时，在删除旧订单前拒绝整个报告。数据库只需凭证表和订单表。工具仍不执行真实下单。
+每条新订单在原有展示字段之后追加 `quanto_multiplier` 和 `order_price_round`，原样保留 Gate 数字字符串。一次仓位计算只获取一次该合约参数，复用于最大杠杆、张数、价格处理和报告；`getorder_price_round(contract_name=None, session=None)` 与 `getquanto_multiplier()` 一样支持指定合约及复用会话。上传从报告解析相同的参数字符串并交给 `numeric` 列保存，不再次查询 Gate，也不查询合约参数表。旧报告允许同时省略这两个字段，上传时写入 NULL；仅包含一个参数或参数非正数时，在删除旧订单前拒绝整个报告。Supabase 数据库只需订单表。工具仍不执行真实下单。
 
 ### 从 PR #8 的版本升级
 
 PR #8 已合并的版本把 Supabase `contracts` 表设为运行依赖；该表返回 HTTP 404 时，计算流程会提前退出，订单上传不会执行。本次修复删除这张表的读写和建表脚本，合约参数改由 Gate 公开接口提供。
 
-已有 `secret` 和订单表的部署只需更新代码并确认原有权限。新部署按上面的凭证和订单说明准备数据库。无需创建或同步 `contracts` 表；已执行过旧 SQL 的数据库不会被本次代码更新自动删除表或列。issue #10 增加报告参数入库后，上线新代码前请再次执行 `docs/supabase_sizes.sql`，补齐两个 `numeric` 列；已有这两列时保持原定义。为兼容旧报告和只有时间戳的报告，这两列需允许 NULL。
+已有部署升级时，先完成上面的 Infisical 配置，再更新代码并确认订单表权限。新部署在 Infisical 准备凭证，在 Supabase 准备订单表。无需创建或同步 `contracts` 表；已执行过旧 SQL 的数据库不会被本次代码更新自动删除表或列。issue #10 增加报告参数入库后，上线新代码前请再次执行 `docs/supabase_sizes.sql`，补齐两个 `numeric` 列；已有这两列时保持原定义。为兼容旧报告和只有时间戳的报告，这两列需允许 NULL。
 
 修复后的远端 Checks 使用模拟接口验证精度、仓位换算及订单上传，不会访问真实账户、数据库或发送通知。真实业务流程仍依赖 Gate 行情接口、账户权限及现有订单表权限。

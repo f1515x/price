@@ -1,4 +1,4 @@
-"""Supabase credential storage; never log response bodies."""
+"""Supabase REST helper; never log response bodies."""
 import re
 
 import requests
@@ -26,22 +26,3 @@ def request(method, table, *, params=None):
         return response.json() if response.content else None
     except (requests.RequestException, ValueError):
         raise RuntimeError(f"Supabase {table} 请求失败，请检查连接和返回格式") from None
-
-
-def load_credentials():
-    # Match Orders3 exactly, including the '=' in column names.
-    rows = request("GET", "secret", params={"select": "*"})
-    if not isinstance(rows, list) or len(rows) != 1 or not isinstance(rows[0], dict):
-        raise RuntimeError("Supabase secret 表必须返回唯一一条对象记录")
-    result = []
-    for field in ("API_KEY=", "API_SECRET="):
-        value = rows[0].get(field)
-        if not isinstance(value, str):
-            raise RuntimeError(f"Supabase secret 表的 {field} 无效")
-        value = value.strip()
-        if len(value) >= 2 and value[0] in "\"'" and value[-1] == value[0]:
-            value = value[1:-1].strip()
-        if not value or len(value) > 4096 or any(c in value for c in "\n\r\0"):
-            raise RuntimeError(f"Supabase secret 表的 {field} 无效")
-        result.append(value)
-    return tuple(result)

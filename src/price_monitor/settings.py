@@ -19,7 +19,7 @@ DATA_DIR = ROOT_DIR / "data"
 REPORTS_DIR = ROOT_DIR / "reports"
 
 
-def load_env():
+def load_env(keys=None):
     """Read optional root .env, then apply process environment overrides."""
     values = {}
     path = ROOT_DIR / ".env"
@@ -28,11 +28,12 @@ def load_env():
             line = line.strip()
             if line and not line.startswith("#") and "=" in line:
                 key, value = line.split("=", 1)
-                values[key.strip()] = value.strip().strip("\"'")
-    values.update(os.environ)
+                if keys is None or key.strip() in keys:
+                    values[key.strip()] = value.strip().strip("\"'")
+    values.update({k: v for k, v in os.environ.items() if keys is None or k in keys})
     return values
 
 
 def credentials():
-    from price_monitor.clients.supabase import load_credentials
+    from price_monitor.clients.infisical import load_credentials
     return load_credentials()

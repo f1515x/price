@@ -1,4 +1,5 @@
--- Run once before enabling the migrated workflow. Existing Orders3 secret rows are preserved.
+-- Historical schema only: Gate credentials now come exclusively from Infisical.
+-- Do not run for new price-monitor deployments. Existing Orders3 rows are preserved.
 begin;
 
 -- Do not change permissions on an existing Orders3 credential table.
