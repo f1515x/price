@@ -1,10 +1,10 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : ETH_USDT
-💰  activation_price    : 2240.34 USDT
+💰  activation_price    : 2242.53 USDT
 📈  side                : Open Long
 📦  amount              : 12 Contracts
-📦  value               : 285.93 U
+📦  value               : 287.1 U
 🔢  quanto_multiplier   : 0.01
 🔢  order_price_round   : 0.01
    ======================
@@ -12,10 +12,10 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : SOL_USDT
-💰  activation_price    : 96.78 USDT
+💰  activation_price    : 96.87 USDT
 📈  side                : Open Long
 📦  amount              : 1 Contracts
-📦  value               : 161.61 U
+📦  value               : 162.28 U
 🔢  quanto_multiplier   : 1
 🔢  order_price_round   : 0.01
    ======================
@@ -23,10 +23,10 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : HYPE_USDT
-💰  activation_price    : 73.001 USDT
+💰  activation_price    : 73.070 USDT
 📈  side                : Open Long
 📦  amount              : 17 Contracts
-📦  value               : 125.3 U
+📦  value               : 125.81 U
 🔢  quanto_multiplier   : 0.1
 🔢  order_price_round   : 0.001
    ======================
@@ -34,10 +34,10 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : DOGE_USDT
-💰  activation_price    : 0.07329 USDT
+💰  activation_price    : 0.07338 USDT
 📈  side                : Open Long
-📦  amount              : 170 Contracts
-📦  value               : 125.3 U
+📦  amount              : 171 Contracts
+📦  value               : 125.81 U
 🔢  quanto_multiplier   : 10
 🔢  order_price_round   : 0.00001
    ======================
@@ -45,13 +45,13 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : XAU_USDT
-💰  activation_price    : 3932.89 USDT
+💰  activation_price    : 3934.15 USDT
 📈  side                : Open Long
-📦  amount              : 410 Contracts
-📦  value               : 161.61 U
+📦  amount              : 412 Contracts
+📦  value               : 162.28 U
 🔢  quanto_multiplier   : 0.0001
 🔢  order_price_round   : 0.01
    ======================
 
 
-Timestamp: 1792867016488 
+Timestamp: 1792880496278 
