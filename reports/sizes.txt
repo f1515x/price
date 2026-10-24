@@ -1,10 +1,10 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : HYPE_USDT
-💰  activation_price    : 74.595 USDT
+💰  activation_price    : 74.221 USDT
 📈  side                : Open Long
-📦  amount              : 16 Contracts
-📦  value               : 126.55 U
+📦  amount              : 17 Contracts
+📦  value               : 126.23 U
 🔢  quanto_multiplier   : 0.1
 🔢  order_price_round   : 0.001
    ======================
@@ -12,13 +12,13 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : XAU_USDT
-💰  activation_price    : 3939.26 USDT
+💰  activation_price    : 3941.80 USDT
 📈  side                : Open Long
-📦  amount              : 414 Contracts
-📦  value               : 163.21 U
+📦  amount              : 413 Contracts
+📦  value               : 162.82 U
 🔢  quanto_multiplier   : 0.0001
 🔢  order_price_round   : 0.01
    ======================
 
 
-Timestamp: 1792809563125 
+Timestamp: 1792831256414 
