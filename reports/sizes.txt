@@ -1,10 +1,10 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : ETH_USDT
-💰  activation_price    : 2243.76 USDT
+💰  activation_price    : 2243.70 USDT
 📈  side                : Open Long
 📦  amount              : 12 Contracts
-📦  value               : 287.22 U
+📦  value               : 288.27 U
 🔢  quanto_multiplier   : 0.01
 🔢  order_price_round   : 0.01
    ======================
@@ -12,10 +12,10 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : SOL_USDT
-💰  activation_price    : 96.90 USDT
+💰  activation_price    : 96.92 USDT
 📈  side                : Open Long
 📦  amount              : 1 Contracts
-📦  value               : 162.34 U
+📦  value               : 162.94 U
 🔢  quanto_multiplier   : 1
 🔢  order_price_round   : 0.01
    ======================
@@ -23,10 +23,10 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : HYPE_USDT
-💰  activation_price    : 73.127 USDT
+💰  activation_price    : 73.111 USDT
 📈  side                : Open Long
 📦  amount              : 17 Contracts
-📦  value               : 125.86 U
+📦  value               : 126.32 U
 🔢  quanto_multiplier   : 0.1
 🔢  order_price_round   : 0.001
    ======================
@@ -34,10 +34,10 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : DOGE_USDT
-💰  activation_price    : 0.07343 USDT
+💰  activation_price    : 0.07346 USDT
 📈  side                : Open Long
 📦  amount              : 171 Contracts
-📦  value               : 125.86 U
+📦  value               : 126.32 U
 🔢  quanto_multiplier   : 10
 🔢  order_price_round   : 0.00001
    ======================
@@ -45,13 +45,13 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : XAU_USDT
-💰  activation_price    : 3935.17 USDT
+💰  activation_price    : 3935.69 USDT
 📈  side                : Open Long
-📦  amount              : 412 Contracts
-📦  value               : 162.39 U
+📦  amount              : 413 Contracts
+📦  value               : 162.93 U
 🔢  quanto_multiplier   : 0.0001
 🔢  order_price_round   : 0.01
    ======================
 
 
-Timestamp: 1792918697300 
+Timestamp: 1792933117265 
