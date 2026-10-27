@@ -1,43 +1,21 @@
 
 🚀 ====== Order Alert ======
-✨  contract            : BTC_USDT
-💰  activation_price    : 78034.9 USDT
-📈  side                : Open Long
-📦  amount              : 37 Contracts
-📦  value               : 293.49 U
-🔢  quanto_multiplier   : 0.0001
-🔢  order_price_round   : 0.1
-   ======================
-
-
-🚀 ====== Order Alert ======
 ✨  contract            : ETH_USDT
-💰  activation_price    : 2242.97 USDT
+💰  activation_price    : 2243.64 USDT
 📈  side                : Open Long
 📦  amount              : 13 Contracts
-📦  value               : 293.46 U
+📦  value               : 292.74 U
 🔢  quanto_multiplier   : 0.01
 🔢  order_price_round   : 0.01
    ======================
 
 
 🚀 ====== Order Alert ======
-✨  contract            : SOL_USDT
-💰  activation_price    : 96.86 USDT
-📈  side                : Open Long
-📦  amount              : 1 Contracts
-📦  value               : 165.87 U
-🔢  quanto_multiplier   : 1
-🔢  order_price_round   : 0.01
-   ======================
-
-
-🚀 ====== Order Alert ======
 ✨  contract            : HYPE_USDT
-💰  activation_price    : 72.900 USDT
+💰  activation_price    : 72.973 USDT
 📈  side                : Open Long
 📦  amount              : 17 Contracts
-📦  value               : 128.56 U
+📦  value               : 128.27 U
 🔢  quanto_multiplier   : 0.1
 🔢  order_price_round   : 0.001
    ======================
@@ -45,10 +23,10 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : DOGE_USDT
-💰  activation_price    : 0.07348 USDT
+💰  activation_price    : 0.07349 USDT
 📈  side                : Open Long
 📦  amount              : 174 Contracts
-📦  value               : 128.56 U
+📦  value               : 128.31 U
 🔢  quanto_multiplier   : 10
 🔢  order_price_round   : 0.00001
    ======================
@@ -56,13 +34,13 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : XAU_USDT
-💰  activation_price    : 3929.92 USDT
+💰  activation_price    : 3928.86 USDT
 📈  side                : Open Long
 📦  amount              : 421 Contracts
-📦  value               : 165.77 U
+📦  value               : 165.5 U
 🔢  quanto_multiplier   : 0.0001
 🔢  order_price_round   : 0.01
    ======================
 
 
-Timestamp: 1793070163714 
+Timestamp: 1793093881524 
