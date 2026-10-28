@@ -1,21 +1,10 @@
 
 🚀 ====== Order Alert ======
-✨  contract            : ETH_USDT
-💰  activation_price    : 2244.53 USDT
-📈  side                : Open Long
-📦  amount              : 13 Contracts
-📦  value               : 308.39 U
-🔢  quanto_multiplier   : 0.01
-🔢  order_price_round   : 0.01
-   ======================
-
-
-🚀 ====== Order Alert ======
 ✨  contract            : HYPE_USDT
-💰  activation_price    : 72.953 USDT
+💰  activation_price    : 73.035 USDT
 📈  side                : Open Long
 📦  amount              : 18 Contracts
-📦  value               : 135.14 U
+📦  value               : 136.22 U
 🔢  quanto_multiplier   : 0.1
 🔢  order_price_round   : 0.001
    ======================
@@ -25,8 +14,8 @@
 ✨  contract            : DOGE_USDT
 💰  activation_price    : 0.07350 USDT
 📈  side                : Open Long
-📦  amount              : 183 Contracts
-📦  value               : 135.14 U
+📦  amount              : 185 Contracts
+📦  value               : 136.22 U
 🔢  quanto_multiplier   : 10
 🔢  order_price_round   : 0.00001
    ======================
@@ -34,13 +23,13 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : XAU_USDT
-💰  activation_price    : 3930.10 USDT
+💰  activation_price    : 3930.08 USDT
 📈  side                : Open Long
-📦  amount              : 443 Contracts
-📦  value               : 174.35 U
+📦  amount              : 447 Contracts
+📦  value               : 175.71 U
 🔢  quanto_multiplier   : 0.0001
 🔢  order_price_round   : 0.01
    ======================
 
 
-Timestamp: 1793157265906 
+Timestamp: 1793182943699 
