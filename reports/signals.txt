@@ -1,95 +1,95 @@
 ===== BTC =====
 BTC.json 更新完成：本次请求 8 条，当前共 501 条
-本次监测到BTC的1个月涨跌幅为：-9.14%
-1 个月综合均值（判断阈值）：+1.99%
-当前r值为-7.37%
-weak low，weak price = 75873.32
-open long FINAL_PRICE = 75114.59
+本次监测到BTC的1个月涨跌幅为：-9.06%
+1 个月综合均值（判断阈值）：+2.03%
+当前r值为-7.35%
+weak low，weak price = 75891.78
+open long FINAL_PRICE = 75132.86
 
 ===== ETH =====
 ETH.json 更新完成：本次请求 8 条，当前共 501 条
-本次监测到ETH的1个月涨跌幅为：-16.03%
-1 个月综合均值（判断阈值）：+3.23%
-当前r值为-9.66%
-weak low，weak price = 2159.31
-open long FINAL_PRICE = 2137.72
+本次监测到ETH的1个月涨跌幅为：-15.71%
+1 个月综合均值（判断阈值）：+3.39%
+当前r值为-9.58%
+weak low，weak price = 2160.11
+open long FINAL_PRICE = 2138.51
 
 ===== SOL =====
 SOL.json 更新完成：本次请求 8 条，当前共 501 条
-本次监测到SOL的1个月涨跌幅为：-22.75%
-1 个月综合均值（判断阈值）：+1.94%
-当前r值为-6.69%
-weak low，weak price = 89.98
-open long FINAL_PRICE = 89.08
+本次监测到SOL的1个月涨跌幅为：-22.72%
+1 个月综合均值（判断阈值）：+1.95%
+当前r值为-6.67%
+weak low，weak price = 90.07
+open long FINAL_PRICE = 89.17
 
 ===== HYPE =====
 HYPE.json 更新完成：本次请求 8 条，当前共 501 条
-本次监测到HYPE的1个月涨跌幅为：-6.34%
-1 个月综合均值（判断阈值）：+9.26%
-当前r值为+27.18%
-weak high，weak price = 97.95
+本次监测到HYPE的1个月涨跌幅为：-5.71%
+1 个月综合均值（判断阈值）：+9.58%
+当前r值为+26.82%
+weak high，weak price = 97.84
 暂无潜在交易机会
 
 ===== XRP =====
 XRP.json 更新完成：本次请求 8 条，当前共 501 条
-本次监测到XRP的1个月涨跌幅为：-15.68%
-1 个月综合均值（判断阈值）：+4.09%
-当前r值为-2.47%
-weak low，weak price = 1.22
+本次监测到XRP的1个月涨跌幅为：-15.47%
+1 个月综合均值（判断阈值）：+4.20%
+当前r值为-2.46%
+weak low，weak price = 1.23
 暂无潜在交易机会
 
 ===== DOGE =====
 DOGE.json 更新完成：本次请求 8 条，当前共 501 条
-本次监测到DOGE的1个月涨跌幅为：-19.97%
-1 个月综合均值（判断阈值）：+3.64%
-当前r值为-4.36%
+本次监测到DOGE的1个月涨跌幅为：-19.75%
+1 个月综合均值（判断阈值）：+3.74%
+当前r值为-4.34%
 weak low，weak price = 0.07
 open long FINAL_PRICE = 0.07
 
 ===== SUI =====
 SUI.json 更新完成：本次请求 8 条，当前共 501 条
-本次监测到SUI的1个月涨跌幅为：-26.58%
-1 个月综合均值（判断阈值）：+5.52%
-当前r值为-10.07%
+本次监测到SUI的1个月涨跌幅为：-25.64%
+1 个月综合均值（判断阈值）：+5.99%
+当前r值为-9.97%
 weak low，weak price = 0.82
 open long FINAL_PRICE = 0.81
 
 ===== SPCX =====
 SPCX.json 更新完成：本次请求 8 条，当前共 501 条
-本次监测到SPCX的1个月涨跌幅为：-13.65%
-1 个月综合均值（判断阈值）：+6.87%
-当前r值为-12.21%
-weak low，weak price = 133.85
-open long FINAL_PRICE = 132.51
+本次监测到SPCX的1个月涨跌幅为：-13.60%
+1 个月综合均值（判断阈值）：+6.90%
+当前r值为-12.16%
+weak low，weak price = 133.94
+open long FINAL_PRICE = 132.60
 
 ===== SNDK =====
 SNDK.json 更新完成：本次请求 8 条，当前共 501 条
-本次监测到SNDK的1个月涨跌幅为：-36.92%
-1 个月综合均值（判断阈值）：+1.38%
-当前r值为-32.30%
-weak low，weak price = 1054.36
-open long FINAL_PRICE = 1043.81
+本次监测到SNDK的1个月涨跌幅为：-35.69%
+1 个月综合均值（判断阈值）：+1.99%
+当前r值为-31.57%
+weak low，weak price = 1055.06
+open long FINAL_PRICE = 1044.51
 
 ===== CL =====
 CL.json 更新完成：本次请求 8 条，当前共 501 条
-本次监测到CL的1个月涨跌幅为：+6.67%
-1 个月综合均值（判断阈值）：+13.35%
-当前r值为-10.05%
-weak low，weak price = 94.53
+本次监测到CL的1个月涨跌幅为：+8.12%
+1 个月综合均值（判断阈值）：+14.07%
+当前r值为-9.96%
+weak low，weak price = 94.46
 暂无潜在交易机会
 
 ===== XAU =====
 XAU.json 更新完成：本次请求 8 条，当前共 501 条
-本次监测到XAU的1个月涨跌幅为：-5.19%
-1 个月综合均值（判断阈值）：+1.57%
-当前r值为-5.26%
-weak low，weak price = 3869.95
-open long FINAL_PRICE = 3831.25
+本次监测到XAU的1个月涨跌幅为：-5.58%
+1 个月综合均值（判断阈值）：+1.38%
+当前r值为-5.28%
+weak low，weak price = 3870.68
+open long FINAL_PRICE = 3831.97
 
 ===== SPX500 =====
 SPX500.json 更新完成：本次请求 8 条，当前共 501 条
 本次监测到SPX500的1个月涨跌幅为：-2.47%
 1 个月综合均值（判断阈值）：+0.96%
 当前r值为-3.21%
-weak low，weak price = 7507.27
-open long FINAL_PRICE = 7432.20
+weak low，weak price = 7507.69
+open long FINAL_PRICE = 7432.61
