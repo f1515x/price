@@ -1,10 +1,10 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : SOL_USDT
-💰  activation_price    : 88.05 USDT
+💰  activation_price    : 87.04 USDT
 📈  side                : Open Long
 📦  amount              : 1 Contracts
-📦  value               : 143.44 U
+📦  value               : 118.31 U
 🔢  quanto_multiplier   : 1
 🔢  order_price_round   : 0.01
    ======================
@@ -12,10 +12,10 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : SPCX_USDT
-💰  activation_price    : 127.17 USDT
+💰  activation_price    : 117.14 USDT
 📈  side                : Open Long
-📦  amount              : 112 Contracts
-📦  value               : 143.62 U
+📦  amount              : 101 Contracts
+📦  value               : 118.49 U
 🔢  quanto_multiplier   : 0.01
 🔢  order_price_round   : 0.01
    ======================
@@ -23,13 +23,24 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : SNDK_USDT
-💰  activation_price    : 963.35 USDT
+💰  activation_price    : 771.39 USDT
 📈  side                : Open Long
 📦  amount              : 11 Contracts
-📦  value               : 111.35 U
+📦  value               : 91.86 U
 🔢  quanto_multiplier   : 0.01
 🔢  order_price_round   : 0.01
    ======================
 
 
-Timestamp: 1793879596491 
+🚀 ====== Order Alert ======
+✨  contract            : SPX500_USDT
+💰  activation_price    : 7282.52 USDT
+📈  side                : Open Long
+📦  amount              : 16 Contracts
+📦  value               : 118.48 U
+🔢  quanto_multiplier   : 0.001
+🔢  order_price_round   : 0.01
+   ======================
+
+
+Timestamp: 1793895069897 
