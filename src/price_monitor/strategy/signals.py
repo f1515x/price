@@ -31,7 +31,7 @@ def price(perf_1m, structure, combined_average):
     ``perf_1m`` 和 ``structure['ratio']`` 分别使用百分数（如 21.21）和
     小数（如 0.12）。最终价格以 SMC 输出中的 ``weak price``，即
     ``adjusted_weak_price`` 为基准。
-    ``combined_average`` 使用百分数；保留其符号及完整精度，低位判断
+    ``combined_average`` 是两项绝对值的平均数，使用百分数及完整精度，低位判断
     使用其相反数。格式化为两位小数仅用于展示，不参与比较。
     """
     perf_1m = float(perf_1m)

@@ -6,7 +6,7 @@
 cli / 根目录兼容脚本
 ├── market.precision → Gate.io 公开合约接口 → data/price_steps.json（兼容报告）
 ├── strategy.signals
-│   ├── market.performance → TradingView
+│   ├── market.quarterly → TradingView Perf.1M + Gate 最近一个完整 UTC 自然月振幅
 │   └── analysis.structure
 │       ├── market.candles → Gate.io → data/candles/<SYMBOL>.json
 │       └── analysis.indicators → ATR14 / r 值
@@ -43,7 +43,7 @@ cli / 根目录兼容脚本
 
 ## 保持的计算行为
 
-月涨跌幅百分数与结构 r 值小数的单位不变；信号条件仍为严格超过 ±15% 和 ±0.10；信号价格仍为调整后的 weak 价格乘 1.01 或 0.99。仓位价值仍为最大可开仓价值的 1%，张数向零取整，做空负数、做多正数。报告价格按对应合约的 order_price_round 步长 ROUND_DOWN，张数使用处理后的价格计算。
+月涨跌幅百分数与结构 r 值小数的单位不变。月度综合阈值为 `T = (abs(Perf.1M) + abs(月振幅)) / 2`，两项原始数据保持不变，计算和判断保留完整精度，仅报告展示两位小数。信号条件为 `Perf.1M > T`、`r > T / 100` 且 weak 类型为 high，或 `Perf.1M < -T`、`r < -T / 100` 且 weak 类型为 low；比较运算符及多空规则不变。月振幅仍取最近一个完整 UTC 自然月，r 值仍为 `(weak - strong) / o`。信号价格仍为调整后的 weak 价格乘 1.01 或 0.99。仓位价值仍为最大可开仓价值的 1%，张数向零取整，做空负数、做多正数。报告价格按对应合约的 order_price_round 步长 ROUND_DOWN，张数使用处理后的价格计算。
 
 SMC/ATR/r 值使用 200 根合成 K 线与迁移前实现逐项核对，预期结果保存在测试 fixture 中。
 
