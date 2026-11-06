@@ -1,6 +1,6 @@
-"""查询一个月涨跌幅与一个月振幅的算术平均值。
+"""查询一个月涨跌幅与一个月振幅的绝对值算术平均值。
 
-综合值 = (TradingView Perf.1M + 最近一个已完成自然月的整体振幅) / 2。
+综合值 = (abs(TradingView Perf.1M) + abs(最近一个已完成自然月的整体振幅)) / 2。
 振幅 = (区间最高价 - 区间最低价) / 区间开始前一日收盘价 * 100。
 自然月按 UTC 划分；Perf.1M 的时间口径由 TradingView 定义，
 可能与上述自然月区间不同。导入模块不会发起网络请求。
@@ -33,7 +33,7 @@ class MonthlyMetrics:
 
     @property
     def combined_average(self) -> float:
-        return self.performance_1m / 2 + self.amplitude_1m / 2
+        return abs(self.performance_1m) / 2 + abs(self.amplitude_1m) / 2
 
 
 def parse_base_asset(value: str) -> str:
@@ -188,7 +188,7 @@ def get_monthly_metrics(base_asset: str) -> MonthlyMetrics:
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="查询一个月涨跌幅与一个月振幅的算术平均值。",
+        description="查询一个月涨跌幅与一个月振幅的绝对值算术平均值。",
         epilog="振幅区间为最近一个已完成 UTC 自然月；涨跌幅使用 TradingView Perf.1M。",
     )
     parser.add_argument(

@@ -109,16 +109,33 @@ class MonthlyTests(unittest.TestCase):
             with patch.object(q.time, "time", return_value=self.END + 1):
                 result = q.get_monthly_metrics("btc")
             self.assertEqual(result.base_asset, "BTC")
+            self.assertEqual(result.performance_1m, -20)
             self.assertEqual(result.amplitude_1m, 40)
-            self.assertAlmostEqual(result.combined_average, 10)
+            self.assertAlmostEqual(result.combined_average, 30)
             self.assertEqual(session.get.call_count, 2)
             factory.return_value.__exit__.assert_called_once()
+
+    def test_combined_average_uses_absolute_values_without_changing_inputs(self):
+        for performance, amplitude, expected in (
+            (10, 20, 15), (-10, 20, 15), (-20, 10, 15),
+            (-10, -20, 15), (10, -20, 15), (0, 10, 5),
+            (0, -10, 5), (-10, 0, 5), (0, 0, 0),
+            (-20.003, 20.005, 20.004),
+        ):
+            with self.subTest(performance=performance, amplitude=amplitude):
+                result = q.MonthlyMetrics("BTC", performance, amplitude)
+                self.assertAlmostEqual(result.combined_average, expected)
+                self.assertGreaterEqual(result.combined_average, 0)
+                self.assertEqual(result.performance_1m, performance)
+                self.assertEqual(result.amplitude_1m, amplitude)
 
     def test_cli_output_and_failure_status(self):
         with patch.object(q, "get_monthly_metrics", return_value=q.MonthlyMetrics("ETH", -20, 40)):
             with contextlib.redirect_stdout(io.StringIO()) as output:
                 self.assertEqual(q.main(["ETH"]), 0)
-            self.assertIn("+10.00%", output.getvalue())
+            self.assertIn("1 个月涨跌幅：-20.00%", output.getvalue())
+            self.assertIn("1 个月振幅（最近一个完整 UTC 自然月）：40.00%", output.getvalue())
+            self.assertIn("1 个月综合均值：+30.00%", output.getvalue())
             self.assertIn("1 个月振幅", output.getvalue())
             self.assertIn("1 个月综合均值", output.getvalue())
             self.assertNotIn("3 个月", output.getvalue())

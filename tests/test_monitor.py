@@ -68,7 +68,7 @@ class MonitorTests(unittest.TestCase):
                         perf, {**structure, "weak_type": "low" if direction == 1 else "high"}, threshold,
                     ))
 
-    def test_signal_threshold_preserves_sign_and_precision(self):
+    def test_signal_uses_supplied_threshold_without_rounding(self):
         high = {"ratio": 0.20003, "weak_type": "high", "adjusted_weak_price": 100}
         self.assertIsNone(signals.price(20.003, high, 20.004))
         self.assertEqual(signals.price(20.003, high, 20.002), 101)
@@ -81,20 +81,34 @@ class MonitorTests(unittest.TestCase):
                 signals.price(30, high, threshold)
 
     def test_monthly_threshold_used_by_analysis_and_sizing(self):
-        structure = {"ratio": 0.25, "weak_type": "high", "adjusted_weak_price": 100}
-        for amplitude, expected in ((10, 101), (40, None)):
-            with self.subTest(amplitude=amplitude):
-                metrics = MonthlyMetrics("BTC", 30, amplitude)
+        for performance, amplitude, ratio, weak_type, threshold, expected, action in (
+            (30, 10, 0.25, "high", 20, 101, "Open Short"),
+            (30, 40, 0.25, "high", 35, None, None),
+            (-30, 10, -0.25, "low", 20, 99, "Open Long"),
+            (-30, 40, -0.25, "low", 35, None, None),
+            (-20, 10, -0.15, "low", 15, None, None),
+            (20.003, 20.005, 0.25, "high", 20.004, None, None),
+            (-20.003, 20.005, -0.25, "low", 20.004, None, None),
+        ):
+            with self.subTest(performance=performance, amplitude=amplitude, ratio=ratio):
+                metrics = MonthlyMetrics("BTC", performance, amplitude)
+                structure = {"ratio": ratio, "weak_type": weak_type, "adjusted_weak_price": 100}
                 with patch.object(signals, "get_monthly_metrics", return_value=metrics) as get_metrics, \
                         patch.object(signals, "get_structure", return_value=structure) as get_structure, \
                         contextlib.redirect_stdout(io.StringIO()) as output:
                     self.assertEqual(signals.analyze("btc", 7), expected)
                     get_metrics.assert_called_once_with("BTC")
                     get_structure.assert_called_once_with("BTC", 7)
-                    self.assertIn(f"{metrics.combined_average:+.2f}%", output.getvalue())
+                    self.assertIn(f"1 个月综合均值（判断阈值）：{threshold:+.2f}%", output.getvalue())
+                    self.assertIn(f"1个月涨跌幅为：{performance:+.2f}%", output.getvalue())
+                    self.assertIn(f"当前r值为{ratio * 100:+.2f}%", output.getvalue())
+                    if expected is None:
+                        self.assertIn("暂无潜在交易机会", output.getvalue())
+                    else:
+                        self.assertIn(f"{action.lower()} FINAL_PRICE = {expected:.2f}", output.getvalue())
                     get_metrics.reset_mock()
                     self.assertEqual(sizing._get_price_and_action("BTC_USDT"),
-                                     (expected, "Open Short" if expected else None))
+                                     (expected, action))
                     get_metrics.assert_called_once_with("BTC")
 
     def test_monthly_metrics_failure_propagates(self):
