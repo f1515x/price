@@ -4,7 +4,7 @@
 💰  activation_price    : 753.31 USDT
 📈  side                : Open Long
 📦  amount              : 12 Contracts
-📦  value               : 90.65 U
+📦  value               : 91.34 U
 🔢  quanto_multiplier   : 0.01
 🔢  order_price_round   : 0.01
    ======================
@@ -15,10 +15,10 @@
 💰  activation_price    : 7191.80 USDT
 📈  side                : Open Long
 📦  amount              : 16 Contracts
-📦  value               : 117.0 U
+📦  value               : 117.86 U
 🔢  quanto_multiplier   : 0.001
 🔢  order_price_round   : 0.01
    ======================
 
 
-Timestamp: 1793926215190 
+Timestamp: 1793926555215 
