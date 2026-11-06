@@ -1,10 +1,10 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : SNDK_USDT
-💰  activation_price    : 753.31 USDT
+💰  activation_price    : 756.65 USDT
 📈  side                : Open Long
 📦  amount              : 12 Contracts
-📦  value               : 91.34 U
+📦  value               : 92.96 U
 🔢  quanto_multiplier   : 0.01
 🔢  order_price_round   : 0.01
    ======================
@@ -12,13 +12,13 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : SPX500_USDT
-💰  activation_price    : 7191.80 USDT
+💰  activation_price    : 7197.49 USDT
 📈  side                : Open Long
 📦  amount              : 16 Contracts
-📦  value               : 117.86 U
+📦  value               : 120.04 U
 🔢  quanto_multiplier   : 0.001
 🔢  order_price_round   : 0.01
    ======================
 
 
-Timestamp: 1793926555215 
+Timestamp: 1793939007564 
