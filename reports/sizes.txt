@@ -1,13 +1,13 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : XRP_USDT
-💰  activation_price    : 1.0059 USDT
+💰  activation_price    : 1.0074 USDT
 📈  side                : Open Long
 📦  amount              : 12 Contracts
-📦  value               : 120.75 U
+📦  value               : 123.0 U
 🔢  quanto_multiplier   : 10
 🔢  order_price_round   : 0.0001
    ======================
 
 
-Timestamp: 1794346807462 
+Timestamp: 1794357014519 
