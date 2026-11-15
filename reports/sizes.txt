@@ -1,10 +1,10 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : BTC_USDT
-💰  activation_price    : 60579.8 USDT
+💰  activation_price    : 60611.6 USDT
 📈  side                : Open Long
 📦  amount              : 34 Contracts
-📦  value               : 207.34 U
+📦  value               : 211.39 U
 🔢  quanto_multiplier   : 0.0001
 🔢  order_price_round   : 0.1
    ======================
@@ -12,10 +12,10 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : ETH_USDT
-💰  activation_price    : 1667.74 USDT
+💰  activation_price    : 1668.89 USDT
 📈  side                : Open Long
 📦  amount              : 12 Contracts
-📦  value               : 207.34 U
+📦  value               : 211.31 U
 🔢  quanto_multiplier   : 0.01
 🔢  order_price_round   : 0.01
    ======================
@@ -23,10 +23,10 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : SOL_USDT
-💰  activation_price    : 65.57 USDT
+💰  activation_price    : 65.60 USDT
 📈  side                : Open Long
 📦  amount              : 1 Contracts
-📦  value               : 117.18 U
+📦  value               : 119.44 U
 🔢  quanto_multiplier   : 1
 🔢  order_price_round   : 0.01
    ======================
@@ -34,10 +34,10 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : XRP_USDT
-💰  activation_price    : 0.8689 USDT
+💰  activation_price    : 0.8695 USDT
 📈  side                : Open Long
 📦  amount              : 13 Contracts
-📦  value               : 117.17 U
+📦  value               : 119.43 U
 🔢  quanto_multiplier   : 10
 🔢  order_price_round   : 0.0001
    ======================
@@ -45,13 +45,13 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : DOGE_USDT
-💰  activation_price    : 0.05398 USDT
+💰  activation_price    : 0.05403 USDT
 📈  side                : Open Long
-📦  amount              : 168 Contracts
-📦  value               : 90.84 U
+📦  amount              : 171 Contracts
+📦  value               : 92.59 U
 🔢  quanto_multiplier   : 10
 🔢  order_price_round   : 0.00001
    ======================
 
 
-Timestamp: 1794768058410 
+Timestamp: 1794775872648 
