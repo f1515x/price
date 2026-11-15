@@ -1,10 +1,10 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : BTC_USDT
-💰  activation_price    : 60611.6 USDT
+💰  activation_price    : 60644.6 USDT
 📈  side                : Open Long
-📦  amount              : 34 Contracts
-📦  value               : 211.39 U
+📦  amount              : 36 Contracts
+📦  value               : 219.54 U
 🔢  quanto_multiplier   : 0.0001
 🔢  order_price_round   : 0.1
    ======================
@@ -12,10 +12,10 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : ETH_USDT
-💰  activation_price    : 1668.89 USDT
+💰  activation_price    : 1670.05 USDT
 📈  side                : Open Long
-📦  amount              : 12 Contracts
-📦  value               : 211.31 U
+📦  amount              : 13 Contracts
+📦  value               : 219.33 U
 🔢  quanto_multiplier   : 0.01
 🔢  order_price_round   : 0.01
    ======================
@@ -23,10 +23,10 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : SOL_USDT
-💰  activation_price    : 65.60 USDT
+💰  activation_price    : 65.66 USDT
 📈  side                : Open Long
 📦  amount              : 1 Contracts
-📦  value               : 119.44 U
+📦  value               : 123.76 U
 🔢  quanto_multiplier   : 1
 🔢  order_price_round   : 0.01
    ======================
@@ -34,24 +34,13 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : XRP_USDT
-💰  activation_price    : 0.8695 USDT
+💰  activation_price    : 0.8702 USDT
 📈  side                : Open Long
-📦  amount              : 13 Contracts
-📦  value               : 119.43 U
+📦  amount              : 14 Contracts
+📦  value               : 123.74 U
 🔢  quanto_multiplier   : 10
 🔢  order_price_round   : 0.0001
    ======================
 
 
-🚀 ====== Order Alert ======
-✨  contract            : DOGE_USDT
-💰  activation_price    : 0.05403 USDT
-📈  side                : Open Long
-📦  amount              : 171 Contracts
-📦  value               : 92.59 U
-🔢  quanto_multiplier   : 10
-🔢  order_price_round   : 0.00001
-   ======================
-
-
-Timestamp: 1794775872648 
+Timestamp: 1794786790844 
