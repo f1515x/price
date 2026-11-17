@@ -1,10 +1,10 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : ETH_USDT
-💰  activation_price    : 1674.36 USDT
+💰  activation_price    : 1670.25 USDT
 📈  side                : Open Long
-📦  amount              : 12 Contracts
-📦  value               : 201.76 U
+📦  amount              : 11 Contracts
+📦  value               : 188.97 U
 🔢  quanto_multiplier   : 0.01
 🔢  order_price_round   : 0.01
    ======================
@@ -12,13 +12,13 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : SOL_USDT
-💰  activation_price    : 65.84 USDT
+💰  activation_price    : 65.65 USDT
 📈  side                : Open Long
 📦  amount              : 1 Contracts
-📦  value               : 113.92 U
+📦  value               : 106.76 U
 🔢  quanto_multiplier   : 1
 🔢  order_price_round   : 0.01
    ======================
 
 
-Timestamp: 1794919685351 
+Timestamp: 1794936253175 
