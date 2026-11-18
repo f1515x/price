@@ -1,24 +1,24 @@
 
 🚀 ====== Order Alert ======
-✨  contract            : ETH_USDT
-💰  activation_price    : 1677.22 USDT
-📈  side                : Open Long
-📦  amount              : 12 Contracts
-📦  value               : 202.29 U
-🔢  quanto_multiplier   : 0.01
-🔢  order_price_round   : 0.01
-   ======================
-
-
-🚀 ====== Order Alert ======
 ✨  contract            : SOL_USDT
-💰  activation_price    : 65.90 USDT
+💰  activation_price    : 65.79 USDT
 📈  side                : Open Long
 📦  amount              : 1 Contracts
-📦  value               : 114.36 U
+📦  value               : 104.86 U
 🔢  quanto_multiplier   : 1
 🔢  order_price_round   : 0.01
    ======================
 
 
-Timestamp: 1795005684792 
+🚀 ====== Order Alert ======
+✨  contract            : SPX500_USDT
+💰  activation_price    : 7198.85 USDT
+📈  side                : Open Long
+📦  amount              : 14 Contracts
+📦  value               : 104.93 U
+🔢  quanto_multiplier   : 0.001
+🔢  order_price_round   : 0.01
+   ======================
+
+
+Timestamp: 1795021056896 
