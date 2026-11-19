@@ -1,13 +1,13 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : SOL_USDT
-💰  activation_price    : 65.81 USDT
+💰  activation_price    : 65.85 USDT
 📈  side                : Open Long
 📦  amount              : 1 Contracts
-📦  value               : 109.1 U
+📦  value               : 109.72 U
 🔢  quanto_multiplier   : 1
 🔢  order_price_round   : 0.01
    ======================
 
 
-Timestamp: 1795052957139 
+Timestamp: 1795065161653 
