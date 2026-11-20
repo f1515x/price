@@ -41,12 +41,25 @@ class GateContractTests(unittest.TestCase):
         )
         session.close.assert_not_called()
 
+    def test_metadata_rounds_max_leverage_half_up(self):
+        session = Mock()
+        response = session.get.return_value
+        for value, expected in (("150.01", 150), ("150.50", 151)):
+            with self.subTest(value=value):
+                metadata = {**BTC, "leverage_max": value}
+                response.json.side_effect = metadata.copy
+                self.assertEqual(
+                    gate.get_contract_info("BTC", session),
+                    {**BTC, "leverage_max": str(expected)},
+                )
+                self.assertEqual(gate.get_max_leverage(session, "BTC"), expected)
+
     def test_invalid_metadata_is_rejected(self):
         invalid = [None, [], {**BTC, "name": "ETH_USDT"},
                    *({**BTC, field: value}
                      for field in ("quanto_multiplier", "order_price_round", "leverage_max")
                      for value in (None, 0.25, "NaN", "Infinity", "0", "-1", "bad")),
-                   {**BTC, "leverage_max": "1.5"}]
+                   {**BTC, "leverage_max": "0.49"}]
         session = Mock()
         for data in invalid:
             with self.subTest(data=data):
