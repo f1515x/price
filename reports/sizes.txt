@@ -1,13 +1,13 @@
 
 🚀 ====== Order Alert ======
-✨  contract            : SOL_USDT
-💰  activation_price    : 65.85 USDT
+✨  contract            : SPX500_USDT
+💰  activation_price    : 7060.88 USDT
 📈  side                : Open Long
-📦  amount              : 1 Contracts
-📦  value               : 109.72 U
-🔢  quanto_multiplier   : 1
+📦  amount              : 14 Contracts
+📦  value               : 100.91 U
+🔢  quanto_multiplier   : 0.001
 🔢  order_price_round   : 0.01
    ======================
 
 
-Timestamp: 1795065161653 
+Timestamp: 1795139333826 
