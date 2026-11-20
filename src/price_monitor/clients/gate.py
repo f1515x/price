@@ -3,7 +3,7 @@ import time
 import hashlib
 import hmac
 import re
-from decimal import Decimal, InvalidOperation
+from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 
 import requests
 from price_monitor.settings import credentials
@@ -70,7 +70,7 @@ def parse_max_leverage_from_q_multiplier(message):
 
 
 def get_contract_info(contract_name, session=None, timeout=15):
-    """从 Gate 公开接口读取合约参数，保留数字字符串。"""
+    """从 Gate 公开接口读取合约参数，最大杠杆四舍五入为整数字符串。"""
     contract_name = contract_name.strip().upper().replace("-", "_")
     if "_" not in contract_name:
         contract_name += "_USDT"
@@ -98,12 +98,14 @@ def get_contract_info(contract_name, session=None, timeout=15):
             raise RuntimeError(f"{contract_name} 的 {field} 必须是数字字符串")
         try:
             number = Decimal(value)
+            if field == "leverage_max":
+                number = number.to_integral_value(rounding=ROUND_HALF_UP)
         except InvalidOperation:
             raise RuntimeError(f"{contract_name} 的 {field} 无效") from None
         if not number.is_finite() or number <= 0:
             raise RuntimeError(f"{contract_name} 的 {field} 必须为正数")
-        if field == "leverage_max" and number != number.to_integral_value():
-            raise RuntimeError(f"{contract_name} 的 leverage_max 必须为整数")
+        if field == "leverage_max":
+            data[field] = format(number, "f")
     return data
 
 
