@@ -1,13 +1,13 @@
 
 🚀 ====== Order Alert ======
 ✨  contract            : SPX500_USDT
-💰  activation_price    : 6817.45 USDT
+💰  activation_price    : 6822.02 USDT
 📈  side                : Open Long
 📦  amount              : 12 Contracts
-📦  value               : 84.6 U
+📦  value               : 84.62 U
 🔢  quanto_multiplier   : 0.001
 🔢  order_price_round   : 0.01
    ======================
 
 
-Timestamp: 1795673182392 
+Timestamp: 1795700048819 
